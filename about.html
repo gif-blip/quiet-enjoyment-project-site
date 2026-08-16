@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About · The Quiet Enjoyment Project</title>
+<meta name="description" content="The Quiet Enjoyment Project restores residential quality of life in Boulder neighborhoods affected by chronic noise — beginning on University Hill — throug">
+<style>
+:root{
+  --bg:#ffffff; --surface:#f7f7f5; --ink:#14140f; --ink-2:#4a4a44; --muted:#7a7a72;
+  --rule:#e3e3dc; --accent:#1f4e79; --accent-soft:#eaf1f8; --warn:#b3261e; --good:#1c6b3c;
+  --max:70rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14140f; --surface:#1d1d18; --ink:#f4f4ee; --ink-2:#c9c9c0; --muted:#94948b;
+    --rule:#2f2f28; --accent:#8ab6e0; --accent-soft:#1b2b3a; --warn:#f0857d; --good:#7cc79b;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 1.5rem}
+header.site{border-bottom:1px solid var(--rule);background:var(--bg);position:sticky;top:0;z-index:10}
+header.site .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.5rem;padding-top:1rem;padding-bottom:.85rem}
+.brand{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;white-space:nowrap}
+nav.site{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;font-size:.9rem}
+nav.site a{color:var(--ink-2);text-decoration:none;padding:.15rem 0;border-bottom:2px solid transparent}
+nav.site a:hover{color:var(--accent)}
+nav.site a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+main{padding:2.5rem 0 3.5rem}
+h1{font-size:2rem;line-height:1.2;letter-spacing:-.02em;margin:0 0 .6rem}
+h1 .sub{display:block;font-size:1.35rem;color:var(--ink-2);font-weight:600;margin-top:.35rem}
+h2{font-size:1.3rem;letter-spacing:-.01em;margin:2.25rem 0 .5rem}
+h3{font-size:1.02rem;margin:1.5rem 0 .3rem}
+p{margin:0 0 1rem}
+.lede{font-size:1.12rem;color:var(--ink-2);max-width:46rem}
+.hero{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:1.4rem 1.5rem;margin:1.5rem 0}
+.hero p{margin:0;font-size:1.05rem}
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;margin:1.75rem 0}
+.door{display:block;border:1px solid var(--rule);border-radius:12px;padding:1.1rem 1.2rem;text-decoration:none;
+  background:var(--bg);transition:border-color .15s,transform .15s}
+.door:hover{border-color:var(--accent);transform:translateY(-2px)}
+.door strong{display:block;color:var(--ink);margin-bottom:.3rem}
+.door span{color:var(--ink-2);font-size:.94rem}
+figure{margin:1.5rem 0}
+figure img{width:100%;height:auto;border:1px solid var(--rule);border-radius:10px;background:#fff}
+figcaption{color:var(--muted);font-size:.85rem;margin-top:.5rem}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:.9rem 1.1rem;border-radius:0 8px 8px 0;margin:1.25rem 0}
+.callout p:last-child{margin-bottom:0}
+.callout.plain{border-left-color:var(--muted);background:var(--surface)}
+.tablewrap{overflow-x:auto;margin:1.25rem 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:38rem}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr:hover{background:var(--surface)}
+.chip{display:inline-block;font-size:.74rem;padding:.14rem .5rem;border-radius:999px;white-space:nowrap;
+  border:1px solid var(--rule);color:var(--ink-2);background:var(--surface)}
+.chip.up{color:var(--warn);border-color:currentColor}
+.chip.down{color:var(--good);border-color:currentColor}
+ul.clean{list-style:none;padding:0;margin:1rem 0}
+ul.clean li{padding-left:1.2rem;position:relative;margin-bottom:.6rem}
+ul.clean li::before{content:"";position:absolute;left:0;top:.62em;width:.42rem;height:.42rem;border-radius:50%;background:var(--accent)}
+ol.steps{padding-left:0;counter-reset:s;list-style:none;margin:1rem 0}
+ol.steps li{counter-increment:s;position:relative;padding-left:2.1rem;margin-bottom:.85rem}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:.05em;width:1.5rem;height:1.5rem;border-radius:50%;
+  background:var(--accent);color:#fff;font-size:.82rem;font-weight:700;display:grid;place-items:center}
+.asks-group{margin:1.5rem 0}
+.ask{display:flex;gap:.9rem;align-items:flex-start;padding:.85rem 0;border-bottom:1px solid var(--rule)}
+.ask .body{flex:1}
+.reportcard{border:1px solid var(--rule);border-radius:12px;padding:1.1rem 1.2rem;margin:1rem 0;background:var(--bg)}
+.reportcard h3{margin-top:0}
+.dl{display:inline-block;margin-top:.4rem;font-weight:600;font-size:.92rem}
+footer.site{border-top:1px solid var(--rule);background:var(--surface);color:var(--muted);font-size:.83rem}
+footer.site .wrap{padding-top:1.5rem;padding-bottom:2.5rem}
+footer.site a{color:var(--ink-2)}
+.updated{color:var(--muted);font-size:.85rem;margin-top:-.3rem}
+@media (max-width:640px){
+  h1{font-size:1.6rem} h1 .sub{font-size:1.15rem}
+  header.site .wrap{padding-top:.85rem}
+}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">The Quiet Enjoyment Project</a>
+    <nav class="site">
+        <a href="index.html">Home</a>
+        <a href="reports.html">Reports</a>
+        <a href="watch-list.html">Watch List</a>
+        <a href="know-the-law.html">Know the Law</a>
+        <a href="health.html">Noise &amp; Health</a>
+        <a href="asks.html">What We're Asking For</a>
+        <a href="residents.html">For Residents</a>
+        <a href="data.html">Source Data</a>
+        <a href="about.html" aria-current="page">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <h1>About</h1>
+    <h2>Mission</h2>
+    <p class="lede">The Quiet Enjoyment Project works to restore residential quality of life in Boulder neighborhoods affected by recurrent excessive noise, through public data, education, voluntary compliance, and public-interest enforcement of existing law. The name is the legal term: every lease and every home in Colorado carries a right to quiet enjoyment, and Boulder’s own code makes disrupting the quiet enjoyment of a home an offense (B.R.C. 5-9-5).</p>
+    <h2>How we work</h2>
+    <ul class="clean">
+      <li><strong>Data first:</strong> our reports are built from Boulder Police records and the city’s open-data portal, cross-validated, with methodology published and analysis code available on request.</li>
+      <li><strong>Everyone gets the same rules:</strong> our concern is conduct and properties — students, owners, institutions, and events alike.</li>
+      <li><strong>Escalation, not ambush:</strong> education first, owner notice second, city enforcement third, and courts only for the chronic few after everything else fails.</li>
+    </ul>
+    <h2>Who we are</h2>
+    <p>Founded by University Hill residents in 2025 after three years of documented escalation in neighborhood noise.</p>
+    <div class="callout plain"><p>The Quiet Enjoyment Project is an independent resident initiative. It is not affiliated with the University Hill Neighborhood Association (UHNA), the University of Colorado, or the City of Boulder.</p></div>
+    <h2>Contact</h2>
+    <p><a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> — residents, owners, media, corrections, and offers to help all welcome.</p>
+    <p>If you would like to donate, please email <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a>. We are in the financial planning stages, and early commitments are very helpful — we will come back to you the moment tax-deductible giving is in place.</p>
+    <p>This website is an initial version, published August 2026. Thoughtful feedback on any of it — the data, the law, the recommendations — is genuinely welcome at the same address.</p>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <p>The Quiet Enjoyment Project · An independent resident initiative — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly.</p>
+  </div>
+</footer>
+</body>
+</html>
