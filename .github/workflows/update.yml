@@ -1,10 +1,16 @@
 name: Refresh data and rebuild site
 
-# 2nd of each month, 13:10 UTC (~6-7 a.m. Boulder). Also runnable on demand
-# from the Actions tab via "Run workflow".
+# Every Monday at 13:10 UTC (~6-7 a.m. Boulder), and on demand from the Actions
+# tab ("Run workflow") — useful during the September peak.
+#
+# Cadence note: the underlying city feed updates daily, and these runs are free,
+# so weekly keeps charts and enforcement figures current. The published watch
+# list is deliberately slower — update.py anchors it to complete calendar
+# months, so an address near the threshold cannot flicker on and off between
+# runs. Data freshness and naming stability are decoupled on purpose.
 on:
   schedule:
-    - cron: '10 13 2 * *'
+    - cron: '10 13 * * 1'
   workflow_dispatch:
 
 permissions:
@@ -34,5 +40,5 @@ jobs:
             echo "nothing changed"
             exit 0
           fi
-          git commit -m "Monthly refresh: $(date -u +%Y-%m-%d)"
+          git commit -m "Weekly refresh: $(date -u +%Y-%m-%d)"
           git push

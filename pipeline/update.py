@@ -113,22 +113,32 @@ def main():
                 merged[k] = a
     print(f'exact-address history after merge: {len(merged)} calls')
 
-    cutoff = datetime.datetime.now() - datetime.timedelta(days=365)
+    # Anchor to the last COMPLETE calendar month. The data below refreshes as
+    # often as this runs, but the published watch list only moves when a month
+    # closes — so an address near the threshold cannot flicker on and off.
+    first_of_this_month = datetime.datetime(today.year, today.month, 1)
+    window_end = first_of_this_month
+    window_start = datetime.datetime(window_end.year - 1, window_end.month, 1)
+    cutoff = window_start
     recent, prior = {}, {}
     for a in merged.values():
         d, key = ts(a.get('start_time')), norm(a.get('address'))
         if not d or key not in exact:
             continue
-        if d >= cutoff:
+        if window_start <= d < window_end:
             recent[key] = recent.get(key, 0) + 1
-        else:
+        elif d < window_start:
             prior[key] = prior.get(key, 0) + 1
 
     rows = sorted(({'addr': k, 'recent': v, 'prior': prior.get(k, 0)}
                    for k, v in recent.items() if v >= THRESHOLD),
                   key=lambda r: -r['recent'])
-    print(f'watch list: {len(rows)} addresses with {THRESHOLD}+ complaints in the trailing year')
-    json.dump({'as_of': str(today), 'rows': rows},
+    print(f'watch-list window: {window_start:%Y-%m} .. {window_end - datetime.timedelta(days=1):%Y-%m} '
+          f'(complete months only)')
+    print(f'watch list: {len(rows)} addresses with {THRESHOLD}+ complaints in that window')
+    json.dump({'as_of': str(today),
+               'window': f'{window_start:%B %Y} through {window_end - datetime.timedelta(days=1):%B %Y}',
+               'rows': rows},
               open(os.path.join(OUT, 'watch-list.json'), 'w'), indent=1)
 
     monthly, enf = {}, {}

@@ -305,6 +305,8 @@ def build_reports():
 
 def build_watch():
     current, off = load_watch_rows()
+    wl = os.path.join(PIPELINE, 'watch-list.json')
+    window = json.load(open(wl)).get('window', '') if os.path.exists(wl) else ''
     if current:
         rows = []
         for r in current:
@@ -345,7 +347,7 @@ def build_watch():
     <div class="callout">
       <p><strong>{esc(WATCH['disclaimer_title'])}.</strong> {fmt(WATCH['disclaimer'])}</p>
     </div>
-    <p class="updated">{esc(WATCH['as_of'])}</p>
+    <p class="updated">{esc(WATCH['as_of_prefix'])} <strong>{esc(window)}</strong>. {esc(WATCH['as_of_suffix'])}</p>
     <div class="callout plain"><p>{esc(WATCH['criteria'])}</p></div>
     <h2>{esc(WATCH['current_title'])}</h2>
 {current_tbl}

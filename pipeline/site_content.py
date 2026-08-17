@@ -100,13 +100,15 @@ WATCH = {
         'believe any figure here is wrong, write to <a href="mailto:{email}">{email}</a> and we will review and '
         'correct promptly. If the noise stops, your address comes off this list — publicly.'
     ),
-    'as_of': 'Complaint data current through August 15, 2026, from the City of Boulder open-data portal. '
-             'Owners of record verified against Boulder County Assessor records on August 15, 2026. '
-             'Next scheduled update: November 2026.',
+    'as_of_prefix': 'Complaint window:',
+    'as_of_suffix': 'Counted over complete calendar months only, from the City of Boulder open-data portal. '
+                    'The underlying data is refreshed weekly; this list advances when a month closes, so an '
+                    'address near the threshold cannot appear and disappear from week to week.',
     'criteria': 'Published criterion: an address appears here when police logged six or more noise '
-                'complaints against it in the trailing twelve months. That threshold is applied '
-                'mechanically to the public data — there is no editorial step. Anyone can reproduce this '
-                'list by applying the same rule to the same feed.',
+                'complaints against it during the twelve complete calendar months shown above. That '
+                'threshold is applied mechanically to the public data — there is no editorial step, and no '
+                'one can add or remove an address. Anyone can reproduce this list by applying the same rule '
+                'to the same feed.',
     'current_title': 'Current watch list',
     'off_title': 'Off the list',
     'off_intro': (
