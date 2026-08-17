@@ -12,3 +12,21 @@ City of Boulder open-data portal) rather than hand-edited, so the tables and cha
 here always match the published reports.
 
 Corrections and questions: yourneighbor@quietenjoymentproject.org
+
+## Automated monthly refresh
+
+```bash
+python3 pipeline/update.py   # fetch open data, archive snapshot, recompute
+python3 pipeline/build.py    # regenerate every page
+```
+
+GitHub Actions runs both on the 2nd of each month and commits any changes
+(`.github/workflows/update.yml`); it can also be triggered by hand from the
+Actions tab. No credentials are required — both City of Boulder feeds are public.
+
+`pipeline/archive/` holds an immutable monthly snapshot of the city's
+rental-property calls feed. That feed is a rolling 365-day window, so without
+these snapshots exact-address history would be lost permanently.
+
+`pipeline/history.json` holds fixed per-address counts by report year from the
+2022–2025 records-request extract. History does not change, so it is frozen.

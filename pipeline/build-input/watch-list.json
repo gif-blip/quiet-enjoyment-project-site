@@ -1,0 +1,115 @@
+{
+ "as_of": "2026-08-17",
+ "rows": [
+  {
+   "addr": "1043 pleasant",
+   "recent": 20,
+   "prior": 0
+  },
+  {
+   "addr": "827 9th",
+   "recent": 12,
+   "prior": 0
+  },
+  {
+   "addr": "1150 college",
+   "recent": 12,
+   "prior": 0
+  },
+  {
+   "addr": "1045 12th",
+   "recent": 12,
+   "prior": 0
+  },
+  {
+   "addr": "877 11th",
+   "recent": 11,
+   "prior": 0
+  },
+  {
+   "addr": "972 14th",
+   "recent": 11,
+   "prior": 0
+  },
+  {
+   "addr": "1012 14th",
+   "recent": 11,
+   "prior": 0
+  },
+  {
+   "addr": "1010 12th",
+   "recent": 10,
+   "prior": 0
+  },
+  {
+   "addr": "830 13th",
+   "recent": 10,
+   "prior": 0
+  },
+  {
+   "addr": "1200 college",
+   "recent": 10,
+   "prior": 0
+  },
+  {
+   "addr": "1019 14th",
+   "recent": 9,
+   "prior": 0
+  },
+  {
+   "addr": "1080 14th",
+   "recent": 9,
+   "prior": 0
+  },
+  {
+   "addr": "1045 14th",
+   "recent": 9,
+   "prior": 0
+  },
+  {
+   "addr": "983 14th",
+   "recent": 8,
+   "prior": 0
+  },
+  {
+   "addr": "928 10th",
+   "recent": 7,
+   "prior": 0
+  },
+  {
+   "addr": "1064 10th",
+   "recent": 7,
+   "prior": 0
+  },
+  {
+   "addr": "1100 pennsylvania",
+   "recent": 7,
+   "prior": 0
+  },
+  {
+   "addr": "1005 broadway",
+   "recent": 7,
+   "prior": 0
+  },
+  {
+   "addr": "891 12th",
+   "recent": 7,
+   "prior": 0
+  },
+  {
+   "addr": "735 17th",
+   "recent": 6,
+   "prior": 0
+  },
+  {
+   "addr": "1801 baseline",
+   "recent": 6,
+   "prior": 0
+  },
+  {
+   "addr": "1111 college",
+   "recent": 6,
+   "prior": 0
+  }
+ ]
+}
