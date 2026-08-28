@@ -21,14 +21,14 @@ PIPELINE = os.path.join(HERE, 'build-input')
 
 CSS = """
 :root{
-  --bg:#ffffff; --surface:#f7f7f5; --ink:#14140f; --ink-2:#4a4a44; --muted:#7a7a72;
-  --rule:#e3e3dc; --accent:#1f4e79; --accent-soft:#eaf1f8; --warn:#b3261e; --good:#1c6b3c;
+  --bg:#FDFBF4; --surface:#F4EFE3; --ink:#1C2B39; --ink-2:#4A4437; --muted:#8A8168;
+  --rule:#E2D9C4; --accent:#A9762F; --accent-soft:#F7EBD3; --warn:#9A4A38; --good:#4A6741;
   --max:70rem;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#14140f; --surface:#1d1d18; --ink:#f4f4ee; --ink-2:#c9c9c0; --muted:#94948b;
-    --rule:#2f2f28; --accent:#8ab6e0; --accent-soft:#1b2b3a; --warn:#f0857d; --good:#7cc79b;
+    --bg:#131A23; --surface:#1C2733; --ink:#EDE8DB; --ink-2:#CFC8B8; --muted:#9A917E;
+    --rule:#2C3A49; --accent:#E2AC4F; --accent-soft:#2A3038; --warn:#D08A77; --good:#8FB585;
   }
 }
 *{box-sizing:border-box}
@@ -40,7 +40,7 @@ a{color:var(--accent)}
 header.site{border-bottom:1px solid var(--rule);background:var(--bg);position:sticky;top:0;z-index:10}
 header.site .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.5rem;padding-top:1rem;padding-bottom:.85rem}
 .brand{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:.55rem}
-.brand .mark{height:1.35em;width:auto;flex:none}
+.brand .mark{height:1.7em;width:auto;flex:none;margin-top:-.25em}
 nav.site{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;font-size:.9rem}
 nav.site a{color:var(--ink-2);text-decoration:none;padding:.15rem 0;border-bottom:2px solid transparent}
 nav.site a:hover{color:var(--accent)}
@@ -82,7 +82,7 @@ ul.clean li::before{content:"";position:absolute;left:0;top:.62em;width:.42rem;h
 ol.steps{padding-left:0;counter-reset:s;list-style:none;margin:1rem 0}
 ol.steps li{counter-increment:s;position:relative;padding-left:2.1rem;margin-bottom:.85rem}
 ol.steps li::before{content:counter(s);position:absolute;left:0;top:.05em;width:1.5rem;height:1.5rem;border-radius:50%;
-  background:var(--accent);color:#fff;font-size:.82rem;font-weight:700;display:grid;place-items:center}
+  background:var(--accent);color:var(--bg);font-size:.82rem;font-weight:700;display:grid;place-items:center}
 .asks-group{margin:1.5rem 0}
 .ask{display:flex;gap:.9rem;align-items:flex-start;padding:.85rem 0;border-bottom:1px solid var(--rule)}
 .ask .body{flex:1}
@@ -128,33 +128,46 @@ footer.site a{color:var(--ink-2)}
 """
 
 
-# The Flatiron Gable mark. Geometry is fixed (hard edges, no rounding, no
-# glow — per the logo spec); color comes from context. In the header the house
-# takes currentColor, so light mode renders the ink house and dark mode the
-# cream "reversed" variant for free. The window stays amber in both.
-LOGO_VIEWBOX = '0 0 170 138'
-LOGO_SHAPES = ('<polygon points="12,72 85,12 158,72" fill="{house}"/>'
-               '<rect x="26" y="72" width="118" height="60" fill="{house}"/>'
-               '<rect x="52" y="88" width="22" height="22" fill="{window}"/>')
+# The final mark from the QEP design canvas (Main artboard): the Flatiron-pitch
+# gable and house, a songbird perched on the gable, two notes. Geometry is
+# fixed verbatim from the canvas — hard edges, no rounding, no glow, per the
+# spec. Color comes from context: the house takes {house} so the header can
+# pass currentColor (ink in light mode, cream reversed in dark); the bird,
+# window, and notes stay amber in both; the bird's eye takes {eye}.
+LOGO_VIEWBOX = '0 0 175 176'
 LOGO_AMBER = '#D99A2B'
 LOGO_INK = '#1C2B39'
-LOGO_CREAM = '#F6F1E4'
+LOGO_CREAM = '#EDE8DB'
+LOGO_SHAPES = (
+    '<polygon points="12,110 85,50 158,110" fill="{house}"/>'
+    '<rect x="26" y="110" width="118" height="60" fill="{house}"/>'
+    '<rect x="52" y="126" width="22" height="22" fill="{amber}"/>'
+    '<polygon points="79,46 60,42 66,51" fill="{amber}"/>'
+    '<path d="M78 50 C76 43 77 36 82 32 C84 26 90 23 94 26 L95 25 L107 16 '
+    'L97 30 L106 26 L97 33 C99 39 97 46 91 50 Z" fill="{amber}"/>'
+    '<circle cx="90" cy="28.5" r="1.6" fill="{eye}"/>'
+    '<ellipse cx="112" cy="25" rx="2.7" ry="2.1" transform="rotate(-20 112 25)" fill="{amber}"/>'
+    '<path d="M114.5 24.3 V12.8" stroke="{amber}" stroke-width="1.6" fill="none"/>'
+    '<ellipse cx="121" cy="22" rx="2.7" ry="2.1" transform="rotate(-20 121 22)" fill="{amber}"/>'
+    '<path d="M123.5 21.3 V9.8" stroke="{amber}" stroke-width="1.6" fill="none"/>'
+    '<path d="M113.6 12.6 L124.2 9.6" stroke="{amber}" stroke-width="3.2" fill="none"/>')
 
 
 def logo_svg(css_class=''):
     cls = f' class="{css_class}"' if css_class else ''
-    shapes = LOGO_SHAPES.format(house='currentColor', window=LOGO_AMBER)
+    shapes = LOGO_SHAPES.format(house='currentColor', amber=LOGO_AMBER,
+                                eye='var(--bg)')
     return (f'<svg{cls} viewBox="{LOGO_VIEWBOX}" xmlns="http://www.w3.org/2000/svg" '
             f'aria-hidden="true" focusable="false">{shapes}</svg>')
 
 
 def write_favicon():
     """assets/favicon.svg — ink house in a light tab strip, cream in a dark one."""
+    shapes = LOGO_SHAPES.format(house=LOGO_INK, amber=LOGO_AMBER, eye='#FDFBF4') \
+                        .replace(f'fill="{LOGO_INK}"', f'class="h" fill="{LOGO_INK}"')
     svg = (f'<svg viewBox="{LOGO_VIEWBOX}" xmlns="http://www.w3.org/2000/svg">'
            f'<style>@media (prefers-color-scheme: dark){{.h{{fill:{LOGO_CREAM}}}}}</style>'
-           + LOGO_SHAPES.format(house=LOGO_INK, window=LOGO_AMBER)
-             .replace(f'fill="{LOGO_INK}"', f'class="h" fill="{LOGO_INK}"')
-           + '</svg>')
+           + shapes + '</svg>')
     with open(os.path.join(ASSETS, 'favicon.svg'), 'w') as f:
         f.write(svg)
 
