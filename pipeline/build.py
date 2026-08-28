@@ -39,7 +39,8 @@ a{color:var(--accent)}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 1.5rem}
 header.site{border-bottom:1px solid var(--rule);background:var(--bg);position:sticky;top:0;z-index:10}
 header.site .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.5rem;padding-top:1rem;padding-bottom:.85rem}
-.brand{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;white-space:nowrap}
+.brand{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:.55rem}
+.brand .mark{height:1.35em;width:auto;flex:none}
 nav.site{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;font-size:.9rem}
 nav.site a{color:var(--ink-2);text-decoration:none;padding:.15rem 0;border-bottom:2px solid transparent}
 nav.site a:hover{color:var(--accent)}
@@ -125,6 +126,37 @@ footer.site a{color:var(--ink-2)}
 .donate p{color:var(--ink-2);margin:0 0 .95rem;max-width:44rem}
 .donate .fine{font-size:.85rem;color:var(--muted);margin:.85rem 0 0}
 """
+
+
+# The Flatiron Gable mark. Geometry is fixed (hard edges, no rounding, no
+# glow — per the logo spec); color comes from context. In the header the house
+# takes currentColor, so light mode renders the ink house and dark mode the
+# cream "reversed" variant for free. The window stays amber in both.
+LOGO_VIEWBOX = '0 0 170 138'
+LOGO_SHAPES = ('<polygon points="12,72 85,12 158,72" fill="{house}"/>'
+               '<rect x="26" y="72" width="118" height="60" fill="{house}"/>'
+               '<rect x="52" y="88" width="22" height="22" fill="{window}"/>')
+LOGO_AMBER = '#D99A2B'
+LOGO_INK = '#1C2B39'
+LOGO_CREAM = '#F6F1E4'
+
+
+def logo_svg(css_class=''):
+    cls = f' class="{css_class}"' if css_class else ''
+    shapes = LOGO_SHAPES.format(house='currentColor', window=LOGO_AMBER)
+    return (f'<svg{cls} viewBox="{LOGO_VIEWBOX}" xmlns="http://www.w3.org/2000/svg" '
+            f'aria-hidden="true" focusable="false">{shapes}</svg>')
+
+
+def write_favicon():
+    """assets/favicon.svg — ink house in a light tab strip, cream in a dark one."""
+    svg = (f'<svg viewBox="{LOGO_VIEWBOX}" xmlns="http://www.w3.org/2000/svg">'
+           f'<style>@media (prefers-color-scheme: dark){{.h{{fill:{LOGO_CREAM}}}}}</style>'
+           + LOGO_SHAPES.format(house=LOGO_INK, window=LOGO_AMBER)
+             .replace(f'fill="{LOGO_INK}"', f'class="h" fill="{LOGO_INK}"')
+           + '</svg>')
+    with open(os.path.join(ASSETS, 'favicon.svg'), 'w') as f:
+        f.write(svg)
 
 
 def esc(t):
@@ -223,12 +255,13 @@ def page(filename, title, body, subtitle=None):
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · {esc(SITE['name'])}</title>
 <meta name="description" content="{esc(HOME['mission'][:155])}">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <style>{CSS}</style>
 </head>
 <body>
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="index.html">{esc(SITE['name'])}</a>
+    <a class="brand" href="index.html">{logo_svg('mark')}{esc(SITE['name'])}</a>
     <nav class="site">
 {nav}
     </nav>
@@ -628,6 +661,7 @@ def main():
     if os.path.isdir(ASSETS):
         shutil.rmtree(ASSETS)
     copy_assets()
+    write_favicon()
     build_home(); build_reports(); build_watch(); build_law()
     build_health(); build_asks(); build_residents(); build_data()
     build_support(); build_about()
