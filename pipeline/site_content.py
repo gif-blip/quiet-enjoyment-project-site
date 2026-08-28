@@ -89,6 +89,9 @@ SIGNUP = {
 #   - Fiscal hosting changes the tax answer. An independent collective keeps the
 #     'tax' copy below true. Being hosted by a 501(c)(3) host would make gifts
 #     deductible after all, and that paragraph would then be wrong.
+#   - Forming a 501(c)(4) also changes it. Gifts stay non-deductible, so the
+#     headline claim survives, but 'is not a tax-exempt organization' would
+#     become false and must be rewritten.
 #   - Colorado's Charitable Solicitations Act keys on soliciting, not on tax
 #     status. Registration is generally required before soliciting, with an
 #     exemption under $25,000 a year or ten or fewer contributors.
@@ -298,9 +301,11 @@ ASKS = {
     ),
     'scope_title': 'A note on scope, for readers inside and outside government',
     'scope': (
-        'The Quiet Enjoyment Project asks public officials to enforce and administer existing law. We do not lobby — '
-        'nothing on this page, and nothing in our program, seeks new legislation. If the data ever convinces us that an '
-        'ordinance itself needs changing, we will say so separately and plainly; it is not part of this list.'
+        'Everything on this page can be done under ordinances Boulder already has — not one item below needs a new '
+        'law, and we think that is the most useful thing we can tell you about it. Where the data convinces us that '
+        'an ordinance itself should change, we do advocate for that, and we label it as what it is rather than '
+        'folding it in with the administrative asks. You will always be able to tell which kind of ask you are '
+        'reading.'
     ),
     'feedback': (
         'These recommendations are an initial version, published August 2026. They will be revised as the data and the '
@@ -416,8 +421,10 @@ ABOUT = {
          'few properties that do not respond to anything else, and if that point is reached the case belongs to an '
          'affected resident represented by independent counsel of their own. This project does not practice law, '
          'does not represent anyone, and would not be a party.'),
-        ('We do not lobby.', 'We ask public officials to enforce and administer laws that already exist. We do not '
-         'seek new legislation, and we say so on our recommendations page.'),
+        ('We say when we are asking to change the law.', 'Most of what we ask for is administrative — enforce and '
+         'administer the ordinances Boulder already has, which needs no new legislation. Where the data convinces '
+         'us an ordinance itself should change, we advocate for that too, and we label it plainly rather than '
+         'mixing it in with the enforcement asks. The distinction is the reader’s to check, not ours to blur.'),
         ('Eligibility is entirely public-data-driven.', 'Which properties appear in our reporting is determined '
          'solely by public police records, applied on published criteria. There is no discretionary step and no '
          'editorial judgment about who belongs on the list. Nobody — not the people who run this project, not '
