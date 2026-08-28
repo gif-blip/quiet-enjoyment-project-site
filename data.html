@@ -25,13 +25,21 @@ body{margin:0;background:var(--bg);color:var(--ink);
 a{color:var(--accent)}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 1.5rem}
 header.site{border-bottom:1px solid var(--rule);background:var(--bg);position:sticky;top:0;z-index:10}
-header.site .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.5rem;padding-top:1rem;padding-bottom:.85rem}
-.brand{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:.55rem}
-.brand .mark{height:1.7em;width:auto;flex:none;margin-top:-.25em}
-nav.site{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;font-size:.9rem}
-nav.site a{color:var(--ink-2);text-decoration:none;padding:.15rem 0;border-bottom:2px solid transparent}
+header.site .wrap{display:flex;flex-direction:column;gap:.5rem;padding-top:.8rem;padding-bottom:0}
+.brand{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;
+  display:flex;align-items:center;gap:.7rem}
+.brand .mark{height:2.5rem;width:auto;flex:none}
+nav.site{display:flex;gap:1.15rem;font-size:.9rem;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none}
+nav.site::-webkit-scrollbar{display:none}
+nav.site a{color:var(--ink-2);text-decoration:none;padding:.35rem 0 .7rem;border-bottom:2px solid transparent;
+  white-space:nowrap}
 nav.site a:hover{color:var(--accent)}
 nav.site a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+@media (min-width:720px){
+  .brand{font-size:1.15rem}
+  .brand .mark{height:3rem}
+}
 main{padding:2.5rem 0 3.5rem}
 h1{font-size:2rem;line-height:1.2;letter-spacing:-.02em;margin:0 0 .6rem}
 h1 .sub{display:block;font-size:1.35rem;color:var(--ink-2);font-weight:600;margin-top:.35rem}
@@ -82,7 +90,9 @@ footer.site a{color:var(--ink-2)}
 .updated{color:var(--muted);font-size:.85rem;margin-top:-.3rem}
 @media (max-width:640px){
   h1{font-size:1.6rem} h1 .sub{font-size:1.15rem}
-  header.site .wrap{padding-top:.85rem}
+  .wrap{padding-left:1.1rem;padding-right:1.1rem}
+  main{padding-top:1.8rem}
+  .hero{padding:1.1rem 1.15rem}
 }
 .vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .signup{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:1.25rem 1.4rem;margin:1.75rem 0}
