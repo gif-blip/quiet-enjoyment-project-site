@@ -119,14 +119,28 @@ DONATE = {
         'project can add an address or remove one. If that is what you were hoping to buy, we would rather you '
         'kept your money.'
     ),
-    # One-line version, used on the reports page and beside the button.
-    'tax_short': 'Not a charity, not tax-exempt — contributions are not tax-deductible.',
+    # Flip to 'c4' the day the 501(c)(4) actually exists and Form 8976 is filed —
+    # not before. Until then 'forming' is the only accurate description, and
+    # claiming exempt status we do not yet hold is the exact error the rest of
+    # this page exists to avoid.
+    'status': 'forming',
     'tax_title': 'Tax status, plainly',
-    'tax': (
-        'The Quiet Enjoyment Project is not a registered charity and is not a tax-exempt organization. We make no '
-        '501(c)(3) claim. Contributions are not tax-deductible, and nobody here will tell you otherwise — if a '
-        'deduction is what you are after, this is not the place for it. We are an unincorporated resident '
-        'initiative, and a gift here is exactly that: a gift toward the costs above.'
+    'tax_short_forming': 'Not a charity, not tax-exempt — contributions are not tax-deductible.',
+    'tax_forming': (
+        'The Quiet Enjoyment Project is not a registered charity and is not, today, a tax-exempt organization. We '
+        'make no 501(c)(3) claim. Contributions are not tax-deductible, and nobody here will tell you otherwise — '
+        'if a deduction is what you are after, this is not the place for it. We are an unincorporated resident '
+        'initiative, and a gift here is exactly that: a gift toward the costs above. We are in the process of '
+        'organising as a 501(c)(4) social welfare organization; that will not change the answer on deductibility, '
+        'and we will update this page when it is done rather than before.'
+    ),
+    'tax_short_c4': 'A 501(c)(4), not a charity — contributions are not tax-deductible.',
+    'tax_c4': (
+        'The Quiet Enjoyment Project is a 501(c)(4) social welfare organization. That makes the organization '
+        'tax-exempt, and it also means contributions are not tax-deductible. We make no 501(c)(3) claim and will '
+        'not be making one — if a deduction is what you are after, this is not the place for it. We chose this '
+        'structure deliberately: it lets us argue for changes in the law without a ceiling on how hard, and we '
+        'would rather be free to say what needs saying than be able to offer you a write-off.'
     ),
     'ledger': (
         'We collect through Open Collective, where every contribution and every expense is posted to a public '
@@ -425,6 +439,10 @@ ABOUT = {
          'administer the ordinances Boulder already has, which needs no new legislation. Where the data convinces '
          'us an ordinance itself should change, we advocate for that too, and we label it plainly rather than '
          'mixing it in with the enforcement asks. The distinction is the reader’s to check, not ours to blur.'),
+        ('We publish who funds us, though our structure will not require it.', 'A 501(c)(4) does not have to '
+         'disclose its donors. We post contributions and expenses to a public ledger anyway. An organization that '
+         'publishes other people’s records should be willing to publish its own, and if you want to know who pays '
+         'for this work, the answer should not depend on our goodwill.'),
         ('Eligibility is entirely public-data-driven.', 'Which properties appear in our reporting is determined '
          'solely by public police records, applied on published criteria. There is no discretionary step and no '
          'editorial judgment about who belongs on the list. Nobody — not the people who run this project, not '

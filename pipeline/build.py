@@ -181,6 +181,15 @@ def signup_html(variant='block', fallback=''):
     </section>"""
 
 
+def donate_tax(key):
+    """Tax copy for the project's current legal status.
+
+    DONATE['status'] selects between the pre-formation wording and the 501(c)(4)
+    wording, so the claim on the page can never get ahead of the paperwork.
+    """
+    return DONATE[f'{key}_{DONATE["status"]}']
+
+
 def donate_html(variant='block'):
     """Donation ask for one placement.
 
@@ -197,7 +206,7 @@ def donate_html(variant='block'):
     return f"""    <section class="donate">
       <h2>{esc(DONATE['heading'])}</h2>
       <p>{esc(DONATE['short'])}</p>
-{cta}      <p class="fine">{esc(DONATE['tax_short'])} <a href="support.html">What a donation does and does not buy →</a></p>
+{cta}      <p class="fine">{esc(donate_tax('tax_short'))} <a href="support.html">What a donation does and does not buy →</a></p>
     </section>"""
 
 
@@ -543,7 +552,7 @@ def build_support():
     <h2>{esc(DONATE['firewall_title'])}</h2>
     <div class="callout"><p>{esc(DONATE['firewall'])}</p></div>
     <h2>{esc(DONATE['tax_title'])}</h2>
-    <p>{esc(DONATE['tax'])}</p>
+    <p>{esc(donate_tax('tax'))}</p>
 {alt}"""
     page('support.html', 'Support', body)
 

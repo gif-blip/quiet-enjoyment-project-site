@@ -70,10 +70,15 @@ ask on its own.
 
 Two things to re-check before soliciting publicly:
 
-- **Fiscal hosting changes the tax answer.** The `tax` copy states the project is
-  not tax-exempt and that gifts are not deductible. That stays true for an
-  independent collective. Being fiscally hosted by a 501(c)(3) would make gifts
-  deductible through the host, and that paragraph would then be wrong.
+- **`DONATE['status']` must not get ahead of the paperwork.** It selects the tax
+  copy: `'forming'` says the project is not yet tax-exempt and is organising as
+  a 501(c)(4); `'c4'` says it is one. Flip it the day the entity exists and
+  Form 8976 is filed, not before — claiming exempt status not yet held is the
+  precise error the rest of the support page exists to avoid.
+- **Fiscal hosting changes the tax answer.** Both copy variants say gifts are not
+  deductible, which holds for an independent collective and for a 501(c)(4).
+  Being fiscally hosted by a 501(c)(3) would make gifts deductible through the
+  host, and both variants would then be wrong.
 - **Colorado's Charitable Solicitations Act keys on soliciting, not on tax
   status.** Registration with the Secretary of State is generally required
   before soliciting, with an exemption under $25,000 a year in gross
