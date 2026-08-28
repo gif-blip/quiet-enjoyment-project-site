@@ -431,10 +431,12 @@ ABOUT = {
         ('We publish conduct, not people.', 'We name property addresses and owners of record — both matters of '
          'public record — and we do not publish the names of residents, callers, or students. Complaint counts are '
          'reported as what they are: calls logged by police, not findings of violation.'),
-        ('Enforcement is a last resort, and never ours to run.', 'Our escalation ends with the courts only for the '
-         'few properties that do not respond to anything else, and if that point is reached the case belongs to an '
-         'affected resident represented by independent counsel of their own. This project does not practice law, '
-         'does not represent anyone, and would not be a party.'),
+        ('Court is the last step, and we say up front that we may take it.', 'Education first, owner notice '
+         'second, city enforcement third. For the few properties that answer none of that, this project may ask a '
+         'court to abate the nuisance — in its own name, or on behalf of affected members — and we would rather '
+         'state that plainly than spring it on anyone. What we do not do is practise law or represent individual '
+         'residents: a resident pursuing their own claim needs counsel of their own, and we will say so every '
+         'time.'),
         ('We say when we are asking to change the law.', 'Most of what we ask for is administrative — enforce and '
          'administer the ordinances Boulder already has, which needs no new legislation. Where the data convinces '
          'us an ordinance itself should change, we advocate for that too, and we label it plainly rather than '
