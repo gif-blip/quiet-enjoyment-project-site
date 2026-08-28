@@ -33,6 +33,29 @@ than every week. That prevents an address sitting near the six-complaint
 threshold from flickering on and off — the rule is mechanical, and the list
 should look as stable as the rule is.
 
+## Email signup
+
+The signup form is off until a provider is wired up. Until then every signup
+spot on the site falls back to the mailto invitation it used before, so the site
+never ships a form that goes nowhere.
+
+Configure it in one place — `SIGNUP` in `pipeline/site_content.py` — then rebuild.
+Two modes:
+
+- **`mode = 'iframe'`** — the Squarespace route. Squarespace has no public form
+  endpoint another domain can post to, so the only supported way to use an Email
+  Campaigns mailing list from here is to build a Squarespace page containing
+  nothing but a Newsletter block, point that block at the list, and put the
+  page's URL in `action`. Set `height` to fit the embedded form.
+- **`mode = 'post'`** — a plain form POST to `action`, for any provider that
+  accepts a cross-origin submission (Buttondown, Mailchimp, Formspree). Set
+  `field` if the provider names the address input something other than `email`,
+  and list any required hidden inputs in `hidden`.
+
+The form renders on the home, reports, and For Residents pages, and in the
+footer of every page. In `iframe` mode the footer shows a link to the form on
+the reports page instead — an iframe on all nine pages is too heavy.
+
 `pipeline/archive/` holds an immutable monthly snapshot of the city's
 rental-property calls feed. That feed is a rolling 365-day window, so without
 these snapshots exact-address history would be lost permanently.

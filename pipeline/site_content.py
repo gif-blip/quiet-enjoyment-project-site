@@ -41,6 +41,45 @@ FOOTER = (
     'thoughtful feedback and corrections welcome, and we fix errors promptly.'
 )
 
+# --------------------------------------------------------------- email signup
+# The signup form renders wherever `mode` is set, and quietly falls back to the
+# mailto invitation the site used before while it is blank — so the site never
+# ships a form that goes nowhere.
+#
+#   mode = 'iframe'  Embed a page that hosts your provider's own form. This is
+#                    the only route Squarespace supports off-Squarespace: make a
+#                    Squarespace page holding nothing but a Newsletter block,
+#                    point that block at your Email Campaigns mailing list, and
+#                    put the page's URL in `action`. Set `height` to whatever
+#                    the embedded form needs.
+#
+#   mode = 'post'    A plain HTML form POST to `action`. Works with Buttondown,
+#                    Mailchimp, Formspree and anything else that accepts a
+#                    cross-origin form submission. Set `field` if the provider
+#                    names the address input something other than 'email', and
+#                    list any required hidden inputs in `hidden`.
+#
+#   mode = ''        No provider wired up yet. Falls back to mailto.
+SIGNUP = {
+    'mode': '',
+    'action': '',
+    'field': 'email',
+    'hidden': [],                       # (name, value) pairs the provider requires
+    'height': 320,                      # iframe mode only
+    'heading': 'Get each report when it publishes',
+    'blurb': (
+        'We send an email when a new report goes out and when the watch list advances — '
+        'a few times a year, nothing else.'
+    ),
+    'button': 'Sign up',
+    'placeholder': 'you@example.com',
+    'label': 'Email address',
+    'fine': 'We never share the list, and never publish resident names. Unsubscribe in one click.',
+    'foot_heading': 'Get each report when it publishes',
+    # Shown in the footer when mode is 'iframe' (an iframe per page is too heavy).
+    'foot_link': 'Get each report when it publishes — <a href="reports.html#signup">join the email list</a>.',
+}
+
 HOME = {
     'headline': 'Every Boulder home comes with a legal right to quiet enjoyment.',
     'headline_2': 'Quiet is a right, not a request.',
@@ -275,6 +314,13 @@ RESIDENTS = {
         '<a href="mailto:{email}">{email}</a>. If the noise is chronic, tell us the address — it goes into the same '
         'data pipeline as our reports.',
     ],
+    # Sits under the signup form: the list and a chronic-address report are two
+    # different asks, and the form only covers the first.
+    'report_address': (
+        'Dealing with a chronic problem address? Write to <a href="mailto:{email}">{email}</a> and tell us '
+        'directly — it goes into the same data pipeline as our reports. Everything you send is confidential, '
+        'and we never publish resident names.'
+    ),
     'join_title': 'Join',
     'join': (
         'We publish each report to an email list, coordinate through a neighborhood group, and are building the '

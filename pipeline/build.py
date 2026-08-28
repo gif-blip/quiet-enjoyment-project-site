@@ -10,7 +10,7 @@ import json, os, re, shutil, html, datetime, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from site_content import (SITE, NAV, FOOTER, HOME, REPORTS, WATCH, LAW,
+from site_content import (SITE, NAV, FOOTER, SIGNUP, HOME, REPORTS, WATCH, LAW,
                           HEALTH, ASKS, RESIDENTS, ABOUT, DATA)
 
 PROJECT = os.path.dirname(HERE)                     # .../University Hill Noise
@@ -96,6 +96,26 @@ footer.site a{color:var(--ink-2)}
   h1{font-size:1.6rem} h1 .sub{font-size:1.15rem}
   header.site .wrap{padding-top:.85rem}
 }
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.signup{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:1.25rem 1.4rem;margin:1.75rem 0}
+.signup h2{margin:0 0 .4rem;font-size:1.15rem}
+.signup p{color:var(--ink-2);margin:0 0 .2rem;max-width:44rem}
+.signup form{display:flex;flex-wrap:wrap;gap:.6rem;margin:.9rem 0 .6rem;max-width:34rem}
+.signup input[type=email]{flex:1 1 15rem;min-width:0;font:inherit;font-size:.95rem;padding:.6rem .7rem;
+  color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:8px}
+.signup input[type=email]::placeholder{color:var(--muted)}
+.signup input[type=email]:focus-visible{border-color:var(--accent);outline:2px solid var(--accent);outline-offset:1px}
+.signup button{font:inherit;font-size:.95rem;font-weight:600;padding:.6rem 1.15rem;cursor:pointer;
+  color:var(--bg);background:var(--accent);border:1px solid var(--accent);border-radius:8px}
+.signup button:hover{filter:brightness(1.08)}
+.signup button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.signup .fine{font-size:.85rem;color:var(--muted);margin:0}
+.signup iframe{display:block;width:100%;border:0;background:transparent}
+.signup.compact{border:0;background:none;padding:0;margin:0 0 1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--rule)}
+.signup.compact h2{font-size:.95rem;color:var(--ink-2)}
+.signup.compact form{margin:.55rem 0 0;max-width:28rem}
+.signup.compact input[type=email],.signup.compact button{font-size:.88rem;padding:.45rem .65rem}
+.signup.compact button{padding:.45rem .95rem}
 """
 
 
@@ -106,6 +126,51 @@ def esc(t):
 def fmt(t):
     """Interpolate {email} etc. into copy strings."""
     return t.replace('{email}', SITE['email'])
+
+
+def attr(t):
+    return html.escape(t, quote=True)
+
+
+def signup_html(variant='block', fallback=''):
+    """Email-signup markup for one placement.
+
+    Renders the provider form once SIGNUP is configured, and otherwise returns
+    `fallback` — the mailto invitation — so an unwired site still tells people
+    how to join rather than showing a form that goes nowhere.
+    """
+    mode, action = SIGNUP['mode'], SIGNUP['action'].strip()
+    if not mode or not action:
+        return fallback
+    compact = variant == 'foot'
+    heading = SIGNUP['foot_heading'] if compact else SIGNUP['heading']
+
+    if mode == 'iframe':
+        # One iframe per page is too heavy for the footer, so there it becomes a
+        # link to the form on the reports page.
+        if compact:
+            return f'    <div class="signup compact"><p>{fmt(SIGNUP["foot_link"])}</p></div>'
+        return f"""    <section class="signup" id="signup">
+      <h2>{esc(heading)}</h2>
+      <p>{esc(SIGNUP['blurb'])}</p>
+      <iframe src="{attr(action)}" height="{int(SIGNUP['height'])}" title="{attr(heading)}" loading="lazy"></iframe>
+      <p class="fine">{esc(SIGNUP['fine'])}</p>
+    </section>"""
+
+    fid = 'signup-foot' if compact else 'signup'
+    hidden = ''.join(f'\n        <input type="hidden" name="{attr(n)}" value="{attr(v)}">'
+                     for n, v in SIGNUP['hidden'])
+    blurb = '' if compact else f"\n      <p>{esc(SIGNUP['blurb'])}</p>"
+    fine = '' if compact else f"\n      <p class=\"fine\">{esc(SIGNUP['fine'])}</p>"
+    return f"""    <section class="{'signup compact' if compact else 'signup'}"{'' if compact else ' id="signup"'}>
+      <h2>{esc(heading)}</h2>{blurb}
+      <form action="{attr(action)}" method="post">
+        <label class="vh" for="{fid}-email">{esc(SIGNUP['label'])}</label>
+        <input id="{fid}-email" type="email" name="{attr(SIGNUP['field'])}" placeholder="{attr(SIGNUP['placeholder'])}"
+          autocomplete="email" required>{hidden}
+        <button type="submit">{esc(SIGNUP['button'])}</button>
+      </form>{fine}
+    </section>"""
 
 
 def page(filename, title, body, subtitle=None):
@@ -137,6 +202,7 @@ def page(filename, title, body, subtitle=None):
 </main>
 <footer class="site">
   <div class="wrap">
+{signup_html('foot')}
     <p>{fmt(FOOTER)}</p>
   </div>
 </footer>
@@ -266,7 +332,8 @@ def build_home():
 {chart}
     <div class="doors">
 {doors}
-    </div>"""
+    </div>
+{signup_html('block')}"""
     page('index.html', 'Home', body)
 
 
@@ -291,6 +358,10 @@ def build_reports():
         if asset(name):
             charts += (f'    <figure><img src="assets/{name}" alt="{esc(alt)}">'
                        f'<figcaption>{esc(cap)}</figcaption></figure>\n')
+    mailto = (f'    <div class="callout" id="signup"><p>Want each report when it publishes? Email\n'
+              f'      <a href="mailto:{SITE["email"]}">{SITE["email"]}</a> and we will add you to the list.'
+              f'</p></div>')
+    signup = signup_html('block', fallback=mailto)
     body = f"""    <h1>The Reports</h1>
     <p class="lede">{esc(REPORTS['intro'])}</p>
 {chr(10).join(items)}
@@ -298,8 +369,7 @@ def build_reports():
     <ul class="clean">
 {findings}
     </ul>
-{charts}    <div class="callout"><p>Want each report when it publishes? Email
-      <a href="mailto:{SITE['email']}">{SITE['email']}</a> and we will add you to the list.</p></div>"""
+{charts}{signup}"""
     page('reports.html', 'The Reports', body)
 
 
@@ -405,6 +475,9 @@ def build_asks():
 
 def build_residents():
     steps = '\n'.join(f'      <li>{fmt(s)}</li>' for s in RESIDENTS['steps'])
+    mailto = (f'    <div class="callout" id="signup"><p>Write to '
+              f'<a href="mailto:{SITE["email"]}">{SITE["email"]}</a> to join the list.</p></div>')
+    signup = signup_html('block', fallback=mailto)
     body = f"""    <h1>For Residents</h1>
     <h2>{esc(RESIDENTS['title'])}</h2>
     <p class="lede">{esc(RESIDENTS['intro'])}</p>
@@ -413,8 +486,8 @@ def build_residents():
     </ol>
     <h2>{esc(RESIDENTS['join_title'])}</h2>
     <p>{esc(RESIDENTS['join'])}</p>
-    <div class="callout"><p>Write to <a href="mailto:{SITE['email']}">{SITE['email']}</a> to join the list
-      or report a chronic problem address.</p></div>"""
+{signup}
+    <div class="callout plain"><p>{fmt(RESIDENTS['report_address'])}</p></div>"""
     page('residents.html', 'For Residents', body)
 
 

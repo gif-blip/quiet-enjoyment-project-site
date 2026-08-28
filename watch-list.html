@@ -82,6 +82,26 @@ footer.site a{color:var(--ink-2)}
   h1{font-size:1.6rem} h1 .sub{font-size:1.15rem}
   header.site .wrap{padding-top:.85rem}
 }
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.signup{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:1.25rem 1.4rem;margin:1.75rem 0}
+.signup h2{margin:0 0 .4rem;font-size:1.15rem}
+.signup p{color:var(--ink-2);margin:0 0 .2rem;max-width:44rem}
+.signup form{display:flex;flex-wrap:wrap;gap:.6rem;margin:.9rem 0 .6rem;max-width:34rem}
+.signup input[type=email]{flex:1 1 15rem;min-width:0;font:inherit;font-size:.95rem;padding:.6rem .7rem;
+  color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:8px}
+.signup input[type=email]::placeholder{color:var(--muted)}
+.signup input[type=email]:focus-visible{border-color:var(--accent);outline:2px solid var(--accent);outline-offset:1px}
+.signup button{font:inherit;font-size:.95rem;font-weight:600;padding:.6rem 1.15rem;cursor:pointer;
+  color:var(--bg);background:var(--accent);border:1px solid var(--accent);border-radius:8px}
+.signup button:hover{filter:brightness(1.08)}
+.signup button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.signup .fine{font-size:.85rem;color:var(--muted);margin:0}
+.signup iframe{display:block;width:100%;border:0;background:transparent}
+.signup.compact{border:0;background:none;padding:0;margin:0 0 1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--rule)}
+.signup.compact h2{font-size:.95rem;color:var(--ink-2)}
+.signup.compact form{margin:.55rem 0 0;max-width:28rem}
+.signup.compact input[type=email],.signup.compact button{font-size:.88rem;padding:.45rem .65rem}
+.signup.compact button{padding:.45rem .95rem}
 </style>
 </head>
 <body>
@@ -164,6 +184,7 @@ footer.site a{color:var(--ink-2)}
 </main>
 <footer class="site">
   <div class="wrap">
+
     <p>The Quiet Enjoyment Project · An independent resident initiative — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly.</p>
   </div>
 </footer>
