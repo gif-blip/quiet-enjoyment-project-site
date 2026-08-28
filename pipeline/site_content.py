@@ -35,7 +35,7 @@ NAV = [
 ]
 
 FOOTER = (
-    'The Quiet Enjoyment Project · An independent resident initiative — not affiliated with the '
+    'The Quiet Enjoyment Project · An independent, resident-run organization — not affiliated with the '
     'University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · '
     'Boulder, Colorado · <a href="mailto:{email}">{email}</a> · Data from City of Boulder open records. '
     'This site is general information, not legal advice. Launched August 2026 — an initial version; '
@@ -75,7 +75,7 @@ SIGNUP = {
     'button': 'Sign up',
     'placeholder': 'you@example.com',
     'label': 'Email address',
-    'fine': 'We never share the list, and never publish resident names. Unsubscribe in one click.',
+    'fine': 'The list is used for these emails and nothing else, and we never publish resident names. Unsubscribe in one click.',
     'foot_heading': 'Get each report when it publishes',
     # Shown in the footer when mode is 'iframe' (an iframe per page is too heavy).
     'foot_link': 'Get each report when it publishes — <a href="reports.html#signup">join the email list</a>.',
@@ -85,13 +85,20 @@ SIGNUP = {
 # `url` is the Open Collective page. While it is blank every donation spot falls
 # back to the mailto ask, exactly as SIGNUP does.
 #
-# Two things to re-check when the collective goes live:
-#   - Fiscal hosting changes the tax answer. An independent collective keeps the
-#     'tax' copy below true. Being hosted by a 501(c)(3) host would make gifts
-#     deductible after all, and that paragraph would then be wrong.
-#   - Forming a 501(c)(4) also changes it. Gifts stay non-deductible, so the
-#     headline claim survives, but 'is not a tax-exempt organization' would
-#     become false and must be rewritten.
+# This copy assumes the project's structure: a Colorado nonprofit corporation
+# operating as a 501(c)(4) social welfare organization, collecting through
+# Open Collective as an Independent Collective (its own bank account — a
+# 501(c)(3) fiscal host would contradict both the tax copy and the lobbying
+# posture).
+#
+# Three things to hold true:
+#   - 'status' selects the tax wording: 'forming' until articles are filed and
+#     Form 8976 is submitted, 'c4' after. Never let the copy get ahead of the
+#     paperwork.
+#   - Disclosure policy: contribution amounts and expenses are public; donor
+#     identities are not published. Configure Open Collective accordingly
+#     (incognito contributions) before setting `url` — the ledger must match
+#     the copy.
 #   - Colorado's Charitable Solicitations Act keys on soliciting, not on tax
 #     status. Registration is generally required before soliciting, with an
 #     exemption under $25,000 a year or ten or fewer contributors.
@@ -119,32 +126,43 @@ DONATE = {
         'project can add an address or remove one. If that is what you were hoping to buy, we would rather you '
         'kept your money.'
     ),
-    # Flip to 'c4' the day the 501(c)(4) actually exists and Form 8976 is filed —
-    # not before. Until then 'forming' is the only accurate description, and
-    # claiming exempt status we do not yet hold is the exact error the rest of
-    # this page exists to avoid.
+    # Flip to 'c4' the day the corporation exists and Form 8976 is filed — not
+    # before. Until then 'forming' is the only accurate description, and
+    # claiming a status we do not yet hold is the exact error the rest of this
+    # page exists to avoid.
     'status': 'forming',
     'tax_title': 'Tax status, plainly',
     'tax_short_forming': 'Not a charity, not tax-exempt — contributions are not tax-deductible.',
     'tax_forming': (
-        'The Quiet Enjoyment Project is not a registered charity and is not, today, a tax-exempt organization. We '
-        'make no 501(c)(3) claim. Contributions are not tax-deductible, and nobody here will tell you otherwise — '
-        'if a deduction is what you are after, this is not the place for it. We are an unincorporated resident '
-        'initiative, and a gift here is exactly that: a gift toward the costs above. We are in the process of '
-        'organising as a 501(c)(4) social welfare organization; that will not change the answer on deductibility, '
-        'and we will update this page when it is done rather than before.'
+        'The Quiet Enjoyment Project is not a charity and is not, today, a tax-exempt organization. We make no '
+        '501(c)(3) claim. Contributions are not tax-deductible, and nobody here will tell you otherwise — if a '
+        'deduction is what you are after, this is not the place for it. We are a resident-run organization in the '
+        'middle of its paperwork: incorporating as a Colorado nonprofit corporation, to operate as a 501(c)(4) '
+        'social welfare organization. Neither step changes the answer on deductibility — 501(c)(4) gifts are not '
+        'deductible either, by design — and we will update this page when the paperwork is done, not before.'
     ),
     'tax_short_c4': 'A 501(c)(4), not a charity — contributions are not tax-deductible.',
     'tax_c4': (
-        'The Quiet Enjoyment Project is a 501(c)(4) social welfare organization. That makes the organization '
-        'tax-exempt, and it also means contributions are not tax-deductible. We make no 501(c)(3) claim and will '
-        'not be making one — if a deduction is what you are after, this is not the place for it. We chose this '
-        'structure deliberately: it lets us argue for changes in the law without a ceiling on how hard, and we '
-        'would rather be free to say what needs saying than be able to offer you a write-off.'
+        'The Quiet Enjoyment Project is a Colorado nonprofit corporation operating as a 501(c)(4) social welfare '
+        'organization. That makes the organization tax-exempt, and it also means contributions are not '
+        'tax-deductible. We make no 501(c)(3) claim and will not be making one — if a deduction is what you are '
+        'after, this is not the place for it. We chose this structure deliberately: it lets us argue for changes '
+        'in the law without a ceiling on how hard, and it lets the organization itself stand behind this work — '
+        'in print and, where a chronic property leaves no alternative, in court. We would rather be free to do '
+        'both than be able to offer you a write-off.'
     ),
     'ledger': (
-        'We collect through Open Collective, where every contribution and every expense is posted to a public '
-        'ledger. You can see what came in and what it paid for without having to ask us.'
+        'We collect through Open Collective, where every contribution amount and every expense is posted to a '
+        'public ledger. You can see what this project runs on and what it spends without having to ask us.'
+    ),
+    'privacy_title': 'Amounts public, names private',
+    'privacy': (
+        'Every contribution amount and every expense goes on the public ledger — including whether this project '
+        'runs on many small gifts or a few large ones, which you should want to know. Donor identities are the '
+        'one thing we do not publish: this is a small neighborhood where landlords, tenants, and neighbors all '
+        'know each other, and supporting noise enforcement should not cost anyone a relationship. What makes that '
+        'compatible with everything else on this site is that there is nothing here for money to buy — the watch '
+        'list is mechanical, and no donor of any size can put an address on it or take one off.'
     ),
     # Shown on the reports page — the point where someone has just read the work.
     'short': (
@@ -394,14 +412,18 @@ RESIDENTS = {
     # different asks, and the form only covers the first.
     'report_address': (
         'Dealing with a chronic problem address? Write to <a href="mailto:{email}">{email}</a> and tell us '
-        'directly — it goes into the same data pipeline as our reports. Everything you send is confidential, '
-        'and we never publish resident names.'
+        'directly — it goes into the same data pipeline as our reports. We never publish resident names, and we '
+        'handle what you send with care. One honest limit: files can be reached by legal process, ours included, '
+        'so we promise discretion, not immunity — send what you are comfortable having on file.'
     ),
     'join_title': 'Join',
     'join': (
         'We publish each report to an email list, coordinate through a neighborhood group, and are building the '
         'evidence base for owner accountability. Write to us to join the list; if you are dealing with a chronic '
-        'problem address, tell us directly. Everything you send is confidential — we never publish resident names.'
+        'problem address, tell us directly. Our reports name properties, never callers, and we never publish '
+        'resident names. We will also be straight about the one limit: like anyone’s files, ours can be reached '
+        'by legal process if a case ever goes to court — so we promise care and discretion, not immunity, and we '
+        'would rather you know that before you write than after.'
     ),
 }
 
@@ -441,10 +463,13 @@ ABOUT = {
          'administer the ordinances Boulder already has, which needs no new legislation. Where the data convinces '
          'us an ordinance itself should change, we advocate for that too, and we label it plainly rather than '
          'mixing it in with the enforcement asks. The distinction is the reader’s to check, not ours to blur.'),
-        ('We publish who funds us, though our structure will not require it.', 'A 501(c)(4) does not have to '
-         'disclose its donors. We post contributions and expenses to a public ledger anyway. An organization that '
-         'publishes other people’s records should be willing to publish its own, and if you want to know who pays '
-         'for this work, the answer should not depend on our goodwill.'),
+        ('We publish every dollar, but not every name.', 'A 501(c)(4) does not have to disclose anything about '
+         'its funding. We post every contribution amount and every expense to a public ledger anyway, because an '
+         'organization that publishes other people’s records should show its own — you can see what this project '
+         'runs on, and whether any single gift is big enough to matter. Donor identities are the one thing we '
+         'keep private: in a neighborhood this small, supporting quiet should not carry a social price. What '
+         'keeps that honest is the item below — eligibility is mechanical, so there is nothing a donor could be '
+         'buying.'),
         ('Eligibility is entirely public-data-driven.', 'Which properties appear in our reporting is determined '
          'solely by public police records, applied on published criteria. There is no discretionary step and no '
          'editorial judgment about who belongs on the list. Nobody — not the people who run this project, not '
@@ -456,8 +481,9 @@ ABOUT = {
         'Founded by University Hill residents in 2025 after three years of documented escalation in neighborhood noise.'
     ),
     'independence': (
-        'The Quiet Enjoyment Project is an independent resident initiative. It is not affiliated with the University '
-        'Hill Neighborhood Association (UHNA), the University of Colorado, or the City of Boulder.'
+        'The Quiet Enjoyment Project is an independent, resident-run organization. It is not affiliated with the '
+        'University Hill Neighborhood Association (UHNA), the University of Colorado, or the City of Boulder, and '
+        'it takes no money from any of them.'
     ),
     'contact_title': 'Contact',
     'contact': (

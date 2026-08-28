@@ -551,6 +551,8 @@ def build_support():
     </ul>
     <h2>{esc(DONATE['firewall_title'])}</h2>
     <div class="callout"><p>{esc(DONATE['firewall'])}</p></div>
+    <h2>{esc(DONATE['privacy_title'])}</h2>
+    <p>{esc(DONATE['privacy'])}</p>
     <h2>{esc(DONATE['tax_title'])}</h2>
     <p>{esc(donate_tax('tax'))}</p>
 {alt}"""

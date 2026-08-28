@@ -70,15 +70,22 @@ ask on its own.
 
 Two things to re-check before soliciting publicly:
 
+- **The copy assumes the project's structure**: a Colorado nonprofit corporation
+  operating as a 501(c)(4), collecting through Open Collective as an
+  Independent Collective (own bank account — a 501(c)(3) fiscal host would
+  contradict both the tax copy and the lobbying posture).
 - **`DONATE['status']` must not get ahead of the paperwork.** It selects the tax
-  copy: `'forming'` says the project is not yet tax-exempt and is organising as
-  a 501(c)(4); `'c4'` says it is one. Flip it the day the entity exists and
-  Form 8976 is filed, not before — claiming exempt status not yet held is the
-  precise error the rest of the support page exists to avoid.
-- **Fiscal hosting changes the tax answer.** Both copy variants say gifts are not
-  deductible, which holds for an independent collective and for a 501(c)(4).
-  Being fiscally hosted by a 501(c)(3) would make gifts deductible through the
-  host, and both variants would then be wrong.
+  copy: `'forming'` says the project is not yet tax-exempt and is incorporating;
+  `'c4'` says the corporation exists and operates as a 501(c)(4). Flip it the
+  day the articles are filed and Form 8976 is submitted, not before.
+- **Disclosure policy: amounts public, names private.** Every contribution
+  amount and every expense goes on the public ledger; donor identities are not
+  published. Configure Open Collective for incognito contributions before
+  setting `url`, so the ledger matches the copy.
+- **Confidentiality wording is deliberate.** The site promises care and
+  discretion with what residents send, never immunity — files can be reached by
+  legal process, especially once the organization litigates in its own name.
+  Do not reintroduce absolute confidentiality promises.
 - **Colorado's Charitable Solicitations Act keys on soliciting, not on tax
   status.** Registration with the Secretary of State is generally required
   before soliciting, with an exemption under $25,000 a year in gross
