@@ -30,6 +30,7 @@ NAV = [
     ('asks.html', "What We're Asking For"),
     ('residents.html', 'For Residents'),
     ('data.html', 'Source Data'),
+    ('support.html', 'Support'),
     ('about.html', 'About'),
 ]
 
@@ -78,6 +79,62 @@ SIGNUP = {
     'foot_heading': 'Get each report when it publishes',
     # Shown in the footer when mode is 'iframe' (an iframe per page is too heavy).
     'foot_link': 'Get each report when it publishes — <a href="reports.html#signup">join the email list</a>.',
+}
+
+# ------------------------------------------------------------------- donations
+# `url` is the Open Collective page. While it is blank every donation spot falls
+# back to the mailto ask, exactly as SIGNUP does.
+#
+# Two things to re-check when the collective goes live:
+#   - Fiscal hosting changes the tax answer. An independent collective keeps the
+#     'tax' copy below true. Being hosted by a 501(c)(3) host would make gifts
+#     deductible after all, and that paragraph would then be wrong.
+#   - Colorado's Charitable Solicitations Act keys on soliciting, not on tax
+#     status. Registration is generally required before soliciting, with an
+#     exemption under $25,000 a year or ten or fewer contributors.
+DONATE = {
+    'url': '',
+    'button': 'Donate through Open Collective',
+    'heading': 'Support this work',
+    'ask': (
+        'This project runs on public records, and public records cost money. If what we publish here is '
+        'useful to you, you can help pay for it.'
+    ),
+    'uses_title': 'What your money pays for',
+    'uses': [
+        ('Records requests.', 'Boulder Police dispatch extracts are fulfilled at a per-request cost, and the '
+         'multi-year extracts behind our reports are the largest single expense we have.'),
+        ('Publishing.', 'The domain, the hosting, and the data pipeline that refreshes this site every week.'),
+        ('Notice to owners.', 'Printing and certified mail when we write to a property owner before anything '
+         'escalates — the step that quietly resolves most addresses.'),
+    ],
+    'firewall_title': 'What a donation does not buy',
+    'firewall': (
+        'It does not buy a place on the watch list, and it does not buy a way off one. Which properties appear '
+        'here is decided by public police records applied on published criteria, with no discretionary step — and '
+        'we publish the data so that anyone can run the same criteria and get the same list. Nobody who funds this '
+        'project can add an address or remove one. If that is what you were hoping to buy, we would rather you '
+        'kept your money.'
+    ),
+    # One-line version, used on the reports page and beside the button.
+    'tax_short': 'Not a charity, not tax-exempt — contributions are not tax-deductible.',
+    'tax_title': 'Tax status, plainly',
+    'tax': (
+        'The Quiet Enjoyment Project is not a registered charity and is not a tax-exempt organization. We make no '
+        '501(c)(3) claim. Contributions are not tax-deductible, and nobody here will tell you otherwise — if a '
+        'deduction is what you are after, this is not the place for it. We are an unincorporated resident '
+        'initiative, and a gift here is exactly that: a gift toward the costs above.'
+    ),
+    'ledger': (
+        'We collect through Open Collective, where every contribution and every expense is posted to a public '
+        'ledger. You can see what came in and what it paid for without having to ask us.'
+    ),
+    # Shown on the reports page — the point where someone has just read the work.
+    'short': (
+        'These reports are built from records we pay for. If they are useful to you, you can help cover the cost.'
+    ),
+    'foot_link': '<a href="support.html">Support this work</a>',
+    'alt': 'Prefer to arrange it directly, or want to give something other than money? Write to <a href="mailto:{email}">{email}</a>.',
 }
 
 HOME = {
@@ -379,10 +436,11 @@ ABOUT = {
     'contact': (
         '<a href="mailto:{email}">{email}</a> — residents, owners, media, corrections, and offers to help all welcome.'
     ),
+    'donate_title': 'Support',
     'donate': (
-        'If you would like to donate, please email <a href="mailto:{email}">{email}</a>. We are in the financial '
-        'planning stages, and early commitments are very helpful — we will come back to you the moment tax-deductible '
-        'giving is in place.'
+        'This work is paid for by the people it serves. We are not a registered charity, we make no 501(c)(3) '
+        'claim, and contributions are not tax-deductible — <a href="support.html">what a donation does and does '
+        'not buy</a> is set out in full on the support page.'
     ),
     'feedback': (
         'This website is an initial version, published August 2026. Thoughtful feedback on any of it — the data, the '

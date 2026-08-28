@@ -10,7 +10,7 @@ import json, os, re, shutil, html, datetime, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from site_content import (SITE, NAV, FOOTER, SIGNUP, HOME, REPORTS, WATCH, LAW,
+from site_content import (SITE, NAV, FOOTER, SIGNUP, DONATE, HOME, REPORTS, WATCH, LAW,
                           HEALTH, ASKS, RESIDENTS, ABOUT, DATA)
 
 PROJECT = os.path.dirname(HERE)                     # .../University Hill Noise
@@ -116,6 +116,14 @@ footer.site a{color:var(--ink-2)}
 .signup.compact form{margin:.55rem 0 0;max-width:28rem}
 .signup.compact input[type=email],.signup.compact button{font-size:.88rem;padding:.45rem .65rem}
 .signup.compact button{padding:.45rem .95rem}
+.btn{display:inline-block;font-weight:600;font-size:.95rem;padding:.6rem 1.15rem;border-radius:8px;text-decoration:none;
+  color:var(--bg);background:var(--accent);border:1px solid var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.donate{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:1.25rem 1.4rem;margin:1.75rem 0}
+.donate h2{margin:0 0 .4rem;font-size:1.15rem}
+.donate p{color:var(--ink-2);margin:0 0 .95rem;max-width:44rem}
+.donate .fine{font-size:.85rem;color:var(--muted);margin:.85rem 0 0}
 """
 
 
@@ -173,7 +181,29 @@ def signup_html(variant='block', fallback=''):
     </section>"""
 
 
+def donate_html(variant='block'):
+    """Donation ask for one placement.
+
+    Falls back to the mailto ask while DONATE['url'] is blank, so the site never
+    shows a Donate button that leads nowhere.
+    """
+    url = DONATE['url'].strip()
+    # The footer always points at the support page — it carries the mailto ask
+    # even before an online collection link exists.
+    if variant == 'foot':
+        return fmt(DONATE['foot_link'])
+    cta = (f'      <p><a class="btn" href="{attr(url)}">{esc(DONATE["button"])}</a></p>\n'
+           if url else '')
+    return f"""    <section class="donate">
+      <h2>{esc(DONATE['heading'])}</h2>
+      <p>{esc(DONATE['short'])}</p>
+{cta}      <p class="fine">{esc(DONATE['tax_short'])} <a href="support.html">What a donation does and does not buy →</a></p>
+    </section>"""
+
+
 def page(filename, title, body, subtitle=None):
+    d = donate_html('foot')
+    donate_foot = f' · {d}' if d else ''
     nav = '\n'.join(
         f'        <a href="{h}"{" aria-current=\"page\"" if h == filename else ""}>{esc(label)}</a>'
         for h, label in NAV)
@@ -203,7 +233,7 @@ def page(filename, title, body, subtitle=None):
 <footer class="site">
   <div class="wrap">
 {signup_html('foot')}
-    <p>{fmt(FOOTER)}</p>
+    <p>{fmt(FOOTER)}{donate_foot}</p>
   </div>
 </footer>
 </body>
@@ -369,7 +399,8 @@ def build_reports():
     <ul class="clean">
 {findings}
     </ul>
-{charts}{signup}"""
+{charts}{signup}
+{donate_html('block')}"""
     page('reports.html', 'The Reports', body)
 
 
@@ -491,6 +522,32 @@ def build_residents():
     page('residents.html', 'For Residents', body)
 
 
+def build_support():
+    url = DONATE['url'].strip()
+    uses = '\n'.join(f'      <li><strong>{esc(l)}</strong> {esc(b)}</li>' for l, b in DONATE['uses'])
+    if url:
+        cta = (f'    <p><a class="btn" href="{attr(url)}">{esc(DONATE["button"])}</a></p>\n'
+               f'    <p>{esc(DONATE["ledger"])}</p>')
+    else:
+        cta = ('    <div class="callout plain"><p>We are not collecting online yet. '
+               f'{fmt(DONATE["alt"])}</p></div>')
+    # The mailto ask already carries the fallback callout; don't repeat it.
+    alt = f'    <p>{fmt(DONATE["alt"])}</p>' if url else ''
+    body = f"""    <h1>{esc(DONATE['heading'])}</h1>
+    <p class="lede">{esc(DONATE['ask'])}</p>
+{cta}
+    <h2>{esc(DONATE['uses_title'])}</h2>
+    <ul class="clean">
+{uses}
+    </ul>
+    <h2>{esc(DONATE['firewall_title'])}</h2>
+    <div class="callout"><p>{esc(DONATE['firewall'])}</p></div>
+    <h2>{esc(DONATE['tax_title'])}</h2>
+    <p>{esc(DONATE['tax'])}</p>
+{alt}"""
+    page('support.html', 'Support', body)
+
+
 def build_about():
     how = '\n'.join(f'      <li><strong>{esc(l)}</strong> {esc(b)}</li>' for l, b in ABOUT['how'])
     gov = '\n'.join(f'      <li><strong>{esc(l)}</strong> {esc(b)}</li>' for l, b in ABOUT['governance'])
@@ -510,6 +567,7 @@ def build_about():
     <div class="callout plain"><p>{esc(ABOUT['independence'])}</p></div>
     <h2>{esc(ABOUT['contact_title'])}</h2>
     <p>{fmt(ABOUT['contact'])}</p>
+    <h2>{esc(ABOUT['donate_title'])}</h2>
     <p>{fmt(ABOUT['donate'])}</p>
     <p>{esc(ABOUT['feedback'])}</p>"""
     page('about.html', 'About', body)
@@ -560,7 +618,8 @@ def main():
         shutil.rmtree(ASSETS)
     copy_assets()
     build_home(); build_reports(); build_watch(); build_law()
-    build_health(); build_asks(); build_residents(); build_about(); build_data()
+    build_health(); build_asks(); build_residents(); build_data()
+    build_support(); build_about()
     with open(os.path.join(OUT, 'CNAME'), 'w') as f:
         f.write(SITE['domain'] + '\n')
     open(os.path.join(OUT, '.nojekyll'), 'w').close()

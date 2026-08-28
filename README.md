@@ -56,6 +56,29 @@ The form renders on the home, reports, and For Residents pages, and in the
 footer of every page. In `iframe` mode the footer shows a link to the form on
 the reports page instead — an iframe on all nine pages is too heavy.
 
+## Donations
+
+`DONATE` in `pipeline/site_content.py` holds the ask. While `url` is blank the
+support page and the reports block show the mailto ask instead of a Donate
+button, so nothing points at a collection page that does not exist yet. Set
+`url` to the Open Collective page and rebuild to switch it on.
+
+The ask appears on its own `support.html` page, in a short block on the reports
+page, as a paragraph on About, and as a footer link site-wide. The footer link
+renders whether or not `url` is set, because the support page carries the mailto
+ask on its own.
+
+Two things to re-check before soliciting publicly:
+
+- **Fiscal hosting changes the tax answer.** The `tax` copy states the project is
+  not tax-exempt and that gifts are not deductible. That stays true for an
+  independent collective. Being fiscally hosted by a 501(c)(3) would make gifts
+  deductible through the host, and that paragraph would then be wrong.
+- **Colorado's Charitable Solicitations Act keys on soliciting, not on tax
+  status.** Registration with the Secretary of State is generally required
+  before soliciting, with an exemption under $25,000 a year in gross
+  contributions or ten or fewer contributors in the fiscal year.
+
 `pipeline/archive/` holds an immutable monthly snapshot of the city's
 rental-property calls feed. That feed is a rolling 365-day window, so without
 these snapshots exact-address history would be lost permanently.
