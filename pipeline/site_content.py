@@ -227,7 +227,7 @@ WATCH = {
         'A dispatched complaint is a resident call that police logged against an address. It is not, by itself, a '
         'finding that the law was violated. We publish complaint counts because they are the best available public '
         'measure of where chronic noise comes from — and because under Boulder’s chronic-nuisance ordinance '
-        '(B.R.C. ch. 10-2.5), five cited violations in a year can cost a rental property its license. Owners: if you '
+        '(B.R.C. ch. 10-2.5), five documented violations in a year — no citation required under the 2024 ordinance — can cost a rental property its license. Owners: if you '
         'believe any figure here is wrong, write to <a href="mailto:{email}">{email}</a> and we will review and '
         'correct promptly. If the noise stops, your address comes off this list — publicly.'
     ),
@@ -272,7 +272,8 @@ LAW = {
          'still: its nighttime limit begins at 7 p.m. (C.R.S. 25-12-103). <a href="health.html">More on the health page.</a>'),
         ('Repeat complaints reach the rental license',
          'Under Boulder’s chronic-nuisance ordinance (B.R.C. ch. 10-2.5, 2024), a single-family rental with five or more '
-         'cited nuisance violations in a year (counted Aug. 1–Jul. 31) can be designated a chronic nuisance property — '
+         'documented nuisance violations in a year (counted Aug. 1–Jul. 31; no citation is required, and police-documented '
+         'warnings are evidence of violations) can be designated a chronic nuisance property — '
          'triggering a mandatory abatement plan and rental-license consequences up to revocation.'),
         ('Residents can sue — and reach the owner',
          'Colorado’s Noise Abatement Act lets any resident ask a district court to shut down a noise nuisance and enjoin '
@@ -365,7 +366,7 @@ ASKS = {
              'enforcement; it is scheduling.', 'Requested Aug. 2026'),
         ]),
         ('Of the City Attorney', [
-            ('Open chronic-nuisance review (B.R.C. 10-2.5) of every address reaching five cited violations in the '
+            ('Open chronic-nuisance review (B.R.C. 10-2.5) of every address reaching five documented violations in the '
              'Aug. 1–Jul. 31 nuisance year, and use the abatement-agreement and rental-license tools written for '
              'exactly this pattern.', 'Requested Aug. 2026'),
             ('Publish the number of noise citations prosecuted and their outcomes, so residents can see whether '
