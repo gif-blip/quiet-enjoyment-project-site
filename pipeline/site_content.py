@@ -451,7 +451,10 @@ ABOUT = {
          'wrong can write to us, and we correct promptly and visibly. We publish the underlying data so that anyone '
          'can check our arithmetic without asking our permission.'),
         ('We publish conduct, not people.', 'We name property addresses and owners of record — both matters of '
-         'public record — and we do not publish the names of residents, callers, or students. Complaint counts are '
+         'public record — and we do not publish the names of residents, callers, or students. Public officials are '
+         'the exception: we name the officials who design and operate the programs we examine, in their official '
+         'capacity, as the public record names them — never rank-and-file employees — and any official we name gets '
+         'at least two weeks to respond to our findings before publication. Complaint counts are '
          'reported as what they are: calls logged by police, not findings of violation.'),
         ('Court is the last step, and we say up front that we may take it.', 'Education first, owner notice '
          'second, city enforcement third. For the few properties that answer none of that, this project may ask a '
