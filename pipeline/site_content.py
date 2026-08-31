@@ -82,29 +82,31 @@ SIGNUP = {
 }
 
 # ------------------------------------------------------------------- donations
-# `url` is the Open Collective page. While it is blank every donation spot falls
+# `url` is the donation link (Stripe payment link). While it is blank every donation spot falls
 # back to the mailto ask, exactly as SIGNUP does.
 #
 # This copy assumes the project's structure: a Colorado nonprofit corporation
 # operating as a 501(c)(4) social welfare organization, collecting through
-# Open Collective as an Independent Collective (its own bank account — a
-# 501(c)(3) fiscal host would contradict both the tax copy and the lobbying
-# posture).
+# Stripe payment links on the corporation's own account. (Open Collective was
+# evaluated and rejected 2026-08-30: its public transaction ledger attaches
+# donor names unless each donor individually opts out, which contradicts the
+# amounts-public/names-private policy. A 501(c)(3) fiscal host would likewise
+# contradict the tax copy and the lobbying posture.)
 #
 # Three things to hold true:
 #   - 'status' selects the tax wording: 'forming' until articles are filed and
 #     Form 8976 is submitted, 'c4' after. Never let the copy get ahead of the
 #     paperwork.
 #   - Disclosure policy: contribution amounts and expenses are public; donor
-#     identities are not published. Configure Open Collective accordingly
-#     (incognito contributions) before setting `url` — the ledger must match
-#     the copy.
+#     identities are not published. The corporation publishes its own ledger
+#     on this site per the Transparency Policy; `url` should point at the
+#     Stripe payment link once it exists.
 #   - Colorado's Charitable Solicitations Act keys on soliciting, not on tax
-#     status. Registration is generally required before soliciting, with an
-#     exemption under $25,000 a year or ten or fewer contributors.
+#     status. Registration ($10) is required before soliciting, with an
+#     automatic exemption under $25,000 a year or ten or fewer contributors.
 DONATE = {
     'url': '',
-    'button': 'Donate through Open Collective',
+    'button': 'Donate',
     'heading': 'Support this work',
     'ask': (
         'This project runs on public records, and public records cost money. If what we publish here is '
@@ -152,8 +154,8 @@ DONATE = {
         'both than be able to offer you a write-off.'
     ),
     'ledger': (
-        'We collect through Open Collective, where every contribution amount and every expense is posted to a '
-        'public ledger. You can see what this project runs on and what it spends without having to ask us.'
+        'We publish a ledger on this site of every contribution amount and every expense. You can see what this '
+        'project runs on and what it spends without having to ask us.'
     ),
     'privacy_title': 'Amounts public, names private',
     'privacy': (

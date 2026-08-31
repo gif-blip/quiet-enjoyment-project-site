@@ -61,7 +61,7 @@ the reports page instead — an iframe on all nine pages is too heavy.
 `DONATE` in `pipeline/site_content.py` holds the ask. While `url` is blank the
 support page and the reports block show the mailto ask instead of a Donate
 button, so nothing points at a collection page that does not exist yet. Set
-`url` to the Open Collective page and rebuild to switch it on.
+`url` to the corporation's Stripe payment link and rebuild to switch it on.
 
 The ask appears on its own `support.html` page, in a short block on the reports
 page, as a paragraph on About, and as a footer link site-wide. The footer link
@@ -71,17 +71,19 @@ ask on its own.
 Two things to re-check before soliciting publicly:
 
 - **The copy assumes the project's structure**: a Colorado nonprofit corporation
-  operating as a 501(c)(4), collecting through Open Collective as an
-  Independent Collective (own bank account — a 501(c)(3) fiscal host would
-  contradict both the tax copy and the lobbying posture).
+  operating as a 501(c)(4), collecting through Stripe payment links on the
+  corporation's own account, with the ledger published on this site. (Open
+  Collective was evaluated and rejected 2026-08-30 — its public transaction
+  ledger attaches donor names unless each donor opts out individually. A
+  501(c)(3) fiscal host would contradict the tax copy and lobbying posture.)
 - **`DONATE['status']` must not get ahead of the paperwork.** It selects the tax
   copy: `'forming'` says the project is not yet tax-exempt and is incorporating;
   `'c4'` says the corporation exists and operates as a 501(c)(4). Flip it the
   day the articles are filed and Form 8976 is submitted, not before.
 - **Disclosure policy: amounts public, names private.** Every contribution
-  amount and every expense goes on the public ledger; donor identities are not
-  published. Configure Open Collective for incognito contributions before
-  setting `url`, so the ledger matches the copy.
+  amount and every expense goes on the public ledger — published by this site
+  per the Transparency Policy (Exhibit B in ~/Documents/QEP-Formation), from
+  Stripe exports; donor identities are not published.
 - **Confidentiality wording is deliberate.** The site promises care and
   discretion with what residents send, never immunity — files can be reached by
   legal process, especially once the organization litigates in its own name.
