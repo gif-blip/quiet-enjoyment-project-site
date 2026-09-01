@@ -41,19 +41,19 @@ def pip(x, y, poly):
 # VERIFY against registrar archive before publication. Deep windows below are
 # robust to +/- a few days at boundaries.
 D = datetime.date
-TERMS = [  # (start, end) inclusive — fall & spring semesters incl. finals
-    (D(2023,1,17), D(2023,5,11)), (D(2023,8,28), D(2023,12,21)),
-    (D(2024,1,16), D(2024,5,9)),  (D(2024,8,26), D(2024,12,19)),
-    (D(2025,1,13), D(2025,5,8)),  (D(2025,8,25), D(2025,12,18)),
-    (D(2026,1,12), D(2026,5,7)),
+TERMS = [  # (start, end) inclusive — first class day .. last final day (Registrar PDFs, verified 2026-09-01)
+    (D(2023,1,17), D(2023,5,10)), (D(2023,8,28), D(2023,12,20)),
+    (D(2024,1,16), D(2024,5,8)),  (D(2024,8,26), D(2024,12,18)),
+    (D(2025,1,13), D(2025,5,7)),  (D(2025,8,21), D(2025,12,12)),
+    (D(2026,1,8),  D(2026,5,1)),
 ]
 SPRING_BREAKS = [(D(2023,3,27), D(2023,4,2)), (D(2024,3,25), D(2024,3,31)),
-                 (D(2025,3,24), D(2025,3,30)), (D(2026,3,23), D(2026,3,29))]
+                 (D(2025,3,24), D(2025,3,30)), (D(2026,3,16), D(2026,3,22))]
 # deep windows (immune to boundary error)
 TERM_CORE   = [(D(y,9,5),  D(y,11,15)) for y in (2023,2024,2025)] + \
               [(D(y,2,1),  D(y,4,15))  for y in (2023,2024,2025,2026)]
 WINTER_DEEP = [(D(2022,12,22), D(2023,1,8)), (D(2023,12,22), D(2024,1,8)),
-               (D(2024,12,22), D(2025,1,8)), (D(2025,12,22), D(2026,1,8))]
+               (D(2024,12,22), D(2025,1,8)), (D(2025,12,22), D(2026,1,7))]
 SUMMER_DEEP = [(D(y,6,1), D(y,7,31)) for y in (2023,2024,2025,2026)]
 MOVEIN      = [(D(y,8,18), D(y,8,31)) for y in (2023,2024,2025)]  # move-in fortnight
 
@@ -109,8 +109,14 @@ periods = [("term (core)", TERM_CORE), ("winter break (deep)", WINTER_DEEP),
            ("move-in (Aug 18-31)", MOVEIN)]
 print(f"\n{'period':24s} {'nights':>6s} {'in/night':>9s} {'out/night':>9s} {'in-share':>8s}")
 res = {}
+from collections import Counter as _C
+_night_ct = _C()
+_d = lo
+while _d <= hi:
+    _night_ct[classify(_d)] += 1
+    _d += datetime.timedelta(days=1)
 for name, wins in periods:
-    n = nights_in(wins, lo, hi)
+    n = _night_ct[name]
     i, o = tal[name]
     if n == 0: continue
     res[name] = {"nights": n, "inside": i, "outside": o,
@@ -134,6 +140,6 @@ json.dump({"periods": res, "monthly": {k: {"inside": v[0], "outside": v[1]}
            for k, v in sorted(monthly.items())},
            "meta": {"excluded_outlier_calls": excl, "usable": len(rows),
                     "span": [str(lo), str(hi)],
-                    "note": "semester dates best-known; VERIFY vs registrar before publication; deep windows robust"}},
+                    "note": "semester dates verified against CU Registrar published calendars 2026-09-01 (incl. the revised AY25-26 calendar); period nights counted by the same classification as calls"}},
           open("./data/term_break_fingerprint_2026-08-31.json", "w"), indent=1)
 print("\nsaved -> ./data/term_break_fingerprint_2026-08-31.json")

@@ -1,20 +1,20 @@
 {
  "periods": {
   "term (core)": {
-   "nights": 513,
-   "inside": 2868,
-   "outside": 1059,
-   "in_per_night": 5.590643274853801,
-   "out_per_night": 2.064327485380117,
-   "in_share": 0.7303284950343774
+   "nights": 485,
+   "inside": 2925,
+   "outside": 1057,
+   "in_per_night": 6.030927835051546,
+   "out_per_night": 2.179381443298969,
+   "in_share": 0.7345554997488699
   },
   "winter break (deep)": {
-   "nights": 62,
-   "inside": 67,
-   "outside": 76,
-   "in_per_night": 1.0806451612903225,
-   "out_per_night": 1.2258064516129032,
-   "in_share": 0.46853146853146854
+   "nights": 61,
+   "inside": 63,
+   "outside": 73,
+   "in_per_night": 1.0327868852459017,
+   "out_per_night": 1.1967213114754098,
+   "in_share": 0.4632352941176471
   },
   "summer break (deep)": {
    "nights": 244,
@@ -26,11 +26,11 @@
   },
   "spring break": {
    "nights": 28,
-   "inside": 105,
-   "outside": 52,
-   "in_per_night": 3.75,
-   "out_per_night": 1.8571428571428572,
-   "in_share": 0.6687898089171974
+   "inside": 48,
+   "outside": 54,
+   "in_per_night": 1.7142857142857142,
+   "out_per_night": 1.9285714285714286,
+   "in_share": 0.47058823529411764
   },
   "move-in (Aug 18-31)": {
    "nights": 42,
@@ -226,6 +226,6 @@
    "2023-01-01",
    "2026-08-14"
   ],
-  "note": "semester dates best-known; VERIFY vs registrar before publication; deep windows robust"
+  "note": "semester dates verified against CU Registrar published calendars 2026-09-01 (incl. the revised AY25-26 calendar); period nights counted by the same classification as calls"
  }
 }

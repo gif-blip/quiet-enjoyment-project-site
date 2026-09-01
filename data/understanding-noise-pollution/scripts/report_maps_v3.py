@@ -70,7 +70,7 @@ D = datetime.date
 TERM_CORE   = [(D(y,9,5),  D(y,11,15)) for y in (2023,2024,2025)] + \
               [(D(y,2,1),  D(y,4,15))  for y in (2023,2024,2025,2026)]
 WINTER_DEEP = [(D(2022,12,22), D(2023,1,8)), (D(2023,12,22), D(2024,1,8)),
-               (D(2024,12,22), D(2025,1,8)), (D(2025,12,22), D(2026,1,8))]
+               (D(2024,12,22), D(2025,1,8)), (D(2025,12,22), D(2026,1,7))]
 def inw(d, wins): return any(a <= d <= b for a, b in wins)
 def nights(wins, lo, hi):
     n = 0
@@ -149,7 +149,7 @@ print("maps rebuilt (KMZ kernel style)")
 
 # ---------- spring semester trend ----------
 SPRINGS = {2023: (D(2023,1,17), D(2023,5,11)), 2024: (D(2024,1,16), D(2024,5,9)),
-           2025: (D(2025,1,13), D(2025,5,8)),  2026: (D(2026,1,12), D(2026,5,7))}
+           2025: (D(2025,1,13), D(2025,5,8)),  2026: (D(2026,1,8), D(2026,5,1))}
 print("\nspring semesters (walkshed / citywide ex-outlier):")
 for y, (a, b) in SPRINGS.items():
     wk = sum(1 for n, x, yy_ in rows if a <= n <= b and pip(x, yy_, walk))

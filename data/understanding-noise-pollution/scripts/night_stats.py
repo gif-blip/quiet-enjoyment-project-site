@@ -25,6 +25,8 @@ def pip(x, y, poly):
 D = datetime.date
 TERM_CORE = [(D(y,9,5), D(y,11,15)) for y in (2023,2024,2025)] + \
             [(D(y,2,1), D(y,4,15)) for y in (2023,2024,2025,2026)]
+SPRING_BREAKS = [(D(2023,3,27), D(2023,4,2)), (D(2024,3,25), D(2024,3,31)),
+                 (D(2025,3,24), D(2025,3,30)), (D(2026,3,16), D(2026,3,22))]
 def inw(d, wins): return any(a <= d <= b for a, b in wins)
 
 calls = json.load(open("./data/noiseb_calls_citywide_2023-01_2026-08.json"))
@@ -48,7 +50,7 @@ def daterange(a, b):
     while d <= b:
         yield d
         d += datetime.timedelta(days=1)
-term_nights = [d for a, b in TERM_CORE for d in daterange(a, b)]
+term_nights = [d for a, b in TERM_CORE for d in daterange(a, b) if not inw(d, SPRING_BREAKS)]
 thu_sat = [d for d in term_nights if d.weekday() in (3, 4, 5)]   # Thu, Fri, Sat
 sun_wed = [d for d in term_nights if d.weekday() not in (3, 4, 5)]
 r_thu_sat = sum(by_night.get(d, 0) for d in thu_sat) / len(thu_sat)
