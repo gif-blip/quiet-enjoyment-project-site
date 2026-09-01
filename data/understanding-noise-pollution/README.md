@@ -1,5 +1,6 @@
 # Understanding Noise Pollution in Boulder — Data Package
-**The Quiet Enjoyment Project · September 2026 · Version 1.5**
+**The Quiet Enjoyment Project · September 2026 · Version 1.6**
+*(v1.6: the kernel maps now carry full map context — city limits, the hatched university district, labeled arterials and neighborhoods, a scale bar and north arrow — and use the city boundary as their extent, so no call locations fall outside the frame.)*
 *(v1.5: `chart_calendar.png` now plots the rest-of-city monthly series beside the walkshed series, so the seasonality contrast is visible on one chart.)*
 *(v1.4, after a second adversarial review: `health_exposure.py` now deduplicates
 the assessor parcel file by ParcelNo — the city file repeats 2,504 rows — which

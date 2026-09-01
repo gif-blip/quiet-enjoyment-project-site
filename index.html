@@ -36,6 +36,18 @@ nav.site a{color:var(--ink-2);text-decoration:none;padding:.35rem 0 .7rem;border
   white-space:nowrap}
 nav.site a:hover{color:var(--accent)}
 nav.site a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+nav.site details.navmenu{position:relative}
+nav.site details.navmenu summary{list-style:none;cursor:pointer;color:var(--ink-2);padding:.35rem 0 .7rem;
+  border-bottom:2px solid transparent;white-space:nowrap}
+nav.site details.navmenu summary::-webkit-details-marker{display:none}
+nav.site details.navmenu summary::after{content:" BE";font-size:.8em}
+nav.site details.navmenu[open] summary{color:var(--ink)}
+nav.site details.navmenu .menu{display:flex;flex-direction:column;gap:.15rem;padding:.5rem .9rem .6rem;
+  background:var(--bg);border:1px solid var(--rule);border-radius:6px;min-width:13rem}
+@media (min-width:720px){
+  nav.site{overflow:visible}
+  nav.site details.navmenu .menu{position:absolute;top:100%;left:0;z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+}
 @media (min-width:720px){
   .brand{font-size:1.15rem}
   .brand .mark{height:3rem}
