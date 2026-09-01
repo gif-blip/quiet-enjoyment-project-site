@@ -154,22 +154,24 @@ plt.tight_layout(); plt.savefig(f"{ASSETS}/chart_hourly.png"); plt.close()
 # E) waffle — what it takes to put one license at risk
 fig, ax = plt.subplots(figsize=(9.6, 4.4), dpi=200)
 ax.axis("off")
-COLS, ROWS_ = 40, 16   # 640 dots
-for i in range(640):
+# v1.4: rates rebuilt on charged citations only (Person_Charged = Yes in BPD's
+# charge file) — the campus district's charged-citation rate is 1 per 320 calls
+COLS, ROWS_ = 64, 25   # 1,600 dots
+for i in range(1600):
     r_, c_ = divmod(i, COLS)
-    ax.plot(c_*1.0, -r_*1.0, "o", ms=4.4, color="#8a5a2b", alpha=0.85)
-ax.text(COLS/2 - 0.5, 2.6, "640 neighbor phone calls", ha="center", fontsize=15,
+    ax.plot(c_*1.0, -r_*0.64, "o", ms=2.6, color="#8a5a2b", alpha=0.85)
+ax.text(COLS/2 - 0.5, 2.6, "1,600 neighbor phone calls", ha="center", fontsize=15,
         fontweight="bold", color=INK)
-ax.text(COLS/2 - 0.5, 1.2, "each dot: one call to police, at the university district's citation rate (1 per 128 calls)",
+ax.text(COLS/2 - 0.5, 1.2, "each dot: one call to police, at the campus district's charged-citation rate (1 per 320 calls)",
         ha="center", fontsize=9.5, color=INK)
-ax.text(COLS + 3.0, -ROWS_/2 + 0.5, "→", fontsize=26, color=INK, ha="center")
+ax.text(COLS + 4.0, -ROWS_*0.64/2 + 0.5, "→", fontsize=26, color=INK, ha="center")
 for j in range(5):
-    ax.plot(COLS + 6.6, -1.2 - j*1.9, "s", ms=11, color=INK)
-ax.text(COLS + 6.6, -12.4, "5 citations — the\nchronic-nuisance\nthreshold, counted\nthe traditional way", ha="center", va="top", fontsize=9.5, color=INK)
-ax.text(COLS + 10.8, -ROWS_/2 + 0.5, "→", fontsize=26, color=INK, ha="center")
-ax.text(COLS + 16.4, -ROWS_/2 + 0.5, "zero", fontsize=34, fontweight="bold", color="#8a5a2b", ha="center", va="center")
-ax.text(COLS + 15.8, -12.4, "chronic-nuisance\ndesignations in the\ncampus districts", ha="center", va="top", fontsize=9.5, color=INK)
-ax.set_xlim(-1.5, COLS + 21); ax.set_ylim(-ROWS_ - 4.5, 5)
+    ax.plot(COLS + 9.0, -1.2 - j*1.9, "s", ms=11, color=INK)
+ax.text(COLS + 9.0, -12.4, "5 citations — the\nchronic-nuisance\nthreshold, counted\nthe traditional way", ha="center", va="top", fontsize=9, color=INK)
+ax.text(COLS + 14.5, -ROWS_*0.64/2 + 0.5, "→", fontsize=26, color=INK, ha="center")
+ax.text(COLS + 21.5, -ROWS_*0.64/2 + 0.5, "zero", fontsize=34, fontweight="bold", color="#8a5a2b", ha="center", va="center")
+ax.text(COLS + 21.5, -12.4, "chronic-nuisance\ndesignations in the\ncampus districts", ha="center", va="top", fontsize=9, color=INK)
+ax.set_xlim(-1.5, COLS + 27); ax.set_ylim(-ROWS_*0.64 - 4.5, 5)
 plt.tight_layout(); plt.savefig(f"{ASSETS}/chart_ladder.png", facecolor="white"); plt.close()
 
 # F) trend numbers

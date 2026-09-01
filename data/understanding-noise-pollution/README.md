@@ -1,6 +1,16 @@
 # Understanding Noise Pollution in Boulder — Data Package
-**The Quiet Enjoyment Project · September 2026 · Version 1.3**
-*(v1.3: `report_stats.py` now computes the report's 4.1x matched-proxy ratio directly — permanent-resident proxy on both sides — and prints the total-population (2.4x) and superseded mixed-denominator (4.6x) versions as labeled sensitivities.)*
+**The Quiet Enjoyment Project · September 2026 · Version 1.4**
+*(v1.4, after a second adversarial review: `health_exposure.py` now deduplicates
+the assessor parcel file by ParcelNo — the city file repeats 2,504 rows — which
+lowers the resident-night proximity proxy from 173,441 to 154,048 and the median
+nearby-homes figure from 58 (stale, previously hard-coded) to a computed 54;
+"school nights" is now reported both as the Sun–Thu weekday shortcut and gated
+to actual BVSD student days (~35% / ~54,000); chart annotations are computed,
+not hard-coded; `health_charts.py`'s day-name crash is fixed; the stray chart
+copies in `data/` are gone; and the walkshed KMZ description no longer embeds a
+stale statistic. v1.3: `report_stats.py` computes the 4.1x matched-proxy ratio
+directly, with the total-population (2.4x) and superseded mixed-denominator
+(4.6x) versions printed as labeled sensitivities.)*
 
 This package contains the datasets, scripts, and figures behind the report
 *Understanding Noise Pollution in Boulder* (QEP, September 2026), published per
@@ -26,7 +36,7 @@ that any copy can be verified against the published original.
 | `walkshed_population_2026-08-31.json` | Walkshed population and group-quarters split | 2020 census PL 94-171, block level (see scripts) |
 | `walkshed_age_split_2026-08-31.json` | Walkshed household population by age; the permanent-resident count | 2020 census DHC table P12, block level (see scripts) |
 | `term_break_fingerprint_2026-08-31.json` | Complaints per night by academic period, inside/outside the walkshed | Derived; see `term_break_analysis.py` |
-| `health_exposure_results.json` | Resident-night proximity estimates (173,441/yr, parcel-night deduplicated, outlier excluded; 46% Sun–Thu) | Derived; see `health_exposure.py` |
+| `health_exposure_results.json` | Resident-night proximity estimates (154,048/yr — deduplicated by parcel number and by parcel-night, outlier excluded; 46% on Sun–Thu nights, ~35% gated to actual BVSD student days) | Derived; see `health_exposure.py` |
 | `noise_party_calls_trailing12mo.json` | The 3,043 party/noise calls underlying the health exposure figures | City of Boulder open data |
 | `city_res_parcels.json` | Residential parcel points (parcel number, coordinates, land sqft, assessor neighborhood — no owner information) used for the households-within-earshot join | Boulder County Assessor, pulled 2026-08-22 |
 | `citylimits.json` | City of Boulder boundary polygon | City of Boulder GIS |
@@ -52,10 +62,10 @@ correct download.
 | 10.9 complaint calls/night Thu–Sat in term; one per 44 min; Sept weekends 19; highest night in dataset 38 (Oct 30, 2025) | noiseb + walkshed | `night_stats.py` |
 | Term 6.0/night (73%) vs winter break 1.0; move-in fortnight 10.2 (78%) | noiseb + walkshed | `term_break_analysis.py` |
 | School-year trend 1,408 → 1,515 → 1,777; spring 2026 +24% | noiseb + walkshed | `report_charts2.py`, `report_maps_v3.py` |
-| 3.5x complaints per rental inside the walkshed (0.26 vs 0.07) | rental calls + rental parcels + walkshed | `report_charts2.py` |
+| 3.5x complaints per rental license inside the walkshed (0.26 vs 0.07; 3.3x per unique parcel, 2.8x per dwelling unit) | rental calls + rental parcels + walkshed | `report_charts2.py` |
 | 28,010 permanent residents (26% of city population, 36% of its permanent residents), incl. 3,957 children; 4.1x per-permanent-resident rate (matched proxies both sides) | census blocks + walkshed + citylimits | `permanent_pop2.py`, `age_split.py`, `report_stats.py` |
 | 55% of complaints 10 p.m.–3 a.m.; hourly distribution | noiseb | `report_charts2.py` |
-| ~173,000 resident-nights within earshot of a nighttime call (proximity estimate); 46% Sun–Thu | party/noise calls + parcels | `health_exposure.py` |
+| ~154,000 resident-nights within 600 ft of a nighttime call (proximity estimate); 46% Sun–Thu, ~35% on BVSD student-day nights; radius sensitivity 43k @300ft / 306k @900ft | party/noise calls + parcels | `health_exposure.py` |
 | Maps (noise vs rentals; session vs winter break) | noiseb + rentals + walkshed + OSM streets | `report_maps_v3.py` |
 
 **Citation and disposition figures** (1 citation per 25 complaints in South

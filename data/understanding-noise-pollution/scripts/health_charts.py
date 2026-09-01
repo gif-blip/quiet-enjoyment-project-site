@@ -37,9 +37,8 @@ plt.tight_layout(); plt.savefig(f"{ASSETS}/chart_thresholds.png", facecolor="whi
 # ---- school nights ----
 import json as _json
 _res = _json.load(open("./data/health_exposure_results.json")) if __import__("os").path.exists("./data/health_exposure_results.json") else _json.load(open("/Users/stephanvandermersch/Library/CloudStorage/Dropbox/Claude Code/University Hill Noise/Health Cost of Party Noise/health_exposure_results.json"))
-_dow = {int(k): v for k, v in _res["dow_night"].items()}
 days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-vals = [_dow.get(i, 0) for i in range(7)]
+vals = [_res["dow_night"].get(d, 0) for d in days]
 cols = [BROWN, BROWN, BROWN, BROWN, BLUE, BLUE, BROWN]
 fig, ax = plt.subplots(figsize=(8.6, 3.9), dpi=200)
 bars = ax.bar(days, vals, color=cols)
@@ -47,10 +46,10 @@ for b, v in zip(bars, vals):
     ax.text(b.get_x()+b.get_width()/2, v+8, str(v), ha="center", fontsize=10, color=INK)
 ax.set_ylabel("Nighttime calls (10 p.m.–3 a.m.)", fontsize=9.5)
 ax.spines[["top", "right"]].set_visible(False)
-ax.set_title("Thursday is a school night — and runs at weekend volume",
+ax.set_title("Thursday is a school night — and runs near weekend volume",
              fontsize=13, color=INK, fontweight="bold", loc="left", pad=12)
 from matplotlib.patches import Patch
-ax.legend(handles=[Patch(color=BROWN, label="School nights (Sun–Thu)"),
+ax.legend(handles=[Patch(color=BROWN, label="Sun–Thu nights"),
                    Patch(color=BLUE, label="Weekend")], frameon=False, fontsize=9)
 plt.tight_layout(); plt.savefig(f"{ASSETS}/chart_schoolnights.png", facecolor="white"); plt.close()
 print("health charts rebuilt")
