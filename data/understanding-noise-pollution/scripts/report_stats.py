@@ -25,13 +25,22 @@ share = tot_in / (tot_in + tot_out)
 print(f"overall (Jan 2023-Aug 2026, excl outlier): inside {tot_in:,} outside {tot_out:,} -> {100*share:.1f}% inside")
 
 months = 43.5  # Jan 2023 - mid Aug 2026
-perm_in = pop["permanent_proxy"]            # 28,010
-city = 108250
-pop_out = city - 52815                       # residents outside walkshed (~all permanent)
+perm_in = pop["permanent_proxy"]  # 28,010 - walkshed permanent-resident proxy (age_split.py)
+# Citywide figure from the SAME proxy (under-18 + 25-and-over, DHC block level,
+# clipped to citylimits.json in EPSG:2876) - i.e. age_split.py's method applied
+# to every city block; 28,010 of the 77,730 fall inside the walkshed.
+CITY_PERM_PROXY = 77730
+perm_out = CITY_PERM_PROXY - perm_in         # ~49,720 permanent-proxy residents outside
 rate_in  = tot_in  / (months/12) / perm_in  * 1000
-rate_out = tot_out / (months/12) / pop_out * 1000
-print(f"complaints per 1,000 permanent residents/yr: inside {rate_in:.0f}, outside {rate_out:.0f}, ratio {rate_in/rate_out:.1f}x")
-print(f"per 1,000 total residents inside: {tot_in/(months/12)/52815*1000:.0f}")
+rate_out = tot_out / (months/12) / perm_out * 1000
+print(f"complaints per 1,000 permanent residents/yr (matched proxy both sides): inside {rate_in:.0f}, outside {rate_out:.0f}, ratio {rate_in/rate_out:.1f}x")
+# sensitivities, so every ratio ever shown is reproducible and named:
+city = 108250; tot_pop_in = 52815
+r_in_tot  = tot_in  / (months/12) / tot_pop_in * 1000
+r_out_tot = tot_out / (months/12) / (city - tot_pop_in) * 1000
+print(f"  sensitivity - total population both sides: inside {r_in_tot:.0f}, outside {r_out_tot:.0f}, ratio {r_in_tot/r_out_tot:.1f}x")
+print(f"  deprecated mixed-denominator version (perm inside vs total outside): {rate_in/r_out_tot:.1f}x - superseded, not used in the report")
+print(f"per 1,000 total residents inside: {tot_in/(months/12)/tot_pop_in*1000:.0f}")
 print(f"permanent share: {100*perm_in/city:.1f}% of city; complaints share {100*share:.1f}%")
 
 # ---- chart 1: calls/night by period ----

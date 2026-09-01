@@ -1,5 +1,6 @@
 # Understanding Noise Pollution in Boulder — Data Package
-**The Quiet Enjoyment Project · September 2026 · Version 1.2**
+**The Quiet Enjoyment Project · September 2026 · Version 1.3**
+*(v1.3: `report_stats.py` now computes the report's 4.1x matched-proxy ratio directly — permanent-resident proxy on both sides — and prints the total-population (2.4x) and superseded mixed-denominator (4.6x) versions as labeled sensitivities.)*
 
 This package contains the datasets, scripts, and figures behind the report
 *Understanding Noise Pollution in Boulder* (QEP, September 2026), published per
@@ -52,7 +53,7 @@ correct download.
 | Term 6.0/night (73%) vs winter break 1.0; move-in fortnight 10.2 (78%) | noiseb + walkshed | `term_break_analysis.py` |
 | School-year trend 1,408 → 1,515 → 1,777; spring 2026 +24% | noiseb + walkshed | `report_charts2.py`, `report_maps_v3.py` |
 | 3.5x complaints per rental inside the walkshed (0.26 vs 0.07) | rental calls + rental parcels + walkshed | `report_charts2.py` |
-| 28,010 permanent residents (26% of city population, 36% of its permanent residents), incl. 3,957 children; 4.1x per-permanent-resident rate (matched proxies both sides) | census blocks + walkshed + citylimits | `permanent_pop2.py`, `age_split.py` |
+| 28,010 permanent residents (26% of city population, 36% of its permanent residents), incl. 3,957 children; 4.1x per-permanent-resident rate (matched proxies both sides) | census blocks + walkshed + citylimits | `permanent_pop2.py`, `age_split.py`, `report_stats.py` |
 | 55% of complaints 10 p.m.–3 a.m.; hourly distribution | noiseb | `report_charts2.py` |
 | ~173,000 resident-nights within earshot of a nighttime call (proximity estimate); 46% Sun–Thu | party/noise calls + parcels | `health_exposure.py` |
 | Maps (noise vs rentals; session vs winter break) | noiseb + rentals + walkshed + OSM streets | `report_maps_v3.py` |
