@@ -1,5 +1,6 @@
 # Understanding Noise Pollution in Boulder — Data Package
-**The Quiet Enjoyment Project · September 2026 · Version 1.4**
+**The Quiet Enjoyment Project · September 2026 · Version 1.5**
+*(v1.5: `chart_calendar.png` now plots the rest-of-city monthly series beside the walkshed series, so the seasonality contrast is visible on one chart.)*
 *(v1.4, after a second adversarial review: `health_exposure.py` now deduplicates
 the assessor parcel file by ParcelNo — the city file repeats 2,504 rows — which
 lowers the resident-night proximity proxy from 173,441 to 154,048 and the median

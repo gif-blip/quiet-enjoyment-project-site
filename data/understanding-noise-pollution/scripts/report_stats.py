@@ -65,14 +65,17 @@ plt.tight_layout(); plt.savefig(f"{ASSETS}/chart_fingerprint.png"); plt.close()
 # ---- chart 2: monthly inside-walkshed complaints ----
 mk = sorted(fp["monthly"].keys())[:-1]  # drop partial final month (data ends Aug 14)
 vals = [fp["monthly"][k]["inside"] for k in mk]
+vals_out = [fp["monthly"][k]["outside"] for k in mk]
 dates = [datetime.date(int(k[:4]), int(k[5:]), 15) for k in mk]
 fig, ax = plt.subplots(figsize=(9.2, 4.2), dpi=200)
-ax.plot(dates, vals, color=INK, lw=1.8, marker="o", ms=3)
+ax.plot(dates, vals_out, color=LIGHT, lw=1.4, marker="o", ms=2.5, label="Rest of the city")
+ax.plot(dates, vals, color=INK, lw=1.8, marker="o", ms=3, label="Inside the CU walkshed")
+ax.legend(frameon=False, fontsize=9, loc="upper left")
 # shade winter+summer breaks
 for y in (2023, 2024, 2025, 2026):
     ax.axvspan(datetime.date(y,6,1), datetime.date(y,7,31), color=BRASS, alpha=0.13, lw=0)
     ax.axvspan(datetime.date(y-1,12,22), datetime.date(y,1,8), color=BRASS, alpha=0.22, lw=0)
-ax.set_ylabel("Complaints per month, inside the walkshed", fontsize=9.5)
+ax.set_ylabel("Complaints per month", fontsize=9.5)
 ax.spines[["top","right"]].set_visible(False)
 ax.set_title("The academic calendar, written in noise complaints", fontsize=13, color=INK, fontweight="bold", loc="left", pad=12)
 ax.text(0.995, 0.97, "shaded: university breaks", transform=ax.transAxes, ha="right", va="top", fontsize=8.5, color=BRASS)
