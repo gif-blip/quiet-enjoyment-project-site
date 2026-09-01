@@ -108,6 +108,7 @@ footer.site a{color:var(--ink-2)}
 .signup button:hover{filter:brightness(1.08)}
 .signup button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .signup .fine{font-size:.85rem;color:var(--muted);margin:0}
+.signup .done{font-weight:600;color:var(--good);margin:.9rem 0 .6rem}
 .signup iframe{display:block;width:100%;border:0;background:transparent}
 .signup.compact{border:0;background:none;padding:0;margin:0 0 1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--rule)}
 .signup.compact h2{font-size:.95rem;color:var(--ink-2)}
@@ -147,9 +148,10 @@ footer.site a{color:var(--ink-2)}
     <h1>The Watch List</h1>
     <p class="lede">These are the University Hill addresses with the highest police noise-complaint volumes, from Boulder Police dispatch records and the City of Boulder open-data portal, with owners of record from the Boulder County Assessor. The list is updated quarterly and published in full in our report series.</p>
     <div class="callout">
-      <p><strong>What this list is — and is not.</strong> A dispatched complaint is a resident call that police logged against an address. It is not, by itself, a finding that the law was violated. We publish complaint counts because they are the best available public measure of where chronic noise comes from — and because under Boulder’s chronic-nuisance ordinance (B.R.C. ch. 10-2.5), five cited violations in a year can cost a rental property its license. Owners: if you believe any figure here is wrong, write to <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> and we will review and correct promptly. If the noise stops, your address comes off this list — publicly.</p>
+      <p><strong>What this list is — and is not.</strong> A dispatched complaint is a resident call that police logged against an address. It is not, by itself, a finding that the law was violated. We publish complaint counts because they are the best available public measure of where chronic noise comes from — and because under Boulder’s chronic-nuisance ordinance (B.R.C. ch. 10-2.5), five documented violations in a year — no citation required under the 2024 ordinance — can cost a rental property its license. Owners: if you believe any figure here is wrong, write to <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> and we will review and correct promptly. If the noise stops, your address comes off this list — publicly.</p>
     </div>
     <p class="updated">Complaint data current through August 15, 2026, from the City of Boulder open-data portal. Owners of record verified against Boulder County Assessor records on August 15, 2026. Next scheduled update: November 2026.</p>
+    <div class="callout plain"><p>Published criterion: an address appears on the current list when Boulder Police dispatch records show four or more noise complaints against it between January 1 and June 30, 2026 — single-family properties in the University Hill study area, owners of record from the Boulder County Assessor. The rule is applied mechanically to the city’s open data: there is no editorial step, and nobody — including anyone who funds this project — can add or remove an address. “Off the list” tracks the addresses named in our October 2025 report that have since gone quiet.</p></div>
     <h2>Current watch list</h2>
     <div class="tablewrap">
       <table>
@@ -199,12 +201,27 @@ footer.site a{color:var(--ink-2)}
   <div class="wrap">
     <section class="signup compact">
       <h2>Get each report when it publishes</h2>
-      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post">
+      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post" id="signup-foot-form">
         <label class="vh" for="signup-foot-email">Email address</label>
         <input id="signup-foot-email" type="email" name="entry.1029318743" placeholder="you@example.com"
           autocomplete="email" required>
         <button type="submit">Sign up</button>
       </form>
+      <p class="done" id="signup-foot-done" hidden>You’re on the list. We’ll write when the next report publishes.</p>
+      <iframe name="signup-foot-sink" class="vh" tabindex="-1" aria-hidden="true"></iframe>
+      <script>
+      (function () {
+        var f = document.getElementById('signup-foot-form'), d = document.getElementById('signup-foot-done');
+        if (!f || !d) return;
+        var sink = f.parentNode.querySelector('iframe[name="signup-foot-sink"]'), sent = false;
+        f.target = 'signup-foot-sink';
+        f.addEventListener('submit', function () { sent = true; });
+        sink.addEventListener('load', function () {
+          if (!sent) return;
+          f.hidden = true; d.hidden = false;
+        });
+      })();
+      </script>
     </section>
     <p>The Quiet Enjoyment Project · An independent, resident-run organization — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly. · <a href="support.html">Support this work</a></p>
   </div>

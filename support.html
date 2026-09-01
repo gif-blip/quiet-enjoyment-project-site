@@ -108,6 +108,7 @@ footer.site a{color:var(--ink-2)}
 .signup button:hover{filter:brightness(1.08)}
 .signup button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .signup .fine{font-size:.85rem;color:var(--muted);margin:0}
+.signup .done{font-weight:600;color:var(--good);margin:.9rem 0 .6rem}
 .signup iframe{display:block;width:100%;border:0;background:transparent}
 .signup.compact{border:0;background:none;padding:0;margin:0 0 1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--rule)}
 .signup.compact h2{font-size:.95rem;color:var(--ink-2)}
@@ -146,7 +147,8 @@ footer.site a{color:var(--ink-2)}
   <div class="wrap">
     <h1>Support this work</h1>
     <p class="lede">This project runs on public records, and public records cost money. If what we publish here is useful to you, you can help pay for it.</p>
-    <div class="callout plain"><p>We are not collecting online yet. Prefer to arrange it directly, or want to give something other than money? Write to <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a>.</p></div>
+    <p><a class="btn" href="mailto:yourneighbor@quietenjoymentproject.org">Donate</a></p>
+    <p>For now the button opens an email to us — we arrange each contribution directly. Online card donations and the public ledger arrive together, once the corporation’s payment account is set up.</p>
     <h2>What your money pays for</h2>
     <ul class="clean">
       <li><strong>Records requests.</strong> Boulder Police dispatch extracts are fulfilled at a per-request cost, and the multi-year extracts behind our reports are the largest single expense we have.</li>
@@ -159,19 +161,34 @@ footer.site a{color:var(--ink-2)}
     <p>Every contribution amount and every expense goes on the public ledger — including whether this project runs on many small gifts or a few large ones, which you should want to know. Donor identities are the one thing we do not publish: this is a small neighborhood where landlords, tenants, and neighbors all know each other, and supporting noise enforcement should not cost anyone a relationship. What makes that compatible with everything else on this site is that there is nothing here for money to buy — the watch list is mechanical, and no donor of any size can put an address on it or take one off.</p>
     <h2>Tax status, plainly</h2>
     <p>The Quiet Enjoyment Project is not a charity and is not, today, a tax-exempt organization. We make no 501(c)(3) claim. Contributions are not tax-deductible, and nobody here will tell you otherwise — if a deduction is what you are after, this is not the place for it. We are a resident-run organization in the middle of its paperwork: incorporating as a Colorado nonprofit corporation, to operate as a 501(c)(4) social welfare organization. Neither step changes the answer on deductibility — 501(c)(4) gifts are not deductible either, by design — and we will update this page when the paperwork is done, not before.</p>
-
+    <p>Prefer to arrange it directly, or want to give something other than money? Write to <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a>.</p>
   </div>
 </main>
 <footer class="site">
   <div class="wrap">
     <section class="signup compact">
       <h2>Get each report when it publishes</h2>
-      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post">
+      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post" id="signup-foot-form">
         <label class="vh" for="signup-foot-email">Email address</label>
         <input id="signup-foot-email" type="email" name="entry.1029318743" placeholder="you@example.com"
           autocomplete="email" required>
         <button type="submit">Sign up</button>
       </form>
+      <p class="done" id="signup-foot-done" hidden>You’re on the list. We’ll write when the next report publishes.</p>
+      <iframe name="signup-foot-sink" class="vh" tabindex="-1" aria-hidden="true"></iframe>
+      <script>
+      (function () {
+        var f = document.getElementById('signup-foot-form'), d = document.getElementById('signup-foot-done');
+        if (!f || !d) return;
+        var sink = f.parentNode.querySelector('iframe[name="signup-foot-sink"]'), sent = false;
+        f.target = 'signup-foot-sink';
+        f.addEventListener('submit', function () { sent = true; });
+        sink.addEventListener('load', function () {
+          if (!sent) return;
+          f.hidden = true; d.hidden = false;
+        });
+      })();
+      </script>
     </section>
     <p>The Quiet Enjoyment Project · An independent, resident-run organization — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly. · <a href="support.html">Support this work</a></p>
   </div>

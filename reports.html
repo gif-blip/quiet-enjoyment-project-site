@@ -108,6 +108,7 @@ footer.site a{color:var(--ink-2)}
 .signup button:hover{filter:brightness(1.08)}
 .signup button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .signup .fine{font-size:.85rem;color:var(--muted);margin:0}
+.signup .done{font-weight:600;color:var(--good);margin:.9rem 0 .6rem}
 .signup iframe{display:block;width:100%;border:0;background:transparent}
 .signup.compact{border:0;background:none;padding:0;margin:0 0 1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--rule)}
 .signup.compact h2{font-size:.95rem;color:var(--ink-2)}
@@ -168,17 +169,33 @@ footer.site a{color:var(--ink-2)}
     <section class="signup" id="signup">
       <h2>Get each report when it publishes</h2>
       <p>We send an email when a new report goes out and when the watch list advances — a few times a year, nothing else.</p>
-      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post">
+      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post" id="signup-form">
         <label class="vh" for="signup-email">Email address</label>
         <input id="signup-email" type="email" name="entry.1029318743" placeholder="you@example.com"
           autocomplete="email" required>
         <button type="submit">Sign up</button>
       </form>
+      <p class="done" id="signup-done" hidden>You’re on the list. We’ll write when the next report publishes.</p>
       <p class="fine">The list is used for these emails and nothing else, and we never publish resident names. We remove you the moment you ask.</p>
+      <iframe name="signup-sink" class="vh" tabindex="-1" aria-hidden="true"></iframe>
+      <script>
+      (function () {
+        var f = document.getElementById('signup-form'), d = document.getElementById('signup-done');
+        if (!f || !d) return;
+        var sink = f.parentNode.querySelector('iframe[name="signup-sink"]'), sent = false;
+        f.target = 'signup-sink';
+        f.addEventListener('submit', function () { sent = true; });
+        sink.addEventListener('load', function () {
+          if (!sent) return;
+          f.hidden = true; d.hidden = false;
+        });
+      })();
+      </script>
     </section>
     <section class="donate">
       <h2>Support this work</h2>
       <p>These reports are built from records we pay for. If they are useful to you, you can help cover the cost.</p>
+      <p><a class="btn" href="mailto:yourneighbor@quietenjoymentproject.org">Donate</a></p>
       <p class="fine">Not a charity, not tax-exempt — contributions are not tax-deductible. <a href="support.html">What a donation does and does not buy →</a></p>
     </section>
   </div>
@@ -187,12 +204,27 @@ footer.site a{color:var(--ink-2)}
   <div class="wrap">
     <section class="signup compact">
       <h2>Get each report when it publishes</h2>
-      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post">
+      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post" id="signup-foot-form">
         <label class="vh" for="signup-foot-email">Email address</label>
         <input id="signup-foot-email" type="email" name="entry.1029318743" placeholder="you@example.com"
           autocomplete="email" required>
         <button type="submit">Sign up</button>
       </form>
+      <p class="done" id="signup-foot-done" hidden>You’re on the list. We’ll write when the next report publishes.</p>
+      <iframe name="signup-foot-sink" class="vh" tabindex="-1" aria-hidden="true"></iframe>
+      <script>
+      (function () {
+        var f = document.getElementById('signup-foot-form'), d = document.getElementById('signup-foot-done');
+        if (!f || !d) return;
+        var sink = f.parentNode.querySelector('iframe[name="signup-foot-sink"]'), sent = false;
+        f.target = 'signup-foot-sink';
+        f.addEventListener('submit', function () { sent = true; });
+        sink.addEventListener('load', function () {
+          if (!sent) return;
+          f.hidden = true; d.hidden = false;
+        });
+      })();
+      </script>
     </section>
     <p>The Quiet Enjoyment Project · An independent, resident-run organization — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly. · <a href="support.html">Support this work</a></p>
   </div>

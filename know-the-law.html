@@ -108,6 +108,7 @@ footer.site a{color:var(--ink-2)}
 .signup button:hover{filter:brightness(1.08)}
 .signup button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .signup .fine{font-size:.85rem;color:var(--muted);margin:0}
+.signup .done{font-weight:600;color:var(--good);margin:.9rem 0 .6rem}
 .signup iframe{display:block;width:100%;border:0;background:transparent}
 .signup.compact{border:0;background:none;padding:0;margin:0 0 1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--rule)}
 .signup.compact h2{font-size:.95rem;color:var(--ink-2)}
@@ -151,7 +152,7 @@ footer.site a{color:var(--ink-2)}
     <h2>The decibel limits are health standards</h2>
     <p>Boulder’s residential limits — 55 dB(A) daytime, 50 dB(A) night (B.R.C. 5-9-3) — descend from the U.S. EPA’s health-based exposure levels and match World Health Organization thresholds. Colorado state law is stricter still: its nighttime limit begins at 7 p.m. (C.R.S. 25-12-103). <a href="health.html">More on the health page.</a></p>
     <h2>Repeat complaints reach the rental license</h2>
-    <p>Under Boulder’s chronic-nuisance ordinance (B.R.C. ch. 10-2.5, 2024), a single-family rental with five or more cited nuisance violations in a year (counted Aug. 1–Jul. 31) can be designated a chronic nuisance property — triggering a mandatory abatement plan and rental-license consequences up to revocation.</p>
+    <p>Under Boulder’s chronic-nuisance ordinance (B.R.C. ch. 10-2.5, 2024), a single-family rental with five or more documented nuisance violations in a year (counted Aug. 1–Jul. 31; no citation is required, and police-documented warnings are evidence of violations) can be designated a chronic nuisance property — triggering a mandatory abatement plan and rental-license consequences up to revocation.</p>
     <h2>Residents can sue — and reach the owner</h2>
     <p>Colorado’s Noise Abatement Act lets any resident ask a district court to shut down a noise nuisance and enjoin not just the people making the noise but the owner, lessee, or agent of the property from permitting it (C.R.S. 25-12-104; see <em>Hobbs v. City of Salida</em>, 2025 CO 50).</p>
     <h2>If you’re hosting a party</h2>
@@ -163,12 +164,27 @@ footer.site a{color:var(--ink-2)}
   <div class="wrap">
     <section class="signup compact">
       <h2>Get each report when it publishes</h2>
-      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post">
+      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post" id="signup-foot-form">
         <label class="vh" for="signup-foot-email">Email address</label>
         <input id="signup-foot-email" type="email" name="entry.1029318743" placeholder="you@example.com"
           autocomplete="email" required>
         <button type="submit">Sign up</button>
       </form>
+      <p class="done" id="signup-foot-done" hidden>You’re on the list. We’ll write when the next report publishes.</p>
+      <iframe name="signup-foot-sink" class="vh" tabindex="-1" aria-hidden="true"></iframe>
+      <script>
+      (function () {
+        var f = document.getElementById('signup-foot-form'), d = document.getElementById('signup-foot-done');
+        if (!f || !d) return;
+        var sink = f.parentNode.querySelector('iframe[name="signup-foot-sink"]'), sent = false;
+        f.target = 'signup-foot-sink';
+        f.addEventListener('submit', function () { sent = true; });
+        sink.addEventListener('load', function () {
+          if (!sent) return;
+          f.hidden = true; d.hidden = false;
+        });
+      })();
+      </script>
     </section>
     <p>The Quiet Enjoyment Project · An independent, resident-run organization — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly. · <a href="support.html">Support this work</a></p>
   </div>

@@ -108,6 +108,7 @@ footer.site a{color:var(--ink-2)}
 .signup button:hover{filter:brightness(1.08)}
 .signup button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 .signup .fine{font-size:.85rem;color:var(--muted);margin:0}
+.signup .done{font-weight:600;color:var(--good);margin:.9rem 0 .6rem}
 .signup iframe{display:block;width:100%;border:0;background:transparent}
 .signup.compact{border:0;background:none;padding:0;margin:0 0 1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--rule)}
 .signup.compact h2{font-size:.95rem;color:var(--ink-2)}
@@ -165,7 +166,7 @@ footer.site a{color:var(--ink-2)}
     </div>
     <h2>Of the City Attorney</h2>
     <div class="asks-group">
-      <div class="ask"><div class="body">Open chronic-nuisance review (B.R.C. 10-2.5) of every address reaching five cited violations in the Aug. 1–Jul. 31 nuisance year, and use the abatement-agreement and rental-license tools written for exactly this pattern.</div><div><span class="chip">Requested Aug. 2026</span></div></div>
+      <div class="ask"><div class="body">Open chronic-nuisance review (B.R.C. 10-2.5) of every address reaching five documented violations in the Aug. 1–Jul. 31 nuisance year, and use the abatement-agreement and rental-license tools written for exactly this pattern.</div><div><span class="chip">Requested Aug. 2026</span></div></div>
       <div class="ask"><div class="body">Publish the number of noise citations prosecuted and their outcomes, so residents can see whether tickets survive court.</div><div><span class="chip">Requested Aug. 2026</span></div></div>
     </div>
     <h2>Of the University of Colorado</h2>
@@ -184,12 +185,27 @@ footer.site a{color:var(--ink-2)}
   <div class="wrap">
     <section class="signup compact">
       <h2>Get each report when it publishes</h2>
-      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post">
+      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post" id="signup-foot-form">
         <label class="vh" for="signup-foot-email">Email address</label>
         <input id="signup-foot-email" type="email" name="entry.1029318743" placeholder="you@example.com"
           autocomplete="email" required>
         <button type="submit">Sign up</button>
       </form>
+      <p class="done" id="signup-foot-done" hidden>You’re on the list. We’ll write when the next report publishes.</p>
+      <iframe name="signup-foot-sink" class="vh" tabindex="-1" aria-hidden="true"></iframe>
+      <script>
+      (function () {
+        var f = document.getElementById('signup-foot-form'), d = document.getElementById('signup-foot-done');
+        if (!f || !d) return;
+        var sink = f.parentNode.querySelector('iframe[name="signup-foot-sink"]'), sent = false;
+        f.target = 'signup-foot-sink';
+        f.addEventListener('submit', function () { sent = true; });
+        sink.addEventListener('load', function () {
+          if (!sent) return;
+          f.hidden = true; d.hidden = false;
+        });
+      })();
+      </script>
     </section>
     <p>The Quiet Enjoyment Project · An independent, resident-run organization — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly. · <a href="support.html">Support this work</a></p>
   </div>
