@@ -1,0 +1,17 @@
+{
+ "walkshed": {
+  "tot": 52815,
+  "u18": 3957,
+  "a1824": 24119,
+  "a25p": 24739,
+  "gq_all": 12449,
+  "gq_uni": 11763
+ },
+ "household": 40366,
+ "hh_18_24_exdorm": 12356,
+ "hh_25plus": 24053,
+ "under18": 3957,
+ "permanent_proxy": 28010,
+ "definition": "permanent = under-18 + household 25+; every household 18-24 counted as student (conservative); dorm GQ assumed 18-24, other GQ assumed 25+",
+ "source": "2020 DHC P12 blocks + 2020 PL P5 GQ, centroid-in-walkshed"
+}

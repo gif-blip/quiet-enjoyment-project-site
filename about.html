@@ -5,17 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>About · The Quiet Enjoyment Project</title>
 <meta name="description" content="The Quiet Enjoyment Project restores residential quality of life in Boulder neighborhoods affected by chronic noise — beginning on University Hill — throug">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <style>
 :root{
-  --bg:#FDFBF4; --surface:#F4EFE3; --ink:#1C2B39; --ink-2:#4A4437; --muted:#8A8168;
-  --rule:#E2D9C4; --accent:#A9762F; --accent-soft:#F7EBD3; --warn:#9A4A38; --good:#4A6741;
+  --bg:#ffffff; --surface:#f7f7f5; --ink:#14140f; --ink-2:#4a4a44; --muted:#7a7a72;
+  --rule:#e3e3dc; --accent:#1f4e79; --accent-soft:#eaf1f8; --warn:#b3261e; --good:#1c6b3c;
   --max:70rem;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#131A23; --surface:#1C2733; --ink:#EDE8DB; --ink-2:#CFC8B8; --muted:#9A917E;
-    --rule:#2C3A49; --accent:#E2AC4F; --accent-soft:#2A3038; --warn:#D08A77; --good:#8FB585;
+    --bg:#14140f; --surface:#1d1d18; --ink:#f4f4ee; --ink-2:#c9c9c0; --muted:#94948b;
+    --rule:#2f2f28; --accent:#8ab6e0; --accent-soft:#1b2b3a; --warn:#f0857d; --good:#7cc79b;
   }
 }
 *{box-sizing:border-box}
@@ -25,21 +24,12 @@ body{margin:0;background:var(--bg);color:var(--ink);
 a{color:var(--accent)}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 1.5rem}
 header.site{border-bottom:1px solid var(--rule);background:var(--bg);position:sticky;top:0;z-index:10}
-header.site .wrap{display:flex;flex-direction:column;gap:.5rem;padding-top:.8rem;padding-bottom:0}
-.brand{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;
-  display:flex;align-items:center;gap:.7rem}
-.brand .mark{height:2.5rem;width:auto;flex:none}
-nav.site{display:flex;gap:1.15rem;font-size:.9rem;overflow-x:auto;-webkit-overflow-scrolling:touch;
-  scrollbar-width:none}
-nav.site::-webkit-scrollbar{display:none}
-nav.site a{color:var(--ink-2);text-decoration:none;padding:.35rem 0 .7rem;border-bottom:2px solid transparent;
-  white-space:nowrap}
+header.site .wrap{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.5rem;padding-top:1rem;padding-bottom:.85rem}
+.brand{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;white-space:nowrap}
+nav.site{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;font-size:.9rem}
+nav.site a{color:var(--ink-2);text-decoration:none;padding:.15rem 0;border-bottom:2px solid transparent}
 nav.site a:hover{color:var(--accent)}
 nav.site a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
-@media (min-width:720px){
-  .brand{font-size:1.15rem}
-  .brand .mark{height:3rem}
-}
 main{padding:2.5rem 0 3.5rem}
 h1{font-size:2rem;line-height:1.2;letter-spacing:-.02em;margin:0 0 .6rem}
 h1 .sub{display:block;font-size:1.35rem;color:var(--ink-2);font-weight:600;margin-top:.35rem}
@@ -77,7 +67,7 @@ ul.clean li::before{content:"";position:absolute;left:0;top:.62em;width:.42rem;h
 ol.steps{padding-left:0;counter-reset:s;list-style:none;margin:1rem 0}
 ol.steps li{counter-increment:s;position:relative;padding-left:2.1rem;margin-bottom:.85rem}
 ol.steps li::before{content:counter(s);position:absolute;left:0;top:.05em;width:1.5rem;height:1.5rem;border-radius:50%;
-  background:var(--accent);color:var(--bg);font-size:.82rem;font-weight:700;display:grid;place-items:center}
+  background:var(--accent);color:#fff;font-size:.82rem;font-weight:700;display:grid;place-items:center}
 .asks-group{margin:1.5rem 0}
 .ask{display:flex;gap:.9rem;align-items:flex-start;padding:.85rem 0;border-bottom:1px solid var(--rule)}
 .ask .body{flex:1}
@@ -90,44 +80,14 @@ footer.site a{color:var(--ink-2)}
 .updated{color:var(--muted);font-size:.85rem;margin-top:-.3rem}
 @media (max-width:640px){
   h1{font-size:1.6rem} h1 .sub{font-size:1.15rem}
-  .wrap{padding-left:1.1rem;padding-right:1.1rem}
-  main{padding-top:1.8rem}
-  .hero{padding:1.1rem 1.15rem}
+  header.site .wrap{padding-top:.85rem}
 }
-.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.signup{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:1.25rem 1.4rem;margin:1.75rem 0}
-.signup h2{margin:0 0 .4rem;font-size:1.15rem}
-.signup p{color:var(--ink-2);margin:0 0 .2rem;max-width:44rem}
-.signup form{display:flex;flex-wrap:wrap;gap:.6rem;margin:.9rem 0 .6rem;max-width:34rem}
-.signup input[type=email]{flex:1 1 15rem;min-width:0;font:inherit;font-size:.95rem;padding:.6rem .7rem;
-  color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:8px}
-.signup input[type=email]::placeholder{color:var(--muted)}
-.signup input[type=email]:focus-visible{border-color:var(--accent);outline:2px solid var(--accent);outline-offset:1px}
-.signup button{font:inherit;font-size:.95rem;font-weight:600;padding:.6rem 1.15rem;cursor:pointer;
-  color:var(--bg);background:var(--accent);border:1px solid var(--accent);border-radius:8px}
-.signup button:hover{filter:brightness(1.08)}
-.signup button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-.signup .fine{font-size:.85rem;color:var(--muted);margin:0}
-.signup iframe{display:block;width:100%;border:0;background:transparent}
-.signup.compact{border:0;background:none;padding:0;margin:0 0 1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--rule)}
-.signup.compact h2{font-size:.95rem;color:var(--ink-2)}
-.signup.compact form{margin:.55rem 0 0;max-width:28rem}
-.signup.compact input[type=email],.signup.compact button{font-size:.88rem;padding:.45rem .65rem}
-.signup.compact button{padding:.45rem .95rem}
-.btn{display:inline-block;font-weight:600;font-size:.95rem;padding:.6rem 1.15rem;border-radius:8px;text-decoration:none;
-  color:var(--bg);background:var(--accent);border:1px solid var(--accent)}
-.btn:hover{filter:brightness(1.08)}
-.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-.donate{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:1.25rem 1.4rem;margin:1.75rem 0}
-.donate h2{margin:0 0 .4rem;font-size:1.15rem}
-.donate p{color:var(--ink-2);margin:0 0 .95rem;max-width:44rem}
-.donate .fine{font-size:.85rem;color:var(--muted);margin:.85rem 0 0}
 </style>
 </head>
 <body>
 <header class="site">
   <div class="wrap">
-    <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 175 176" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><polygon points="12,110 85,50 158,110" fill="currentColor"/><rect x="26" y="110" width="118" height="60" fill="currentColor"/><rect x="52" y="126" width="22" height="22" fill="#D99A2B"/><polygon points="79,46 60,42 66,51" fill="#D99A2B"/><path d="M78 50 C76 43 77 36 82 32 C84 26 90 23 94 26 L95 25 L107 16 L97 30 L106 26 L97 33 C99 39 97 46 91 50 Z" fill="#D99A2B"/><circle cx="90" cy="28.5" r="1.6" fill="var(--bg)"/><ellipse cx="112" cy="25" rx="2.7" ry="2.1" transform="rotate(-20 112 25)" fill="#D99A2B"/><path d="M114.5 24.3 V12.8" stroke="#D99A2B" stroke-width="1.6" fill="none"/><ellipse cx="121" cy="22" rx="2.7" ry="2.1" transform="rotate(-20 121 22)" fill="#D99A2B"/><path d="M123.5 21.3 V9.8" stroke="#D99A2B" stroke-width="1.6" fill="none"/><path d="M113.6 12.6 L124.2 9.6" stroke="#D99A2B" stroke-width="3.2" fill="none"/></svg>The Quiet Enjoyment Project</a>
+    <a class="brand" href="index.html">The Quiet Enjoyment Project</a>
     <nav class="site">
         <a href="index.html">Home</a>
         <a href="reports.html">Reports</a>
@@ -137,7 +97,6 @@ footer.site a{color:var(--ink-2)}
         <a href="asks.html">What We're Asking For</a>
         <a href="residents.html">For Residents</a>
         <a href="data.html">Source Data</a>
-        <a href="support.html">Support</a>
         <a href="about.html" aria-current="page">About</a>
     </nav>
   </div>
@@ -156,26 +115,23 @@ footer.site a{color:var(--ink-2)}
     <h2>How we govern this work</h2>
     <ul class="clean">
       <li><strong>Corrections come first.</strong> Any owner, resident, or official who believes a figure we have published is wrong can write to us, and we correct promptly and visibly. We publish the underlying data so that anyone can check our arithmetic without asking our permission.</li>
-      <li><strong>We publish conduct, not people.</strong> We name property addresses and owners of record — both matters of public record — and we do not publish the names of residents, callers, or students. Public officials are the exception: we name the officials who design and operate the programs we examine, in their official capacity, as the public record names them — never rank-and-file employees — and any official we name gets at least two weeks to respond to our findings before publication. Complaint counts are reported as what they are: calls logged by police, not findings of violation.</li>
-      <li><strong>Court is the last step, and we say up front that we may take it.</strong> Education first, owner notice second, city enforcement third. For the few properties that answer none of that, this project may ask a court to abate the nuisance — in its own name, or on behalf of affected members — and we would rather state that plainly than spring it on anyone. What we do not do is practise law or represent individual residents: a resident pursuing their own claim needs counsel of their own, and we will say so every time.</li>
-      <li><strong>We say when we are asking to change the law.</strong> Most of what we ask for is administrative — enforce and administer the ordinances Boulder already has, which needs no new legislation. Where the data convinces us an ordinance itself should change, we advocate for that too, and we label it plainly rather than mixing it in with the enforcement asks. The distinction is the reader’s to check, not ours to blur.</li>
-      <li><strong>We publish every dollar, but not every name.</strong> A 501(c)(4) does not have to disclose anything about its funding. We post every contribution amount and every expense to a public ledger anyway, because an organization that publishes other people’s records should show its own — you can see what this project runs on, and whether any single gift is big enough to matter. Donor identities are the one thing we keep private: in a neighborhood this small, supporting quiet should not carry a social price. What keeps that honest is the item below — eligibility is mechanical, so there is nothing a donor could be buying.</li>
+      <li><strong>We publish conduct, not people.</strong> We name property addresses and owners of record — both matters of public record — and we do not publish the names of residents, callers, or students. Complaint counts are reported as what they are: calls logged by police, not findings of violation.</li>
+      <li><strong>Enforcement is a last resort, and never ours to run.</strong> Our escalation ends with the courts only for the few properties that do not respond to anything else, and if that point is reached the case belongs to an affected resident represented by independent counsel of their own. This project does not practice law, does not represent anyone, and would not be a party.</li>
+      <li><strong>We do not lobby.</strong> We ask public officials to enforce and administer laws that already exist. We do not seek new legislation, and we say so on our recommendations page.</li>
       <li><strong>Eligibility is entirely public-data-driven.</strong> Which properties appear in our reporting is determined solely by public police records, applied on published criteria. There is no discretionary step and no editorial judgment about who belongs on the list. Nobody — not the people who run this project, not anyone who supports it financially — can add a property or remove one. The data decides, and we publish the data so that anyone can run the same criteria and get the same list.</li>
     </ul>
     <h2>Who we are</h2>
     <p>Founded by University Hill residents in 2025 after three years of documented escalation in neighborhood noise.</p>
-    <div class="callout plain"><p>The Quiet Enjoyment Project is an independent, resident-run organization. It is not affiliated with the University Hill Neighborhood Association (UHNA), the University of Colorado, or the City of Boulder, and it takes no money from any of them.</p></div>
+    <div class="callout plain"><p>The Quiet Enjoyment Project is an independent resident initiative. It is not affiliated with the University Hill Neighborhood Association (UHNA), the University of Colorado, or the City of Boulder.</p></div>
     <h2>Contact</h2>
     <p><a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> — residents, owners, media, corrections, and offers to help all welcome.</p>
-    <h2>Support</h2>
-    <p>This work is paid for by the people it serves. We are not a registered charity, we make no 501(c)(3) claim, and contributions are not tax-deductible — <a href="support.html">what a donation does and does not buy</a> is set out in full on the support page.</p>
+    <p>If you would like to donate, please email <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a>. We are in the financial planning stages, and early commitments are very helpful — we will come back to you the moment tax-deductible giving is in place.</p>
     <p>This website is an initial version, published August 2026. Thoughtful feedback on any of it — the data, the law, the recommendations — is genuinely welcome at the same address.</p>
   </div>
 </main>
 <footer class="site">
   <div class="wrap">
-
-    <p>The Quiet Enjoyment Project · An independent, resident-run organization — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly. · <a href="support.html">Support this work</a></p>
+    <p>The Quiet Enjoyment Project · An independent resident initiative — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly.</p>
   </div>
 </footer>
 </body>

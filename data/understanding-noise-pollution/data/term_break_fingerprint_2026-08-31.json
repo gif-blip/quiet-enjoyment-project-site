@@ -1,0 +1,231 @@
+{
+ "periods": {
+  "term (core)": {
+   "nights": 513,
+   "inside": 2868,
+   "outside": 1059,
+   "in_per_night": 5.590643274853801,
+   "out_per_night": 2.064327485380117,
+   "in_share": 0.7303284950343774
+  },
+  "winter break (deep)": {
+   "nights": 62,
+   "inside": 67,
+   "outside": 76,
+   "in_per_night": 1.0806451612903225,
+   "out_per_night": 1.2258064516129032,
+   "in_share": 0.46853146853146854
+  },
+  "summer break (deep)": {
+   "nights": 244,
+   "inside": 800,
+   "outside": 550,
+   "in_per_night": 3.278688524590164,
+   "out_per_night": 2.2540983606557377,
+   "in_share": 0.5925925925925926
+  },
+  "spring break": {
+   "nights": 28,
+   "inside": 105,
+   "outside": 52,
+   "in_per_night": 3.75,
+   "out_per_night": 1.8571428571428572,
+   "in_share": 0.6687898089171974
+  },
+  "move-in (Aug 18-31)": {
+   "nights": 42,
+   "inside": 429,
+   "outside": 122,
+   "in_per_night": 10.214285714285714,
+   "out_per_night": 2.9047619047619047,
+   "in_share": 0.778584392014519
+  }
+ },
+ "monthly": {
+  "2023-01": {
+   "inside": 86,
+   "outside": 31
+  },
+  "2023-02": {
+   "inside": 92,
+   "outside": 25
+  },
+  "2023-03": {
+   "inside": 111,
+   "outside": 35
+  },
+  "2023-04": {
+   "inside": 153,
+   "outside": 59
+  },
+  "2023-05": {
+   "inside": 203,
+   "outside": 71
+  },
+  "2023-06": {
+   "inside": 94,
+   "outside": 82
+  },
+  "2023-07": {
+   "inside": 115,
+   "outside": 65
+  },
+  "2023-08": {
+   "inside": 185,
+   "outside": 73
+  },
+  "2023-09": {
+   "inside": 264,
+   "outside": 63
+  },
+  "2023-10": {
+   "inside": 188,
+   "outside": 98
+  },
+  "2023-11": {
+   "inside": 99,
+   "outside": 50
+  },
+  "2023-12": {
+   "inside": 97,
+   "outside": 52
+  },
+  "2024-01": {
+   "inside": 62,
+   "outside": 36
+  },
+  "2024-02": {
+   "inside": 125,
+   "outside": 71
+  },
+  "2024-03": {
+   "inside": 88,
+   "outside": 69
+  },
+  "2024-04": {
+   "inside": 135,
+   "outside": 86
+  },
+  "2024-05": {
+   "inside": 207,
+   "outside": 97
+  },
+  "2024-06": {
+   "inside": 130,
+   "outside": 89
+  },
+  "2024-07": {
+   "inside": 74,
+   "outside": 69
+  },
+  "2024-08": {
+   "inside": 188,
+   "outside": 80
+  },
+  "2024-09": {
+   "inside": 306,
+   "outside": 72
+  },
+  "2024-10": {
+   "inside": 218,
+   "outside": 92
+  },
+  "2024-11": {
+   "inside": 118,
+   "outside": 61
+  },
+  "2024-12": {
+   "inside": 103,
+   "outside": 50
+  },
+  "2025-01": {
+   "inside": 77,
+   "outside": 42
+  },
+  "2025-02": {
+   "inside": 109,
+   "outside": 32
+  },
+  "2025-03": {
+   "inside": 101,
+   "outside": 57
+  },
+  "2025-04": {
+   "inside": 180,
+   "outside": 43
+  },
+  "2025-05": {
+   "inside": 152,
+   "outside": 67
+  },
+  "2025-06": {
+   "inside": 80,
+   "outside": 52
+  },
+  "2025-07": {
+   "inside": 90,
+   "outside": 58
+  },
+  "2025-08": {
+   "inside": 219,
+   "outside": 67
+  },
+  "2025-09": {
+   "inside": 299,
+   "outside": 92
+  },
+  "2025-10": {
+   "inside": 286,
+   "outside": 91
+  },
+  "2025-11": {
+   "inside": 140,
+   "outside": 54
+  },
+  "2025-12": {
+   "inside": 57,
+   "outside": 35
+  },
+  "2026-01": {
+   "inside": 116,
+   "outside": 35
+  },
+  "2026-02": {
+   "inside": 117,
+   "outside": 50
+  },
+  "2026-03": {
+   "inside": 167,
+   "outside": 69
+  },
+  "2026-04": {
+   "inside": 243,
+   "outside": 49
+  },
+  "2026-05": {
+   "inside": 168,
+   "outside": 89
+  },
+  "2026-06": {
+   "inside": 110,
+   "outside": 69
+  },
+  "2026-07": {
+   "inside": 107,
+   "outside": 66
+  },
+  "2026-08": {
+   "inside": 38,
+   "outside": 21
+  }
+ },
+ "meta": {
+  "excluded_outlier_calls": 950,
+  "usable": 9011,
+  "span": [
+   "2023-01-01",
+   "2026-08-14"
+  ],
+  "note": "semester dates best-known; VERIFY vs registrar before publication; deep windows robust"
+ }
+}
