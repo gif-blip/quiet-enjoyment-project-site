@@ -81,7 +81,7 @@ rows = []
 for c in calls:
     a = c["attributes"]
     addr = (a.get("Address") or "").upper()
-    if re.match(r"^45XX\s+19TH", addr):  # standing outlier exclusion (945 calls, one block, one dispute)
+    if re.match(r"^45XX\s+19TH", addr):  # standing outlier exclusion (950 calls, one block, one dispute)
         excl += 1; continue
     g = c.get("geometry") or {}
     if "x" not in g: continue

@@ -154,18 +154,18 @@ plt.tight_layout(); plt.savefig(f"{ASSETS}/chart_hourly.png"); plt.close()
 # E) waffle — what it takes to put one license at risk
 fig, ax = plt.subplots(figsize=(9.6, 4.4), dpi=200)
 ax.axis("off")
-COLS, ROWS_ = 40, 15   # 600 dots
-for i in range(600):
+COLS, ROWS_ = 40, 16   # 640 dots
+for i in range(640):
     r_, c_ = divmod(i, COLS)
     ax.plot(c_*1.0, -r_*1.0, "o", ms=4.4, color="#8a5a2b", alpha=0.85)
-ax.text(COLS/2 - 0.5, 2.6, "600 neighbor phone calls", ha="center", fontsize=15,
+ax.text(COLS/2 - 0.5, 2.6, "640 neighbor phone calls", ha="center", fontsize=15,
         fontweight="bold", color=INK)
-ax.text(COLS/2 - 0.5, 1.2, "each dot: one late-night call to police, at the university district's enforcement rate",
+ax.text(COLS/2 - 0.5, 1.2, "each dot: one call to police, at the university district's citation rate (1 per 128 calls)",
         ha="center", fontsize=9.5, color=INK)
 ax.text(COLS + 3.0, -ROWS_/2 + 0.5, "→", fontsize=26, color=INK, ha="center")
 for j in range(5):
     ax.plot(COLS + 6.6, -1.2 - j*1.9, "s", ms=11, color=INK)
-ax.text(COLS + 6.6, -12.4, "5 documented\nviolations — the\nchronic-nuisance\nthreshold", ha="center", va="top", fontsize=9.5, color=INK)
+ax.text(COLS + 6.6, -12.4, "5 citations — the\nchronic-nuisance\nthreshold, counted\nthe traditional way", ha="center", va="top", fontsize=9.5, color=INK)
 ax.text(COLS + 10.8, -ROWS_/2 + 0.5, "→", fontsize=26, color=INK, ha="center")
 ax.text(COLS + 16.4, -ROWS_/2 + 0.5, "zero", fontsize=34, fontweight="bold", color="#8a5a2b", ha="center", va="center")
 ax.text(COLS + 15.8, -12.4, "chronic-nuisance\ndesignations in the\ncampus districts", ha="center", va="top", fontsize=9.5, color=INK)

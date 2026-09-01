@@ -35,8 +35,11 @@ ax.set_title("Every threshold in the law descends from health science — partie
 plt.tight_layout(); plt.savefig(f"{ASSETS}/chart_thresholds.png", facecolor="white"); plt.close()
 
 # ---- school nights ----
+import json as _json
+_res = _json.load(open("./data/health_exposure_results.json")) if __import__("os").path.exists("./data/health_exposure_results.json") else _json.load(open("/Users/stephanvandermersch/Library/CloudStorage/Dropbox/Claude Code/University Hill Noise/Health Cost of Party Noise/health_exposure_results.json"))
+_dow = {int(k): v for k, v in _res["dow_night"].items()}
 days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-vals = [83, 105, 145, 378, 437, 436, 96]
+vals = [_dow.get(i, 0) for i in range(7)]
 cols = [BROWN, BROWN, BROWN, BROWN, BLUE, BLUE, BROWN]
 fig, ax = plt.subplots(figsize=(8.6, 3.9), dpi=200)
 bars = ax.bar(days, vals, color=cols)

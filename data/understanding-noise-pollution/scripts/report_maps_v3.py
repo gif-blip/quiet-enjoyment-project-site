@@ -71,6 +71,8 @@ TERM_CORE   = [(D(y,9,5),  D(y,11,15)) for y in (2023,2024,2025)] + \
               [(D(y,2,1),  D(y,4,15))  for y in (2023,2024,2025,2026)]
 WINTER_DEEP = [(D(2022,12,22), D(2023,1,8)), (D(2023,12,22), D(2024,1,8)),
                (D(2024,12,22), D(2025,1,8)), (D(2025,12,22), D(2026,1,7))]
+SPRING_BREAKS = [(D(2023,3,27), D(2023,4,2)), (D(2024,3,25), D(2024,3,31)),
+                 (D(2025,3,24), D(2025,3,30)), (D(2026,3,16), D(2026,3,22))]
 def inw(d, wins): return any(a <= d <= b for a, b in wins)
 def nights(wins, lo, hi):
     n = 0
@@ -79,7 +81,7 @@ def nights(wins, lo, hi):
         if s <= e: n += (e - s).days + 1
     return n
 lo = min(r[0] for r in rows); hi = max(r[0] for r in rows)
-n_term = nights(TERM_CORE, lo, hi); n_wint = nights(WINTER_DEEP, lo, hi)
+n_term = nights(TERM_CORE, lo, hi) - nights(SPRING_BREAKS, D(2023,2,1), D(2026,4,15)); n_wint = nights(WINTER_DEEP, lo, hi)
 
 # ---------- rentals ----------
 parc = json.load(open("./data/rental_licenses_parcels_2026-08.json"))
@@ -135,7 +137,8 @@ plt.tight_layout(rect=[0, 0.035, 1, 1])
 plt.savefig(f"{ASSETS}/chart_maps_noise_rentals.png", facecolor="white"); plt.close()
 
 # pair 2: per-night, school in session vs WINTER break — shared zero-based scale
-d_term = density([(r[1], r[2]) for r in rows if inw(r[0], TERM_CORE)]) / n_term
+term_dates = [r for r in rows if inw(r[0], TERM_CORE) and not inw(r[0], SPRING_BREAKS)]
+d_term = density([(r[1], r[2]) for r in term_dates]) / n_term
 d_wint = density([(r[1], r[2]) for r in rows if inw(r[0], WINTER_DEEP)]) / n_wint
 VMAX = np.quantile(d_term[d_term>0], 0.998)
 fig, axes = plt.subplots(1, 2, figsize=(10.4, 5.6), dpi=200)

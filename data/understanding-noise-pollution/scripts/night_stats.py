@@ -71,4 +71,4 @@ sep_wknd = [d for d in term_nights if d.month == 9 and d.weekday() in (4, 5)]
 print(f"\nSeptember Fri+Sat avg: {sum(by_night.get(d,0) for d in sep_wknd)/len(sep_wknd):.1f}/night")
 
 # window sizes for like-for-like note
-print(f"\nterm-core nights in span: {len([d for d in term_nights if lo<=d<=hi])}; per year ~147")
+print(f"\nterm-core nights in span: {len([d for d in term_nights if lo<=d<=hi])}; per year ~140")

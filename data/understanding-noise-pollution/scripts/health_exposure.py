@@ -30,26 +30,36 @@ for r in parcels:
 hxy=np.array(hxy); ht=cKDTree(hxy)
 
 def wall(ts): return datetime.fromtimestamp(ts/1000, tz=timezone.utc)
+import re as _re
+from datetime import timedelta as _td
 hour_hist=Counter(); dow_night=Counter(); nb_rn=defaultdict(float)
 block_night=Counter(); res_nights=0.0; school_rn=0.0
 night_pts=[]
 n_night=0
+_seen=set()   # (night, parcel) pairs — a resident-night counts once per night
 for f in calls:
     a=f["attributes"]; ts=a.get("Response_Date")
     if not ts or not f.get("geometry"): continue
+    # standing exclusion: the 4500-block-of-19th single-dispute outlier
+    if _re.match(r"^45XX\s+19TH", (a.get("Address") or "").upper().strip()): continue
     dt=wall(ts); h=dt.hour
     hour_hist[h]+=1
     if h>=22 or h<3:
         n_night+=1
+        night=(dt-_td(hours=6)).date()
         x,y=T_FT.transform(f["geometry"]["x"],f["geometry"]["y"])
         night_pts.append((x,y))
         idx=ht.query_ball_point([x,y],r=600.0)
-        res_nights+=len(idx)*HH
         eff=dt.weekday() if h>=22 else (dt.weekday()-1)%7
         school = eff in (6,0,1,2,3)
-        if school: school_rn+=len(idx)*HH
+        for i in idx:
+            key=(night,i)
+            if key in _seen: continue
+            _seen.add(key)
+            res_nights+=HH
+            if school: school_rn+=HH
+            nb_rn[hnb[i]]+=HH
         dow_night[eff]+=1
-        for i in idx: nb_rn[hnb[i]]+=HH
         block_night[(a.get("Address") or "?").upper().strip()]+=1
 tot=sum(hour_hist.values())
 print(f"night calls {n_night}/{tot}; resident-nights {res_nights:,.0f}; school {school_rn:,.0f} ({school_rn/res_nights:.0%})",flush=True)
