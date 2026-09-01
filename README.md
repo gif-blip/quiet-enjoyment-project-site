@@ -35,9 +35,11 @@ should look as stable as the rule is.
 
 ## Email signup
 
-The signup form is off until a provider is wired up. Until then every signup
-spot on the site falls back to the mailto invitation it used before, so the site
-never ships a form that goes nowhere.
+Live since 2026-09-01: the signup posts to the project's Google Form
+("Join our mailing list"); responses collect in the QEP Google account.
+Configured in `SIGNUP` in the generator's `site_content.py` (see below for
+where the generator lives). The donate ask still falls back to mailto until
+`DONATE['url']` gets the Stripe payment link.
 
 Configure it in one place — `SIGNUP` in `pipeline/site_content.py` — then rebuild.
 Two modes:
