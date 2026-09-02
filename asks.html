@@ -36,6 +36,18 @@ nav.site a{color:var(--ink-2);text-decoration:none;padding:.35rem 0 .7rem;border
   white-space:nowrap}
 nav.site a:hover{color:var(--accent)}
 nav.site a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+nav.site details.navmenu{position:relative}
+nav.site details.navmenu summary{list-style:none;cursor:pointer;color:var(--ink-2);padding:.35rem 0 .7rem;
+  border-bottom:2px solid transparent;white-space:nowrap}
+nav.site details.navmenu summary::-webkit-details-marker{display:none}
+nav.site details.navmenu summary::after{content:" ▾";font-size:.8em}
+nav.site details.navmenu[open] summary{color:var(--ink)}
+nav.site details.navmenu .menu{display:flex;flex-direction:column;gap:.15rem;padding:.5rem .9rem .6rem;
+  background:var(--bg);border:1px solid var(--rule);border-radius:6px;min-width:13rem}
+@media (min-width:720px){
+  nav.site{overflow:visible}
+  nav.site details.navmenu .menu{position:absolute;top:100%;left:0;z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+}
 @media (min-width:720px){
   .brand{font-size:1.15rem}
   .brand .mark{height:3rem}
@@ -83,6 +95,16 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:.05em;width:
 .ask .body{flex:1}
 .reportcard{border:1px solid var(--rule);border-radius:12px;padding:1.1rem 1.2rem;margin:1rem 0;background:var(--bg)}
 .reportcard h3{margin-top:0}
+.reportcard.pin{border-color:#A98643;background:#fbf7ee}
+.reportcard.pin .kicker{margin:0 0 .3rem;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:#8a5a2b}
+.reportcard.pin h2{margin:.1rem 0 .5rem}
+.reportcard.pin .links a{margin-right:1.1rem}
+.report-body img{max-width:100%;height:auto;display:block;margin:1rem auto}
+.report-body h2{margin-top:2rem}
+.report-body blockquote{border-left:3px solid #A98643;margin:1rem 0;padding:.2rem 1rem;color:#444}
+.report-body table{border-collapse:collapse;width:100%;font-size:.95rem}
+.report-body th,.report-body td{border-bottom:1px solid var(--rule);padding:.4rem .5rem;text-align:left;vertical-align:top}
+.report-body .figcap{font-size:.9rem;color:#666;margin:-.4rem 0 1.2rem}
 .dl{display:inline-block;margin-top:.4rem;font-weight:600;font-size:.92rem}
 footer.site{border-top:1px solid var(--rule);background:var(--surface);color:var(--muted);font-size:.83rem}
 footer.site .wrap{padding-top:1.5rem;padding-bottom:2.5rem}
@@ -132,14 +154,17 @@ footer.site a{color:var(--ink-2)}
     <nav class="site">
         <a href="index.html">Home</a>
         <a href="reports.html">Reports</a>
-        <a href="watch-list.html">Watch List</a>
-        <a href="know-the-law.html">Know the Law</a>
-        <a href="health.html">Noise &amp; Health</a>
-        <a href="asks.html" aria-current="page">What We're Asking For</a>
-        <a href="residents.html">For Residents</a>
-        <a href="data.html">Source Data</a>
+        <a href="residents.html">I Live Here</a>
+        <a href="watch-list.html">I Own Property</a>
+        <details class="navmenu" open><summary>Resources</summary>
+          <div class="menu">
+            <a href="know-the-law.html">Know the Law</a>
+            <a href="health.html">Noise &amp; Health</a>
+            <a href="asks.html" aria-current="page">What We're Asking For</a>
+            <a href="data.html">Source Data</a>
+            <a href="about.html">About</a>
+          </div></details>
         <a href="support.html">Support</a>
-        <a href="about.html">About</a>
     </nav>
   </div>
 </header>

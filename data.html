@@ -36,6 +36,18 @@ nav.site a{color:var(--ink-2);text-decoration:none;padding:.35rem 0 .7rem;border
   white-space:nowrap}
 nav.site a:hover{color:var(--accent)}
 nav.site a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+nav.site details.navmenu{position:relative}
+nav.site details.navmenu summary{list-style:none;cursor:pointer;color:var(--ink-2);padding:.35rem 0 .7rem;
+  border-bottom:2px solid transparent;white-space:nowrap}
+nav.site details.navmenu summary::-webkit-details-marker{display:none}
+nav.site details.navmenu summary::after{content:" ▾";font-size:.8em}
+nav.site details.navmenu[open] summary{color:var(--ink)}
+nav.site details.navmenu .menu{display:flex;flex-direction:column;gap:.15rem;padding:.5rem .9rem .6rem;
+  background:var(--bg);border:1px solid var(--rule);border-radius:6px;min-width:13rem}
+@media (min-width:720px){
+  nav.site{overflow:visible}
+  nav.site details.navmenu .menu{position:absolute;top:100%;left:0;z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+}
 @media (min-width:720px){
   .brand{font-size:1.15rem}
   .brand .mark{height:3rem}
@@ -83,6 +95,16 @@ ol.steps li::before{content:counter(s);position:absolute;left:0;top:.05em;width:
 .ask .body{flex:1}
 .reportcard{border:1px solid var(--rule);border-radius:12px;padding:1.1rem 1.2rem;margin:1rem 0;background:var(--bg)}
 .reportcard h3{margin-top:0}
+.reportcard.pin{border-color:#A98643;background:#fbf7ee}
+.reportcard.pin .kicker{margin:0 0 .3rem;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:#8a5a2b}
+.reportcard.pin h2{margin:.1rem 0 .5rem}
+.reportcard.pin .links a{margin-right:1.1rem}
+.report-body img{max-width:100%;height:auto;display:block;margin:1rem auto}
+.report-body h2{margin-top:2rem}
+.report-body blockquote{border-left:3px solid #A98643;margin:1rem 0;padding:.2rem 1rem;color:#444}
+.report-body table{border-collapse:collapse;width:100%;font-size:.95rem}
+.report-body th,.report-body td{border-bottom:1px solid var(--rule);padding:.4rem .5rem;text-align:left;vertical-align:top}
+.report-body .figcap{font-size:.9rem;color:#666;margin:-.4rem 0 1.2rem}
 .dl{display:inline-block;margin-top:.4rem;font-weight:600;font-size:.92rem}
 footer.site{border-top:1px solid var(--rule);background:var(--surface);color:var(--muted);font-size:.83rem}
 footer.site .wrap{padding-top:1.5rem;padding-bottom:2.5rem}
@@ -132,14 +154,17 @@ footer.site a{color:var(--ink-2)}
     <nav class="site">
         <a href="index.html">Home</a>
         <a href="reports.html">Reports</a>
-        <a href="watch-list.html">Watch List</a>
-        <a href="know-the-law.html">Know the Law</a>
-        <a href="health.html">Noise &amp; Health</a>
-        <a href="asks.html">What We're Asking For</a>
-        <a href="residents.html">For Residents</a>
-        <a href="data.html" aria-current="page">Source Data</a>
+        <a href="residents.html">I Live Here</a>
+        <a href="watch-list.html">I Own Property</a>
+        <details class="navmenu" open><summary>Resources</summary>
+          <div class="menu">
+            <a href="know-the-law.html">Know the Law</a>
+            <a href="health.html">Noise &amp; Health</a>
+            <a href="asks.html">What We're Asking For</a>
+            <a href="data.html" aria-current="page">Source Data</a>
+            <a href="about.html">About</a>
+          </div></details>
         <a href="support.html">Support</a>
-        <a href="about.html">About</a>
     </nav>
   </div>
 </header>
@@ -163,11 +188,13 @@ footer.site a{color:var(--ink-2)}
     </ul>
     <h3>Understanding Noise Pollution in Boulder (September 2026)</h3>
     <ul class="clean">
-      <li><a href="/data/understanding-noise-pollution.zip">Complete data package (zip, 4 MB)</a> — Every dataset, analysis script, and figure behind the report, with a claim-by-claim manifest and SHA-256 checksums. The scripts run as shipped and reproduce every number in the report.</li>
+      <li><a href="/data/understanding-noise-pollution.zip">Complete data package (zip, 4 MB)</a> — Every dataset, analysis script, and figure behind the report, with a claim-by-claim manifest and SHA-256 checksums. The scripts run as shipped and re-derive every number built on these datasets; the citation figures rest on police records published separately on this page.</li>
       <li><a href="/data/understanding-noise-pollution/README.md">Package manifest (README)</a> — Per-file provenance, the claim → data → script table, conventions, and licenses.</li>
       <li><a href="https://github.com/gif-blip/quiet-enjoyment-project-site/tree/main/data/understanding-noise-pollution">Browse the files with version history</a> — Every file in the package, with the full change history GitHub records.</li>
       <li><a href="/data/understanding-noise-pollution/data/noiseb_calls_citywide_2023-01_2026-08.json">Noise calls for service, Jan 2023 – Aug 2026 (JSON)</a> — Snapshot of the city open-data feed as downloaded Aug. 15, 2026 — 9,961 calls with arrival times and outcomes.</li>
       <li><a href="/data/understanding-noise-pollution/data/rental_noise_calls_trailing12mo.json">Rental-property noise calls, trailing 365 days (JSON)</a> — Exact-address noise calls at licensed rentals, from the city’s rental-property feed.</li>
+      <li><a href="/data/bpd-records/BPD_noise_charges_2022-10_2025-10.xlsx">Boulder Police noise charge file, Oct 2022 – Oct 2025 (Excel, as produced)</a> — Every noise-related charge citywide — quiet-enjoyment, unreasonable-noise, nuisance-party, barking-dog and related sections — with the section, incident address, and whether a person was charged. Produced under the Criminal Justice Records Act; no names. This is the file behind the citation rates and the dog-versus-party comparison.</li>
+      <li><a href="/data/bpd-records/README.md">The same charge file as CSV, with a README on how the reports count it</a> — CSV copy at /data/bpd-records/BPD_noise_charges_2022-10_2025-10.csv. The README states the three-year window and the charged-versus-report-only rule BPD confirmed in writing.</li>
     </ul>
     <h2>Notes on the data</h2>
     <p>Police dispatch records contain incident numbers, timestamps, problem type, and addresses only — no caller information of any kind. A dispatched complaint is a logged resident call, not a finding of violation. A data dictionary describing every file and field is included in the folder.</p>

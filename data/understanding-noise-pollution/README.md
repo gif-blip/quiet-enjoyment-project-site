@@ -1,5 +1,6 @@
 # Understanding Noise Pollution in Boulder — Data Package
-**The Quiet Enjoyment Project · September 2026 · Version 1.6**
+**The Quiet Enjoyment Project · September 2026 · Version 1.7**
+*(v1.7: the citation-rate figures quoted below now match the report's corrected charge-file counts — 1 charged citation per 46 complaints in South Boulder vs 1 per 320 in the university district, 67 charged party citations citywide; `report_maps_v3.py` gains an optional single-panel share-card render, off by default (`QEP_CARD_OUT`); the hourly-share line notes its denominator; the citywide permanent-resident proxy that `report_stats.py` uses as its outside denominator (77,730, of which 28,010 fall inside the walkshed) is a published constant produced by applying the `age_split.py` rule to every city block — the script that ran that citywide pass is not yet in the package and will be added. No data or derived numbers changed.)*
 *(v1.6: the kernel maps now carry full map context — city limits, the hatched university district, labeled arterials and neighborhoods, a scale bar and north arrow — and use the city boundary as their extent, so no call locations fall outside the frame.)*
 *(v1.5: `chart_calendar.png` now plots the rest-of-city monthly series beside the walkshed series, so the seasonality contrast is visible on one chart.)*
 *(v1.4, after a second adversarial review: `health_exposure.py` now deduplicates
@@ -30,7 +31,7 @@ that any copy can be verified against the published original.
 **data/**
 | File | What it is | Source |
 |---|---|---|
-| `noiseb_calls_citywide_2023-01_2026-08.json` | All 9,961 citywide noise complaints (problem type NOISEB), Jan 1 2023 – Aug 14 2026, hundred-block precision | City of Boulder open-data ArcGIS feed, pulled 2026-08-15 |
+| `noiseb_calls_citywide_2023-01_2026-08.json` | All 9,961 citywide noise complaints (problem type NOISEB), Jan 1 2023 – Aug 14 2026 (pulled the morning of Aug 15; the last record is 3:27 a.m. Aug 15), hundred-block precision | City of Boulder open-data ArcGIS feed, pulled 2026-08-15 |
 | `rental_noise_calls_trailing12mo.json` | Noise calls at licensed rental properties (exact address), trailing 365 days | City of Boulder "Rental Property Calls for Service" open-data feed, pulled 2026-08-15 |
 | `rental_licenses_parcels_2026-08.json` | 10,830 active licensed-rental parcels with polygon geometry. License-holder name and company fields have been removed — the analysis uses only geometry, address, and license status, and we minimize personal data as a rule; the unabridged layer is the City's own public dataset | City of Boulder rental-license GIS layer, pulled 2026-08 |
 | `cu_walkshed_15min.kmz` | The CU walkshed: a 0.75-mile straight-line buffer around the university-district boundary (≈ a 15-minute walk) | QEP, from the City's official subcommunity polygon |
@@ -39,7 +40,7 @@ that any copy can be verified against the published original.
 | `walkshed_age_split_2026-08-31.json` | Walkshed household population by age; the permanent-resident count | 2020 census DHC table P12, block level (see scripts) |
 | `term_break_fingerprint_2026-08-31.json` | Complaints per night by academic period, inside/outside the walkshed | Derived; see `term_break_analysis.py` |
 | `health_exposure_results.json` | Resident-night proximity estimates (154,048/yr — deduplicated by parcel number and by parcel-night, outlier excluded; 46% on Sun–Thu nights, ~35% gated to actual BVSD student days) | Derived; see `health_exposure.py` |
-| `noise_party_calls_trailing12mo.json` | The 3,043 party/noise calls underlying the health exposure figures | City of Boulder open data |
+| `noise_party_calls_trailing12mo.json` | The 3,043 party/noise calls underlying the health exposure figures (2,838 after the standing exclusion of the single-dispute block; every script applies the exclusion) | City of Boulder open data |
 | `city_res_parcels.json` | Residential parcel points (parcel number, coordinates, land sqft, assessor neighborhood — no owner information) used for the households-within-earshot join | Boulder County Assessor, pulled 2026-08-22 |
 | `citylimits.json` | City of Boulder boundary polygon | City of Boulder GIS |
 | `cu_halfmile_buffer.kmz` | Half-mile campus ring (reported for comparison) | QEP |
@@ -66,17 +67,18 @@ correct download.
 | School-year trend 1,408 → 1,515 → 1,777; spring 2026 +24% | noiseb + walkshed | `report_charts2.py`, `report_maps_v3.py` |
 | 3.5x complaints per rental license inside the walkshed (0.26 vs 0.07; 3.3x per unique parcel, 2.8x per dwelling unit) | rental calls + rental parcels + walkshed | `report_charts2.py` |
 | 28,010 permanent residents (26% of city population, 36% of its permanent residents), incl. 3,957 children; 4.1x per-permanent-resident rate (matched proxies both sides) | census blocks + walkshed + citylimits | `permanent_pop2.py`, `age_split.py`, `report_stats.py` |
-| 55% of complaints 10 p.m.–3 a.m.; hourly distribution | noiseb | `report_charts2.py` |
+| 55% of complaints 10 p.m.–3 a.m. (of all 9,011 NOISEB records; the report's 57% is the same share within the trailing-12-month party/noise file); hourly distribution | noiseb | `report_charts2.py` |
 | ~154,000 resident-nights within 600 ft of a nighttime call (proximity estimate); 46% Sun–Thu, ~35% on BVSD student-day nights; radius sensitivity 43k @300ft / 306k @900ft | party/noise calls + parcels | `health_exposure.py` |
 | Maps (noise vs rentals; session vs winter break) | noiseb + rentals + walkshed + OSM streets | `report_maps_v3.py` |
 
-**Citation and disposition figures** (1 citation per 25 complaints in South
-Boulder vs 1 per 128 in the university district; the barking-dog comparison;
+**Citation and disposition figures** (1 charged citation per 46 complaints in South
+Boulder vs 1 per 320 in the university district; the barking-dog comparison;
 warnings-per-summons) derive from Boulder Police records produced to QEP under
 the Colorado Criminal Justice Records Act, three-year window ending October
-2025. Those source extracts are published separately on our Source Data page
-(quietenjoymentproject.org/data.html) — they are larger than this package and
-shared in their original form.
+2025. The BPD charge file is published on our Source Data page
+(quietenjoymentproject.org/data.html, under this report; direct path /data/bpd-records/)
+in its original form with a CSV copy and a README; the complaint denominators come from
+the City's public calls-for-service feed.
 
 ## Conventions and notes
 

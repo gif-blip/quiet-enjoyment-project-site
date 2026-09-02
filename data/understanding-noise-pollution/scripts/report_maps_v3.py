@@ -59,6 +59,8 @@ for _f in _json.load(open("./data/citylimits.json"))["features"]:
         CITY_RINGS.append(([q[0] for q in _ll], [q[1] for q in _ll]))
 import matplotlib.patheffects as _pe
 _HALO = [_pe.withStroke(linewidth=2.2, foreground="white")]
+FS = 1.0   # label font scale (raised for the mobile share card)
+CARD = False  # card mode: no scale bar / north arrow (extraneous on a phone)
 
 def _nearest_seg(name, lon, lat):
     """nearest point on any way with this name to (lon,lat); returns (x, y, angle_deg_screen)."""
@@ -192,7 +194,7 @@ def draw(ax, dens, cmap, vmax, title, tcolor):
     _A = sum(ux[i]*uy[i+1] - ux[i+1]*uy[i] for i in range(-1, len(ux)-1)) / 2
     _cx = sum((ux[i]+ux[i+1])*(ux[i]*uy[i+1]-ux[i+1]*uy[i]) for i in range(-1, len(ux)-1)) / (6*_A)
     _cy = sum((uy[i]+uy[i+1])*(ux[i]*uy[i+1]-ux[i+1]*uy[i]) for i in range(-1, len(ux)-1)) / (6*_A)
-    ax.text(_cx, _cy + 0.0018, "CU BOULDER\ncampus", ha="center", va="center", fontsize=7.6, fontweight="bold",
+    ax.text(_cx, _cy + 0.0018, "CU BOULDER\ncampus", ha="center", va="center", fontsize=7.6*FS, fontweight="bold",
             color="#34506A", zorder=6, path_effects=_HALO, linespacing=1.15)
     # street labels along the road
     for nm, lab, alon, alat, off in STREET_LABELS:
@@ -200,19 +202,21 @@ def draw(ax, dens, cmap, vmax, title, tcolor):
         if not hit: continue
         hx, hy, ang = hit
         ax.text(hx, hy + off, lab, rotation=ang, rotation_mode="anchor", ha="center", va="center",
-                fontsize=5.6, color="#6B6353", zorder=6, path_effects=_HALO)
+                fontsize=5.6*FS, color="#6B6353", zorder=6, path_effects=_HALO)
     for lab, plon, plat in PLACE_LABELS:
         if not (x0 <= plon <= x1 and y0 <= plat <= y1): continue
-        ax.text(plon, plat, lab, ha="center", va="center", fontsize=6.4, style="italic",
+        ax.text(plon, plat, lab, ha="center", va="center", fontsize=6.4*FS, style="italic",
                 color="#5C5548", zorder=6, path_effects=_HALO, linespacing=1.1)
-    # scale bar (1 mile) + north arrow
+    # scale bar (1 mile) + north arrow (skipped in card mode)
     _mile_lat = 1 / 69.17; _mile_lon = _mile_lat / ASPECT_LL
+    if CARD: _mile_lon = None
     bx, by = x0 + 0.006, y0 + 0.006
-    ax.plot([bx, bx + _mile_lon], [by, by], color=INK, lw=1.6, zorder=7, solid_capstyle="butt")
-    ax.text(bx + _mile_lon/2, by + 0.0016, "1 mile", ha="center", fontsize=6.5, color=INK, zorder=7)
-    ax.annotate("N", xy=(x1 - 0.006, y1 - 0.004), xytext=(x1 - 0.006, y1 - 0.013), ha="center",
-                fontsize=7.5, fontweight="bold", color=INK, zorder=7,
-                arrowprops=dict(arrowstyle="-|>", color=INK, lw=1.0))
+    if _mile_lon is not None:
+      ax.plot([bx, bx + _mile_lon], [by, by], color=INK, lw=1.6, zorder=7, solid_capstyle="butt")
+      ax.text(bx + _mile_lon/2, by + 0.0016, "1 mile", ha="center", fontsize=6.5*FS, color=INK, zorder=7)
+      ax.annotate("N", xy=(x1 - 0.006, y1 - 0.004), xytext=(x1 - 0.006, y1 - 0.013), ha="center",
+                  fontsize=7.5*FS, fontweight="bold", color=INK, zorder=7,
+                  arrowprops=dict(arrowstyle="-|>", color=INK, lw=1.0))
     ax.set_xlim(x0, x1); ax.set_ylim(y0, y1); ax.axis("off")
     ax.set_title(title, fontsize=12.5, color=tcolor, fontweight="bold")
 
@@ -240,6 +244,20 @@ fig.text(0.5, 0.015, "Noise complaints per night, identical zero-based color sca
 plt.tight_layout(rect=[0, 0.035, 1, 1])
 plt.savefig(f"{ASSETS}/chart_maps_term_break.png", facecolor="white"); plt.close()
 print("maps rebuilt (KMZ kernel style)")
+# ---------- optional: single-panel noise map for the mobile share card (QEP_CARD_OUT=<path>) ----------
+import os as _os
+if _os.environ.get("QEP_CARD_OUT"):
+    FS = 1.7; CARD = True
+    PLACE_LABELS[:] = [pl for pl in PLACE_LABELS if pl[0] not in ("Goss-Grove", "N. Boulder")]
+    STREET_LABELS[:] = [sl for sl in STREET_LABELS if sl[1] not in ("Diagonal Hwy", "Iris Ave")]
+    fig, ax = plt.subplots(figsize=(6.8, 6.0), dpi=200)
+    draw(ax, d_noise, BROWN, np.quantile(d_noise[d_noise>0], 0.998), "", "#6b2d0e")
+    ax.plot(wx, wy, color=INK, lw=2.4, ls=(0, (5, 3)), zorder=3)
+    ax.set_xlim(-105.300, -105.205); ax.set_ylim(39.968, 40.052)   # the walkshed and its surroundings, not the far-north sliver
+    plt.tight_layout(pad=0.2)
+    plt.savefig(_os.environ["QEP_CARD_OUT"], facecolor="white"); plt.close()
+    print("card map ->", _os.environ["QEP_CARD_OUT"])
+
 
 # ---------- spring semester trend ----------
 SPRINGS = {2023: (D(2023,1,17), D(2023,5,11)), 2024: (D(2024,1,16), D(2024,5,9)),
