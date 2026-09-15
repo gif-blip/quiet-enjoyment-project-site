@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Know the Law · The Quiet Enjoyment Project</title>
+<title>The Boulder Noise Map · The Quiet Enjoyment Project</title>
 <meta name="description" content="The Quiet Enjoyment Project restores residential quality of life in Boulder neighborhoods affected by chronic noise — beginning on University Hill — throug">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <style>
@@ -154,12 +154,12 @@ footer.site a{color:var(--ink-2)}
     <nav class="site">
         <a href="index.html">Home</a>
         <a href="reports.html">Reports</a>
-        <a href="noise-map.html">The Map</a>
+        <a href="noise-map.html" aria-current="page">The Map</a>
         <a href="residents.html">I Live Here</a>
         <a href="watch-list.html">I Own Property</a>
-        <details class="navmenu" open><summary>Resources</summary>
+        <details class="navmenu"><summary>Resources</summary>
           <div class="menu">
-            <a href="know-the-law.html" aria-current="page">Know the Law</a>
+            <a href="know-the-law.html">Know the Law</a>
             <a href="health.html">Noise &amp; Health</a>
             <a href="asks.html">What We're Asking For</a>
             <a href="data.html">Source Data</a>
@@ -171,19 +171,88 @@ footer.site a{color:var(--ink-2)}
 </header>
 <main>
   <div class="wrap">
-    <h1>Know the Law</h1>
-    <p class="lede">Most people — including many students, owners, and even officers — are wrong about what Boulder noise law actually says. The short version: it is stricter, and easier to enforce, than almost anyone believes.</p>
-    <h2>If you can hear it from 100 feet, it’s a violation</h2>
-    <p>Since 2022, amplified sound audible 100 feet beyond the property line at night (11 p.m.–7 a.m.), or 200 feet during the day, is a citable violation — no decibel meter, no complaining neighbor required. An officer can pace the distance and write the ticket (B.R.C. 5-9-6; Ordinance 8531). Every resident present at a house generating amplified noise is legally responsible for it. Police have the choice to drive around neighborhoods and issue tickets.</p>
-    <h2>The decibel limits are health standards</h2>
-    <p>Boulder’s residential limits — 55 dB(A) daytime, 50 dB(A) night (B.R.C. 5-9-3) — descend from the U.S. EPA’s health-based exposure levels and match World Health Organization thresholds. Colorado state law is stricter still: its nighttime limit begins at 7 p.m. (C.R.S. 25-12-103). <a href="health.html">More on the health page.</a></p>
-    <h2>Repeat complaints reach the rental license</h2>
-    <p>Under Boulder’s chronic-nuisance ordinance (B.R.C. ch. 10-2.5, 2024), a single-family rental with five or more documented nuisance violations in a year (counted Aug. 1–Jul. 31; no citation is required, and police-documented warnings are evidence of violations) can be designated a chronic nuisance property — triggering a mandatory abatement plan and rental-license consequences up to revocation.</p>
-    <h2>Residents can sue — and reach the owner</h2>
-    <p>Colorado’s Noise Abatement Act lets any resident ask a district court to shut down a noise nuisance and enjoin not just the people making the noise but the owner, lessee, or agent of the property from permitting it (C.R.S. 25-12-104; see <em>Hobbs v. City of Salida</em>, 2025 CO 50).</p>
-    <h2>If you’re hosting a party</h2>
-    <p>We are not against parties. We are against your speakers in our bedrooms. Keep amplified sound indoors, reasonably loud, keep doors and windows shut, wind it down by 11, and nobody calls anyone. A noise ticket in Boulder can run up to $2,650 per violation — each day is a separate violation — and it follows every resident of the house, not just the person at the aux cord.</p>
-    <div class="callout plain"><p>This page is general information, not legal advice.</p></div>
+    <h1>The Boulder Noise Map</h1>
+    <p class="lede">Every police noise call in Boulder since January 2023, from the City’s open-data feed: 9,011 calls, placed at the hundred-block the dispatcher recorded, plus one address that produced 950 calls from a single dispute, shown only when you ask for it. Explore your block. The dashed line is a fifteen-minute walk from the CU campus; 70% of the city’s complaints fall inside it.</p>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+    <style>
+      #noisemap{height:72vh;min-height:480px;border:1px solid var(--rule);border-radius:12px}
+      .mapctl{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;align-items:center;margin:.8rem 0;font-size:.95rem}
+      .mapctl label{display:inline-flex;gap:.35rem;align-items:center}
+      .mapctl select{font:inherit;padding:.15rem .3rem}
+      .mapstat{font-size:.95rem;color:#444;margin:.4rem 0 1rem}
+      .leaflet-container{font-family:inherit}
+      .legend{background:#fff;padding:.5rem .7rem;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.25);font-size:.85rem;line-height:1.5}
+      .legend span{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-right:.4rem;border-radius:3px}
+    </style>
+    <div class="mapctl">
+      <label>Show <select id="mode"><option value="heat">density (heat)</option><option value="points">individual calls</option></select></label>
+      <label>Period <select id="period">
+        <option value="all">All, Jan 2023 – Aug 2026</option>
+        <option value="2026">2026 only</option><option value="2025">2025 only</option><option value="2024">2024 only</option><option value="2023">2023 only</option>
+        <option value="term">School in session (Sept–Nov, Feb–Apr)</option><option value="break">Winter break (Dec 20 – Jan 12)</option>
+      </select></label>
+      <label>Hours <select id="hours"><option value="all">all hours</option><option value="night">10 p.m. – 3 a.m.</option><option value="quiet">11 p.m. – 7 a.m. (city quiet hours)</option></select></label>
+      <label><input type="checkbox" id="walk" checked> walkshed outline</label>
+      <label><input type="checkbox" id="outlier"> include the single-dispute outlier address</label>
+      <label><input type="checkbox" id="city" checked> city limits</label>
+    </div>
+    <div id="noisemap" role="img" aria-label="Map of Boulder noise complaints"></div>
+    <p class="mapstat" id="mapstat">Loading 9,961 calls…</p>
+    <p>How to read it: each call is a resident’s report to dispatch that police logged, placed at the hundred-block (for example “9XX 15th St”), not at a house; a call is not a finding that the law was broken. The one address that produced a tenth of the city’s calls from a single dispute is shown but flagged in the <a href="methods-faq.html">methods FAQ</a>. Source: City of Boulder open data, NOISEB call type, downloaded Aug. 15, 2026. The underlying file and every script are in the <a href="data.html">data package</a>.</p>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script>
+    (function(){
+      var map=L.map('noisemap',{scrollWheelZoom:false}).setView([40.012,-105.265],13);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+      var layers={walk:null,city:null,heat:null,points:null}, calls=[];
+      fetch('noise-map-boundaries.json').then(function(r){return r.json()}).then(function(gj){
+        gj.features.forEach(function(f){
+          var isWalk=/walkshed/.test(f.properties.name);
+          var lyr=L.geoJSON(f,{style:isWalk?{color:'#8a5a2b',weight:2.5,dashArray:'8 6',fill:false}:{color:'#1C2B39',weight:1.2,fill:false,opacity:.7}});
+          layers[isWalk?'walk':'city']=lyr; lyr.addTo(map);
+        });
+      });
+      function inPeriod(d,p){var m=d.getMonth()+1,day=d.getDate(),y=d.getFullYear();
+        if(p==='all')return true; if(/^\d{4}$/.test(p))return y===+p;
+        if(p==='term')return (m>=9&&m<=11)||(m>=2&&m<=4);
+        if(p==='break')return (m===12&&day>=20)||(m===1&&day<=12); return true;}
+      function inHours(d,h){var hr=d.getHours(); if(h==='all')return true; if(h==='night')return hr>=22||hr<3; if(h==='quiet')return hr>=23||hr<7; return true;}
+      function render(){
+        var mode=document.getElementById('mode').value,p=document.getElementById('period').value,h=document.getElementById('hours').value;
+        var incl=document.getElementById('outlier').checked; var sel=calls.filter(function(c){return (incl||!c.out)&&inPeriod(c.d,p)&&inHours(c.d,h)});
+        if(layers.heat){map.removeLayer(layers.heat);layers.heat=null} if(layers.points){map.removeLayer(layers.points);layers.points=null}
+        if(mode==='heat'){layers.heat=L.heatLayer(sel.map(function(c){return [c.lat,c.lon,1]}),{radius:13,blur:11,maxZoom:14,max:6,minOpacity:.15}).addTo(map);}
+        else{layers.points=L.markerClusterGroup({disableClusteringAtZoom:17,maxClusterRadius:45});
+          sel.forEach(function(c){layers.points.addLayer(L.circleMarker([c.lat,c.lon],{radius:5,color:'#8a5a2b',weight:1,fillColor:'#A98643',fillOpacity:.75}).bindPopup('<b>'+c.addr+'</b><br>'+c.d.toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'})+'<br>'+c.prob))});
+          layers.points.addTo(map);}
+        var inW=0; sel.forEach(function(c){if(c.w)inW++});
+        document.getElementById('mapstat').textContent=sel.length.toLocaleString()+' calls shown'+(sel.length?' · '+Math.round(100*inW/sel.length)+'% inside the walkshed':'')+' · '+p.replace('all','all periods')+', '+document.getElementById('hours').selectedOptions[0].text+'.';
+      }
+      ['mode','period','hours','outlier'].forEach(function(id){document.getElementById(id).addEventListener('change',render)});
+      document.getElementById('walk').addEventListener('change',function(e){if(layers.walk){e.target.checked?layers.walk.addTo(map):map.removeLayer(layers.walk)}});
+      document.getElementById('city').addEventListener('change',function(e){if(layers.city){e.target.checked?layers.city.addTo(map):map.removeLayer(layers.city)}});
+      fetch('data/understanding-noise-pollution/data/noiseb_calls_citywide_2023-01_2026-08.json').then(function(r){return r.json()}).then(function(j){
+        var feats=j.features||j; var pts=[];
+        feats.forEach(function(f){var a=f.attributes||f,g=f.geometry; if(!g||!a.Response_Date)return;
+          // the feed stores wall-clock time in the epoch field; read it as UTC to recover the local clock
+          var d=new Date(a.Response_Date); d=new Date(d.getUTCFullYear(),d.getUTCMonth(),d.getUTCDate(),d.getUTCHours(),d.getUTCMinutes());
+          pts.push({lat:g.y,lon:g.x,d:d,addr:a.Address||'',prob:a.Problem||'Noise',out:/^45XX\s+19TH/i.test(a.Address||'')});});
+        calls=pts;
+        // walkshed membership for the stat line (point-in-polygon on the embedded outline)
+        fetch('noise-map-boundaries.json').then(function(r){return r.json()}).then(function(gj){
+          var walk=gj.features.filter(function(f){return /walkshed/.test(f.properties.name)})[0];
+          var rings=walk.geometry.type==='Polygon'?[walk.geometry.coordinates]:walk.geometry.coordinates;
+          function pip(x,y,ring){var inside=false;for(var i=0,j=ring.length-1;i<ring.length;j=i++){var xi=ring[i][0],yi=ring[i][1],xj=ring[j][0],yj=ring[j][1];var inter=((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi);if(inter)inside=!inside}return inside}
+          calls.forEach(function(c){c.w=rings.some(function(poly){return pip(c.lon,c.lat,poly[0])})});
+          render();
+        });
+      }).catch(function(e){document.getElementById('mapstat').textContent='The call data could not be loaded ('+e+').'});
+    })();
+    </script>
   </div>
 </main>
 <footer class="site">

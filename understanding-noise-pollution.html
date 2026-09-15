@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Understanding Noise Pollution in Boulder · The Quiet Enjoyment Project</title>
+<meta name="description" content="The Quiet Enjoyment Project restores residential quality of life in Boulder neighborhoods affected by chronic noise — beginning on University Hill — throug">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<style>
+:root{
+  --bg:#FDFBF4; --surface:#F4EFE3; --ink:#1C2B39; --ink-2:#4A4437; --muted:#8A8168;
+  --rule:#E2D9C4; --accent:#A9762F; --accent-soft:#F7EBD3; --warn:#9A4A38; --good:#4A6741;
+  --max:70rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131A23; --surface:#1C2733; --ink:#EDE8DB; --ink-2:#CFC8B8; --muted:#9A917E;
+    --rule:#2C3A49; --accent:#E2AC4F; --accent-soft:#2A3038; --warn:#D08A77; --good:#8FB585;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 1.5rem}
+header.site{border-bottom:1px solid var(--rule);background:var(--bg);position:sticky;top:0;z-index:10}
+header.site .wrap{display:flex;flex-direction:column;gap:.5rem;padding-top:.8rem;padding-bottom:0}
+.brand{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;
+  display:flex;align-items:center;gap:.7rem}
+.brand .mark{height:2.5rem;width:auto;flex:none}
+nav.site{display:flex;gap:1.15rem;font-size:.9rem;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none}
+nav.site::-webkit-scrollbar{display:none}
+nav.site a{color:var(--ink-2);text-decoration:none;padding:.35rem 0 .7rem;border-bottom:2px solid transparent;
+  white-space:nowrap}
+nav.site a:hover{color:var(--accent)}
+nav.site a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+nav.site details.navmenu{position:relative}
+nav.site details.navmenu summary{list-style:none;cursor:pointer;color:var(--ink-2);padding:.35rem 0 .7rem;
+  border-bottom:2px solid transparent;white-space:nowrap}
+nav.site details.navmenu summary::-webkit-details-marker{display:none}
+nav.site details.navmenu summary::after{content:" ▾";font-size:.8em}
+nav.site details.navmenu[open] summary{color:var(--ink)}
+nav.site details.navmenu .menu{display:flex;flex-direction:column;gap:.15rem;padding:.5rem .9rem .6rem;
+  background:var(--bg);border:1px solid var(--rule);border-radius:6px;min-width:13rem}
+@media (min-width:720px){
+  nav.site{overflow:visible}
+  nav.site details.navmenu .menu{position:absolute;top:100%;left:0;z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+}
+@media (min-width:720px){
+  .brand{font-size:1.15rem}
+  .brand .mark{height:3rem}
+}
+main{padding:2.5rem 0 3.5rem}
+h1{font-size:2rem;line-height:1.2;letter-spacing:-.02em;margin:0 0 .6rem}
+h1 .sub{display:block;font-size:1.35rem;color:var(--ink-2);font-weight:600;margin-top:.35rem}
+h2{font-size:1.3rem;letter-spacing:-.01em;margin:2.25rem 0 .5rem}
+h3{font-size:1.02rem;margin:1.5rem 0 .3rem}
+p{margin:0 0 1rem}
+.lede{font-size:1.12rem;color:var(--ink-2);max-width:46rem}
+.hero{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:1.4rem 1.5rem;margin:1.5rem 0}
+.hero p{margin:0;font-size:1.05rem}
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;margin:1.75rem 0}
+.door{display:block;border:1px solid var(--rule);border-radius:12px;padding:1.1rem 1.2rem;text-decoration:none;
+  background:var(--bg);transition:border-color .15s,transform .15s}
+.door:hover{border-color:var(--accent);transform:translateY(-2px)}
+.door strong{display:block;color:var(--ink);margin-bottom:.3rem}
+.door span{color:var(--ink-2);font-size:.94rem}
+figure{margin:1.5rem 0}
+figure img{width:100%;height:auto;border:1px solid var(--rule);border-radius:10px;background:#fff}
+figcaption{color:var(--muted);font-size:.85rem;margin-top:.5rem}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:.9rem 1.1rem;border-radius:0 8px 8px 0;margin:1.25rem 0}
+.callout p:last-child{margin-bottom:0}
+.callout.plain{border-left-color:var(--muted);background:var(--surface)}
+.tablewrap{overflow-x:auto;margin:1.25rem 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:38rem}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr:hover{background:var(--surface)}
+.chip{display:inline-block;font-size:.74rem;padding:.14rem .5rem;border-radius:999px;white-space:nowrap;
+  border:1px solid var(--rule);color:var(--ink-2);background:var(--surface)}
+.chip.up{color:var(--warn);border-color:currentColor}
+.chip.down{color:var(--good);border-color:currentColor}
+ul.clean{list-style:none;padding:0;margin:1rem 0}
+ul.clean li{padding-left:1.2rem;position:relative;margin-bottom:.6rem}
+ul.clean li::before{content:"";position:absolute;left:0;top:.62em;width:.42rem;height:.42rem;border-radius:50%;background:var(--accent)}
+ol.steps{padding-left:0;counter-reset:s;list-style:none;margin:1rem 0}
+ol.steps li{counter-increment:s;position:relative;padding-left:2.1rem;margin-bottom:.85rem}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:.05em;width:1.5rem;height:1.5rem;border-radius:50%;
+  background:var(--accent);color:var(--bg);font-size:.82rem;font-weight:700;display:grid;place-items:center}
+.asks-group{margin:1.5rem 0}
+.ask{display:flex;gap:.9rem;align-items:flex-start;padding:.85rem 0;border-bottom:1px solid var(--rule)}
+.ask .body{flex:1}
+.reportcard{border:1px solid var(--rule);border-radius:12px;padding:1.1rem 1.2rem;margin:1rem 0;background:var(--bg)}
+.reportcard h3{margin-top:0}
+.reportcard.pin{border-color:#A98643;background:#fbf7ee}
+.reportcard.pin .kicker{margin:0 0 .3rem;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:#8a5a2b}
+.reportcard.pin h2{margin:.1rem 0 .5rem}
+.reportcard.pin .links a{margin-right:1.1rem}
+.report-body img{max-width:100%;height:auto;display:block;margin:1rem auto}
+.report-body h2{margin-top:2rem}
+.report-body blockquote{border-left:3px solid #A98643;margin:1rem 0;padding:.2rem 1rem;color:#444}
+.report-body table{border-collapse:collapse;width:100%;font-size:.95rem}
+.report-body th,.report-body td{border-bottom:1px solid var(--rule);padding:.4rem .5rem;text-align:left;vertical-align:top}
+.report-body .figcap{font-size:.9rem;color:#666;margin:-.4rem 0 1.2rem}
+.dl{display:inline-block;margin-top:.4rem;font-weight:600;font-size:.92rem}
+footer.site{border-top:1px solid var(--rule);background:var(--surface);color:var(--muted);font-size:.83rem}
+footer.site .wrap{padding-top:1.5rem;padding-bottom:2.5rem}
+footer.site a{color:var(--ink-2)}
+.updated{color:var(--muted);font-size:.85rem;margin-top:-.3rem}
+@media (max-width:640px){
+  h1{font-size:1.6rem} h1 .sub{font-size:1.15rem}
+  .wrap{padding-left:1.1rem;padding-right:1.1rem}
+  main{padding-top:1.8rem}
+  .hero{padding:1.1rem 1.15rem}
+}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.signup{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:1.25rem 1.4rem;margin:1.75rem 0}
+.signup h2{margin:0 0 .4rem;font-size:1.15rem}
+.signup p{color:var(--ink-2);margin:0 0 .2rem;max-width:44rem}
+.signup form{display:flex;flex-wrap:wrap;gap:.6rem;margin:.9rem 0 .6rem;max-width:34rem}
+.signup input[type=email]{flex:1 1 15rem;min-width:0;font:inherit;font-size:.95rem;padding:.6rem .7rem;
+  color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:8px}
+.signup input[type=email]::placeholder{color:var(--muted)}
+.signup input[type=email]:focus-visible{border-color:var(--accent);outline:2px solid var(--accent);outline-offset:1px}
+.signup button{font:inherit;font-size:.95rem;font-weight:600;padding:.6rem 1.15rem;cursor:pointer;
+  color:var(--bg);background:var(--accent);border:1px solid var(--accent);border-radius:8px}
+.signup button:hover{filter:brightness(1.08)}
+.signup button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.signup .fine{font-size:.85rem;color:var(--muted);margin:0}
+.signup .done{font-weight:600;color:var(--good);margin:.9rem 0 .6rem}
+.signup iframe{display:block;width:100%;border:0;background:transparent}
+.signup.compact{border:0;background:none;padding:0;margin:0 0 1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--rule)}
+.signup.compact h2{font-size:.95rem;color:var(--ink-2)}
+.signup.compact form{margin:.55rem 0 0;max-width:28rem}
+.signup.compact input[type=email],.signup.compact button{font-size:.88rem;padding:.45rem .65rem}
+.signup.compact button{padding:.45rem .95rem}
+.btn{display:inline-block;font-weight:600;font-size:.95rem;padding:.6rem 1.15rem;border-radius:8px;text-decoration:none;
+  color:var(--bg);background:var(--accent);border:1px solid var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.donate{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:1.25rem 1.4rem;margin:1.75rem 0}
+.donate h2{margin:0 0 .4rem;font-size:1.15rem}
+.donate p{color:var(--ink-2);margin:0 0 .95rem;max-width:44rem}
+.donate .fine{font-size:.85rem;color:var(--muted);margin:.85rem 0 0}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 175 176" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><polygon points="12,110 85,50 158,110" fill="currentColor"/><rect x="26" y="110" width="118" height="60" fill="currentColor"/><rect x="52" y="126" width="22" height="22" fill="#D99A2B"/><polygon points="79,46 60,42 66,51" fill="#D99A2B"/><path d="M78 50 C76 43 77 36 82 32 C84 26 90 23 94 26 L95 25 L107 16 L97 30 L106 26 L97 33 C99 39 97 46 91 50 Z" fill="#D99A2B"/><circle cx="90" cy="28.5" r="1.6" fill="var(--bg)"/><ellipse cx="112" cy="25" rx="2.7" ry="2.1" transform="rotate(-20 112 25)" fill="#D99A2B"/><path d="M114.5 24.3 V12.8" stroke="#D99A2B" stroke-width="1.6" fill="none"/><ellipse cx="121" cy="22" rx="2.7" ry="2.1" transform="rotate(-20 121 22)" fill="#D99A2B"/><path d="M123.5 21.3 V9.8" stroke="#D99A2B" stroke-width="1.6" fill="none"/><path d="M113.6 12.6 L124.2 9.6" stroke="#D99A2B" stroke-width="3.2" fill="none"/></svg>The Quiet Enjoyment Project</a>
+    <nav class="site">
+        <a href="index.html">Home</a>
+        <a href="reports.html">Reports</a>
+        <a href="noise-map.html">The Map</a>
+        <a href="residents.html">I Live Here</a>
+        <a href="watch-list.html">I Own Property</a>
+        <details class="navmenu"><summary>Resources</summary>
+          <div class="menu">
+            <a href="know-the-law.html">Know the Law</a>
+            <a href="health.html">Noise &amp; Health</a>
+            <a href="asks.html">What We're Asking For</a>
+            <a href="data.html">Source Data</a>
+            <a href="about.html">About</a>
+          </div></details>
+        <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <h1>Understanding Noise Pollution in Boulder</h1>
+    <p class="lede">Where it is, where it comes from, and who bears it · The Quiet Enjoyment Project · September 2026</p>
+    <p class="links"><a class="dl" href="noise-map.html">Explore the interactive map →</a> &nbsp; <a class="dl" href="data.html">Every dataset and script →</a> &nbsp; <a class="dl" href="methods-faq.html">Methods FAQ →</a> &nbsp; <a class="dl" href="assets/Understanding-Noise-Pollution-in-Boulder-2026-09.pdf">Download the PDF →</a></p>
+<div class="report-body">
+<p><em>First in a series. Every figure in this report comes from a public record: police calls-for-service, the City's rental-license rolls, the county assessor, and the 2020 census. Every dataset and script is published alongside it. The report makes no demands. It sets out where Boulder's noise pollution is, where it comes from, and who lives with it.</em></p>
+<p><em>Written for Boulder's neighbors. If it concerns you, send it to one.</em></p>
+<h2>70% OF BOULDER'S NOISE COMPLAINTS COME FROM THE CU WALKSHED</h2>
+<p>Since January 2023, Boulder has logged 9,011 noise complaints.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> 6,297 of them, 70%, came from within a 15-minute walk of the university district, the area this report calls <strong>the CU walkshed</strong>. Put the complaints on a map beside the City's licensed rentals and the two pictures are the same picture:</p>
+<p><img src="assets/unp/chart_maps_noise_rentals.png" alt=""></p>
+<h2>THE NOISE KEEPS CU'S CALENDAR</h2>
+<p>The noise keeps the university's schedule. On school-year weekends, Thursday through Saturday, the walkshed produces <strong>10.9 complaints a night</strong>, which over an eight-hour night is one every 44 minutes. September Fridays and Saturdays run 19 a night. The busiest night in the data was Thursday, October 30, 2025, the eve of Halloween weekend, with 38 calls. Across all term nights the walkshed averages 6.0 complaints a night, 73% of the citywide total. Over winter break it averages 1.0. During breaks the walkshed is quieter than the rest of the city. The houses, the neighbors, and the laws are the same in December as in October. The students are not there.</p>
+<p><img src="assets/unp/chart_maps_term_break.png" alt=""></p>
+<p><img src="assets/unp/chart_fingerprint.png" alt="All rates are per night, so the unequal window lengths (roughly 140 term-core nights a year against 17 deep-winter nights) compare like-for-like."></p>
+<p class="figcap">All rates are per night, so the unequal window lengths (roughly 140 term-core nights a year against 17 deep-winter nights) compare like-for-like.</p>
+
+<p>CU move-in, August 18 to 31, averages 10.2 complaints a night, 78% of the citywide total. Thursday nights run near weekend volume. The noise falls when the students leave, comes back when they return, and peaks when they move in. The rest of the city serves as the comparison. The seasonal forces Boulder shares, weather, daylight, patio season, move the outside-walkshed line too, but far less: from winter break to term, complaints outside the walkshed rise about 80%. Inside, they rise nearly 500%. None of these records identifies a caller or a noisemaker. The attribution is to a place and a calendar, not to any person.</p>
+<h2>AND IT IS GETTING WORSE</h2>
+<p>Boulder Police sharply increased noise enforcement on University Hill between 2023 and 2025, a surge our University Hill series will document with its own data release. Complaints went up anyway:</p>
+<table>
+<thead>
+<tr>
+<th>School year</th>
+<th>Complaints, CU walkshed</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2023–24</td>
+<td>1,408</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2024–25</td>
+<td>1,515</td>
+<td>+8%</td>
+</tr>
+<tr>
+<td>2025–26</td>
+<td>1,777</td>
+<td><strong>+17%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Spring 2026 broke the pattern: 651 complaints, up 24%. From January 1 through August 15, 2026, complaints inside the walkshed ran 29% above the same period of 2025. These are recorded complaint calls, and we cannot fully rule out changes in how often residents report (see Limitations).</p>
+<p><img src="assets/unp/chart_calendar.png" alt="Monthly complaints inside the CU walkshed, with the rest of the city for comparison. Shaded: university breaks."></p>
+<p class="figcap">Monthly complaints inside the CU walkshed, with the rest of the city for comparison. Shaded: university breaks.</p>
+
+<h2>OF THESE THREE STANDARDS, BOULDER'S NIGHT STARTS LAST</h2>
+<p>Two standards govern a Boulder night, the State of Colorado's and the City's, and the City's is by far the more permissive. Fort Collins is shown for comparison:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Nighttime standard begins</th>
+<th>Nighttime standard</th>
+<th>Penalty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>State of Colorado</strong></td>
+<td><strong>7 p.m.</strong></td>
+<td>55/50 dB(A) day/night generally; periodic, impulsive, or shrill noise, which amplified bass will typically be, held to 45 dB(A) at night, about the sound of soft rainfall, measured 25 ft past the property line. Exceeding these is prima facie a public nuisance, and any resident may sue to stop it (C.R.S. 25-12)</td>
+<td>Court injunction; $100–$2,000 per day for violating it</td>
+</tr>
+<tr>
+<td><strong>City of Boulder</strong></td>
+<td><strong>11 p.m.</strong></td>
+<td>50 dB(A) at night, 55 by day, matching the state's general limits four hours later; the state's stricter bass standard has no city counterpart (B.R.C. 5-9)</td>
+<td>Criminal: up to $2,650 and 90 days</td>
+</tr>
+<tr>
+<td><em>Fort Collins (for comparison)</em></td>
+<td><em>8 p.m.</em></td>
+<td><em>50 dB(A) residential</em></td>
+<td><em>Petty offense, then misdemeanor</em></td>
+</tr>
+</tbody>
+</table>
+<p>Every complaint in this report was made while the most lenient standard on this table was in force. Whether a given party exceeded it, nobody measured. Boulder operates no noise monitoring.</p>
+<h2>IT IS A RENTAL PROBLEM</h2>
+<p>Six in ten noise complaints citywide come from licensed rental properties. Rentals hold roughly half of Boulder's dwelling units, so that is an overrepresentation, though a modest one. The sharper pattern is concentration: the top tenth of rental addresses that drew any complaint accounts for 37% of all rental complaint calls. Half of Boulder's 10,830 rental licenses sit inside the CU walkshed, and those rentals draw complaint calls at 3.5 times the rate of licensed rentals elsewhere, measured per license (3.3 times per parcel, 2.8 times per dwelling unit; see Limitations):</p>
+<p><img src="assets/unp/chart_rental_rate.png" alt=""></p>
+<p>More than half of Boulder's licensed rentals belong to business entities or to owners who live outside Boulder, and in the chronic-noise areas the share is higher. (This is computed from the holder fields of the City's unabridged public license layer, which we do not republish; see Limitations.) The legal obligations already exist. Every Boulder lease must carry the City's noise disclosure (B.R.C. 12-2-4), and five documented violations in a year expose the property's rental license (B.R.C. 10-2.5). The license is a regulatory handle the City already holds on every parcel in the plume. <strong>No record we have obtained, or been produced, shows the City has ever used it. Chronic-nuisance designations found: zero.</strong> We have formally requested the City's complete designation records.</p>
+<h2>28,000 PERMANENT RESIDENTS ABSORB 70% OF THE NOISE</h2>
+<p>The 2020 census counts 52,815 residents inside the CU walkshed. Set aside the 12,449 who live in group quarters (11,763 of them in CU housing) and the 12,356 household residents aged 18 to 24, whom this proxy treats as students. What remains is the walkshed's permanent population: <strong>28,010 people, 26% of Boulder's population and 36% of its permanent residents, including 3,957 children.</strong> They live where 70% of the city's noise complaints originate, and the calls arrive at <strong>4.1 times</strong> the rate borne by permanent residents anywhere else in the city (62 versus 15 calls per 1,000 permanent residents per year, both sides measured on the same census-based proxy).</p>
+<p>The noise lands at the worst hours. During the school year the walkshed averages 3.7 complaint calls a night between 10 p.m. and 3 a.m., and 6.9 on weekend nights.</p>
+<p>A student passes through for a few years and takes the noise along at graduation; the next tenant arrives in August and brings it back. The permanent residents do not rotate. For the 28,010 people who live, raise children, and grow old inside the walkshed, the noise is not a stage of life. It is where they live.</p>
+<h2>WHAT THE NOISE DOES TO PEOPLE</h2>
+<p>Noise at these levels is a health exposure, not merely an annoyance. That is the settled position of the World Health Organization and the EPA, and the reason Colorado's statute calls excessive noise "detrimental to the health and welfare of the citizenry" (C.R.S. 25-12-101).</p>
+<p><img src="assets/unp/chart_volume_health.png" alt="Health effects rise with volume: the WHO night-noise dose bands, the legal limits, and where a house party sits."></p>
+<p class="figcap">Health effects rise with volume: the WHO night-noise dose bands, the legal limits, and where a house party sits.</p>
+
+<p><strong>The thresholds are low.</strong> The WHO's night-noise guideline is an annual-average outdoor level of 40 dB(A), about a quiet library, above which chronic nighttime exposure produces measurable effects: fragmented sleep, awakenings, next-day cognitive impairment. In 1974 the EPA identified 45 dB(A) indoors as the long-term level protective of sleep. Both are long-term averages rather than single-event limits, and an amplified party at a property line typically runs decades of decibels above either.</p>
+<p><strong>Sleep does not need to wake to be damaged.</strong> The sleeping brain registers noise it never consciously hears, with autonomic arousals, elevated heart rate and blood pressure, and stress-hormone release. At sustained nighttime exposures the literature ties chronic noise to hypertension and cardiovascular risk. The harm accrues quietly, in people who never call the police, which is one reason complaint counts understate exposure.</p>
+<p><strong>The scale in Boulder.</strong> In the most recent 12 months, excluding the 19th Street block, Boulder logged 2,838 party- and noise-related calls; 1,617 of them, 57%, came in between 10 p.m. and 3 a.m. For each of those nighttime calls, count every residential parcel within 600 feet, once per night no matter how many calls landed near it, at 2.2 residents per household. The result is <strong>an estimated 154,000 resident-nights a year within 600 feet of a documented nighttime noise call.</strong> This is a screening-level proximity estimate, not a measurement of sound or sleep, and it moves with the radius: 43,000 at 300 feet, 306,000 at 900 feet.</p>
+<p><strong>The children.</strong> 46% of those resident-nights, about 70,000 citywide, fall on Sunday through Thursday nights. Restrict the count to nights before an actual BVSD school day and roughly 54,000 a year, a third of the total, come the night before a school morning. The walkshed, where the events concentrate, houses 3,957 children. Thursday tells the story: a school night that runs near weekend volume. The research on children ties chronic nighttime noise to effects on reading, attention, and memory consolidation (WHO; the RANCH studies, which concerned aircraft and road noise near schools).</p>
+<p><img src="assets/unp/chart_schoolnights.png" alt="Nighttime calls by day of week: Thursday, a school night, runs near weekend volume."></p>
+<p class="figcap">Nighttime calls by day of week: Thursday, a school night, runs near weekend volume.</p>
+
+<p>Two cautions. These are exposure estimates built from complaint locations and distance. Boulder operates no noise monitoring, so no measured decibel record exists, which is a gap of its own. And we make no claims about local health outcomes; a city of 108,000 is too small for that epidemiology. The dose-response relationships are the global literature's. The dose is Boulder's own record.</p>
+<h2>THESE NUMBERS UNDERCOUNT THE PROBLEM</h2>
+<p>Every figure above rests on complaint records, and complaint records miss noise in four ways:</p>
+<ol>
+<li>
+<p><strong>A complaint requires a resident who is awake, angry, and willing to act at 1 a.m.</strong> The health thresholds sit far below the point where someone reaches for a phone. Disrupted sleep that never becomes a call never becomes a record.</p>
+</li>
+<li>
+<p><strong>Boulder's 11 p.m. line teaches residents not to report earlier noise.</strong> State law makes amplified bass above 45 dB(A) unlawful from 7 p.m. Most residents believe nothing can be done before 11, so four hours of nightly violations go largely unreported, and police and dispatch routinely tell callers to "call after 11" if the party is still going.</p>
+</li>
+<li>
+<p><strong>The University routes complaints away from police.</strong> CU runs a party-registration warning line and hands out cards inviting neighbors to message hosts instead of calling police. CU's own complaint tracker contains complaints that never appear in the police calls-for-service data: 25 in one academic year by CU's own reconciliation, which we verified, and our own check against the department's direct extract found 4 missing there as well.</p>
+</li>
+<li>
+<p><strong>Futility compounds.</strong> In the university district, 1 complaint in 320 ends in a charged citation. A caller who gets up at midnight, walks outside to identify the house, calls, and watches nothing happen, again and again, eventually stops calling.</p>
+</li>
+</ol>
+<p>Call records carry error in both directions. The dataset also contains duplicate-marked, unfounded, and canceled entries (disclosed in Limitations), but those are visible and can be removed, while the four mechanisms above are structural and invisible. On balance we believe the official statistics understate the problem. The next reports in this series document each mechanism.</p>
+<h2>THE NEIGHBORS DO THE ENFORCEMENT</h2>
+<p>No record we have obtained shows any City noise-monitoring program in these neighborhoods: no meters, no sensors. The system's only sensor is a neighbor's phone call, and dispatch has historically required an address, so the caller must get up, go out, and identify the offending house before police will respond. <strong>And 121 times out of 122, a complaint ends with no charged citation.</strong> BPD's own charge file records 67 charged party-noise citations against roughly 8,200 complaints over the three-year records window ending October 2025. (Another 47 rows in that file record a report taken with no one charged; we count only actual charges.) The 9,011 complaints in this report are 9,011 unpaid acts of enforcement work, most of them performed here:</p>
+<p><img src="assets/unp/chart_hourly.png" alt=""></p>
+<h2>THE DOUBLE STANDARD</h2>
+<p>Boulder's toolbox is, on paper, stronger than that of Fort Collins, the peer city we compared: criminal penalties, an officer-observation evidence standard, mandatory rental licensing, and, since September 2024, a chronic-nuisance ordinance under which five documented violations in a year put a rental's license in play. The record of its use:</p>
+<ul>
+<li><strong>1 complaint in 46</strong> ends in a charged citation in South Boulder. <strong>1 in 320</strong> in the university district. Enforcement is seven times stricter where the noise is rarest.</li>
+<li><strong>A barking dog is about three times as likely to draw a charged citation, per complaint, as a house party</strong> (2.9 times citywide on the most conservative denominator, and more than seven times measured against the university district's rate). Counting only actual charges in BPD's file: 312 dog citations against 13,065 animal calls, 67 party citations against 8,192 noise complaints. These are unmatched call categories, so this is a screening comparison, and the party figure may still be understated because the nuisance-party ordinance code is missing from the production; we have formally requested it.</li>
+<li><strong>Rental properties in these districts already screen past the ordinance's five-violation threshold</strong>, which makes them candidates for designation, subject to the City's investigation and proof. Designations to date: zero.</li>
+</ul>
+<p>At the university district's citation rate, here is what the traditional ticket-counting path to the chronic-nuisance threshold looks like. (The 2024 ordinance also allows a faster, warning-based path. No property has yet been designated by either.)</p>
+<p><img src="assets/unp/chart_ladder.png" alt=""></p>
+<p>A word about the Boulder Police Department. None of these figures measures the effort of the officers who answer the calls. They measure what the system those officers work inside, the ordinance, the standard it sets, the University's protocol for registered parties, and what follows a citation, produces from that effort. The Department notably increased its enforcement on University Hill between 2023 and 2025, and this project's dealings with the officers who lead that effort have been productive. We regard the Department as an ally, and the gap this report documents as a gap in the tools and rules it has been given.</p>
+<p>A concentration of noise centered on the university, and a valley of enforcement centered on the same spot. The rules are strongest exactly where they are used least. Why that is so has a specific, documented answer, and it is the subject of our next report.</p>
+<h2>TO BE SURE</h2>
+<p><strong>"Of course University Hill is loud. It's next to a university."</strong> It is, and it has been for a century. What has changed is in the numbers above: complaints in the walkshed rose 17% in the last school year and are running 29% higher this year, while enforcement per complaint runs at a seventh of South Boulder's. Proximity explains the location. It does not explain the trend, the enforcement gap, or the concentration on a small number of rental addresses.</p>
+<p><strong>"Students party everywhere. Boys will be boys."</strong> They do, and Boulder's laws apply to them anyway. The point of this report is not that students hold parties. It is that Boulder's system for responding, the ordinance, the licensing regime, and the police response, is used least where it is needed most. Our next report examines a university program that shapes that response.</p>
+<p><strong>"This is an anti-student report."</strong> The data names a place and a calendar, never a person. Students live in the walkshed too and lose the same sleep. The accountability questions this series raises are addressed to institutions, the university, the landlords, and the City's enforcement, not to any student.</p>
+<p><strong>"Complaints aren't noise. One angry neighbor can call fifty times."</strong> True, and we take it seriously. The one address that did exactly that, 950 calls from a single dispute, is removed from every figure and disclosed on page one; duplicate and unfounded dispositions are disclosed; and every boundary choice comes with a sensitivity range. The pattern survives all of it.</p>
+<p><strong>"Why not just move?"</strong> Twenty-eight thousand people live inside the walkshed, including nearly 4,000 children. The question this series asks is not why they stay. It is why the law is enforced least exactly where the noise is greatest.</p>
+<hr />
+<h2>METHOD, SOURCES, AND THE SERIES</h2>
+<p><strong>Data.</strong> Boulder Police calls-for-service (NOISEB), Jan 1, 2023 – Aug 14, 2026 (the feed was pulled the morning of August 15; its last record is 3:27 a.m. that day, and the 2026 comparison runs through that record): 9,961 records, 9,011 analyzed (see the note on page 1). CU walkshed: a 0.75-mile straight-line buffer around the university-district boundary, roughly the distance of a 15-minute walk. Academic windows: term-core Sep 5–Nov 15 and Feb 1–Apr 15 (excluding spring break); deep winter break Dec 22–Jan 8 (ending Jan 7 for AY 2025-26 under CU's revised calendar); all rates are per night, so unequal window lengths compare like-for-like; every semester and break date verified against the Registrar's published calendars. Population: 2020 census (PL 94-171 + DHC, block level); permanent = household residents under 18 plus household residents 25 and over. Every 18-to-24-year-old is counted as a student, every household resident 25+ as permanent, and non-university group quarters are excluded; the simplifications err in opposite directions. Citations and dispositions: BPD records produced under the CCJRA, 3-year window ending Oct 2025; citation counts include only rows where BPD's charge file marks a person charged (blank rows are reports taken with no citation, per BPD's written clarification of Feb 18, 2026). Rentals: City rental-license layer (10,830 active licenses) and exact-address rental calls-for-service, trailing 12 months. Health exposure: each 10 p.m.–3 a.m. call × residential parcels within 600 ft (deduplicated by parcel number; the city file repeats some parcels) × 2.2 residents per household; a proximity proxy, not measured decibels. The move-in window (Aug 18–31) increasingly overlaps the registrar's term (4 term days in 2023, 6 in 2024, 11 in 2025) and takes classification priority. Maps: identical 600-ft kernel for noise and rentals. Program-mechanics statements (the warning line, complaint cards, tracker reconciliation) come from CU records produced to us under the Colorado Open Records Act; the underlying documents publish with our October report. Full data, scripts, and per-figure sources are published with this report.</p>
+<p><strong>Limitations.</strong> (1) The unit of measure is a police calls-for-service record, not a verified noise event: of the 9,011 analyzed records, 131 are duplicate-marked, 493 closed unfounded or false alarm, and 192 canceled; no decibel measurement exists anywhere in the record because the City operates no noise monitoring we can find. Net reporting bias cannot be known precisely; the undercount mechanisms in the report are structural, and the overcount entries are visible in the published data. (2) The headline is robust to boundary choice: 70% on the walkshed, 62% on a half-mile ring, and 47% on the City's three campus-ring subcommunity polygons, a much tighter geometry; the outlier block is disclosed in the page-1 note with both figures. (3) Population is the 2020 census, the most recent block-level count, six years old at publication; the permanent-resident proxy counts every household resident 18–24 as a student and every household resident 25+ as permanent, simplifications that err in opposite directions. (4) Rental rates are per rental license (3.5x); per unique parcel the ratio is 3.3x and per dwelling unit 2.8x; the license layer is a 2026 snapshot compared against 2023–2026 calls. The ownership share (business entities and out-of-town owners) is computed from holder fields in the City's unabridged public license layer, which this package does not republish, and cannot be re-derived from the published data alone. (5) Citation and disposition figures come from a three-year records window ending October 2025 and are not date-matched to the 2023–2026 call window. (6) The health figures are proximity estimates (calls, distance, and household counts), not acoustic dose; they cannot establish that any threshold was exceeded at any address, and the WHO and EPA values they are compared against are long-term averages, not single-event limits. Sources for the health thresholds: WHO Night Noise Guidelines for Europe (2009) and Environmental Noise Guidelines (2018); EPA, Levels of Environmental Noise Requisite to Protect Public Health and Welfare (1974).</p>
+<p><strong>The series.</strong> Next: the University Hill data year; the property-value cost of chronic noise (~$273M on actual sales); and the enforcement machinery of the campus districts. <strong>Corrections:</strong> we publish our data and fix errors publicly. Write to us with the basis and we re-run the analysis either way. <strong>Records:</strong> if you know of city or university records that bear on these questions, tell us; several findings in this series began as a neighbor's suggestion.</p>
+<p><em>This report travels by forwarding. Send it to a neighbor, your HOA list, or your neighborhood's Nextdoor. To get the next report as it publishes: https://quietenjoymentproject.org/reports.html#signup.</em></p>
+<p><em>The Quiet Enjoyment Project · yourneighbor@quietenjoymentproject.org · 885 Arapahoe Avenue, Boulder, CO 80302 · quietenjoymentproject.org</em></p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>One block is excluded from every figure in this report: the 4500 block of 19th Street in north Boulder generated 950 complaint calls, 9.5% of the citywide total, from a single ongoing dispute unrelated to this subject. The block lies outside the CU walkshed, so the exclusion matters to the headline: with the block included, the walkshed's share is 63% (6,297 of 9,961); excluded, 70% (6,297 of 9,011). We exclude it because a single two-party dispute is not a pattern of neighborhood noise, and we report both figures so the choice is visible and reversible.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+</div>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <section class="signup compact">
+      <h2>Get each report when it publishes</h2>
+      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post" id="signup-foot-form">
+        <label class="vh" for="signup-foot-email">Email address</label>
+        <input id="signup-foot-email" type="email" name="entry.1029318743" placeholder="you@example.com"
+          autocomplete="email" required>
+        <button type="submit">Sign up</button>
+      </form>
+      <p class="done" id="signup-foot-done" hidden>You’re on the list. We’ll write when the next report publishes.</p>
+      <iframe name="signup-foot-sink" class="vh" tabindex="-1" aria-hidden="true"></iframe>
+      <script>
+      (function () {
+        var f = document.getElementById('signup-foot-form'), d = document.getElementById('signup-foot-done');
+        if (!f || !d) return;
+        var sink = f.parentNode.querySelector('iframe[name="signup-foot-sink"]'), sent = false;
+        f.target = 'signup-foot-sink';
+        f.addEventListener('submit', function () { sent = true; });
+        sink.addEventListener('load', function () {
+          if (!sent) return;
+          f.hidden = true; d.hidden = false;
+        });
+      })();
+      </script>
+    </section>
+    <p>The Quiet Enjoyment Project · An independent, resident-run organization — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly. · <a href="support.html">Support this work</a></p>
+  </div>
+</footer>
+</body>
+</html>
