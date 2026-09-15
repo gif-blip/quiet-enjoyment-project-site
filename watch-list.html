@@ -252,5 +252,35 @@ footer.site a{color:var(--ink-2)}
     <p>The Quiet Enjoyment Project · An independent, resident-run organization — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly. · <a href="support.html">Support this work</a></p>
   </div>
 </footer>
+<script>
+(function(){
+  function hit(name){
+    try{
+      var back = location.pathname + location.search;
+      history.pushState({}, '', '/e/' + name);
+      history.replaceState({}, '', back);
+    }catch(e){}
+  }
+  function label(a){
+    var h = (a.getAttribute('href') || '').toLowerCase();
+    if (!h) return null;
+    if (/\.pdf($|\?)/.test(h))            return 'pdf-' + (/slides/.test(h) ? 'slides' : 'report');
+    if (/\.zip($|\?)/.test(h))            return 'data-zip';
+    if (h.indexOf('#signup') > -1)         return 'signup-click';
+    if (h.indexOf('noise-map') > -1)       return 'map-open';
+    if (h.indexOf('/data/') > -1 || h.indexOf('data.html') > -1) return 'data-open';
+    if (h.indexOf('mailto:') === 0)        return 'email-click';
+    return null;
+  }
+  document.addEventListener('click', function(ev){
+    var a = ev.target && ev.target.closest ? ev.target.closest('a') : null;
+    if (!a) return;
+    var n = label(a);
+    if (n) hit(n);
+  }, true);
+  var f = document.getElementById('signup-form') || document.querySelector('form[action*="docs.google.com"]');
+  if (f) f.addEventListener('submit', function(){ hit('signup-submit'); });
+})();
+</script>
 </body>
 </html>
