@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BPD call tracker · The Quiet Enjoyment Project</title>
+<meta name="description" content="The Quiet Enjoyment Project restores residential quality of life in Boulder neighborhoods affected by chronic noise — beginning on University Hill — throug">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<style>
+:root{
+  --bg:#FDFBF4; --surface:#F4EFE3; --ink:#1C2B39; --ink-2:#4A4437; --muted:#8A8168;
+  --rule:#E2D9C4; --accent:#A9762F; --accent-soft:#F7EBD3; --warn:#9A4A38; --good:#4A6741;
+  --max:70rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131A23; --surface:#1C2733; --ink:#EDE8DB; --ink-2:#CFC8B8; --muted:#9A917E;
+    --rule:#2C3A49; --accent:#E2AC4F; --accent-soft:#2A3038; --warn:#D08A77; --good:#8FB585;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 1.5rem}
+header.site{border-bottom:1px solid var(--rule);background:var(--bg);position:sticky;top:0;z-index:10}
+header.site .wrap{display:flex;flex-direction:column;gap:.5rem;padding-top:.8rem;padding-bottom:0}
+.brand{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;
+  display:flex;align-items:center;gap:.7rem}
+.brand .mark{height:2.5rem;width:auto;flex:none}
+nav.site{display:flex;gap:1.15rem;font-size:.9rem;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none}
+nav.site::-webkit-scrollbar{display:none}
+nav.site a{color:var(--ink-2);text-decoration:none;padding:.35rem 0 .7rem;border-bottom:2px solid transparent;
+  white-space:nowrap}
+nav.site a:hover{color:var(--accent)}
+nav.site a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+nav.site details.navmenu{position:relative}
+nav.site details.navmenu summary{list-style:none;cursor:pointer;color:var(--ink-2);padding:.35rem 0 .7rem;
+  border-bottom:2px solid transparent;white-space:nowrap}
+nav.site details.navmenu summary::-webkit-details-marker{display:none}
+nav.site details.navmenu summary::after{content:" ▾";font-size:.8em}
+nav.site details.navmenu[open] summary{color:var(--ink)}
+nav.site details.navmenu .menu{display:flex;flex-direction:column;gap:.15rem;padding:.5rem .9rem .6rem;
+  background:var(--bg);border:1px solid var(--rule);border-radius:6px;min-width:13rem}
+@media (min-width:720px){
+  nav.site{overflow:visible}
+  nav.site details.navmenu .menu{position:absolute;top:100%;left:0;z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+}
+@media (min-width:720px){
+  .brand{font-size:1.15rem}
+  .brand .mark{height:3rem}
+}
+main{padding:2.5rem 0 3.5rem}
+h1{font-size:2rem;line-height:1.2;letter-spacing:-.02em;margin:0 0 .6rem}
+h1 .sub{display:block;font-size:1.35rem;color:var(--ink-2);font-weight:600;margin-top:.35rem}
+h2{font-size:1.3rem;letter-spacing:-.01em;margin:2.25rem 0 .5rem}
+h3{font-size:1.02rem;margin:1.5rem 0 .3rem}
+p{margin:0 0 1rem}
+.lede{font-size:1.12rem;color:var(--ink-2);max-width:46rem}
+.hero{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:1.4rem 1.5rem;margin:1.5rem 0}
+.hero p{margin:0;font-size:1.05rem}
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;margin:1.75rem 0}
+.door{display:block;border:1px solid var(--rule);border-radius:12px;padding:1.1rem 1.2rem;text-decoration:none;
+  background:var(--bg);transition:border-color .15s,transform .15s}
+.door:hover{border-color:var(--accent);transform:translateY(-2px)}
+.door strong{display:block;color:var(--ink);margin-bottom:.3rem}
+.door span{color:var(--ink-2);font-size:.94rem}
+figure{margin:1.5rem 0}
+figure img{width:100%;height:auto;border:1px solid var(--rule);border-radius:10px;background:#fff}
+figcaption{color:var(--muted);font-size:.85rem;margin-top:.5rem}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:.9rem 1.1rem;border-radius:0 8px 8px 0;margin:1.25rem 0}
+.callout p:last-child{margin-bottom:0}
+.callout.plain{border-left-color:var(--muted);background:var(--surface)}
+.tablewrap{overflow-x:auto;margin:1.25rem 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:38rem}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr:hover{background:var(--surface)}
+.chip{display:inline-block;font-size:.74rem;padding:.14rem .5rem;border-radius:999px;white-space:nowrap;
+  border:1px solid var(--rule);color:var(--ink-2);background:var(--surface)}
+.chip.up{color:var(--warn);border-color:currentColor}
+.chip.down{color:var(--good);border-color:currentColor}
+ul.clean{list-style:none;padding:0;margin:1rem 0}
+ul.clean li{padding-left:1.2rem;position:relative;margin-bottom:.6rem}
+ul.clean li::before{content:"";position:absolute;left:0;top:.62em;width:.42rem;height:.42rem;border-radius:50%;background:var(--accent)}
+ol.steps{padding-left:0;counter-reset:s;list-style:none;margin:1rem 0}
+ol.steps li{counter-increment:s;position:relative;padding-left:2.1rem;margin-bottom:.85rem}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:.05em;width:1.5rem;height:1.5rem;border-radius:50%;
+  background:var(--accent);color:var(--bg);font-size:.82rem;font-weight:700;display:grid;place-items:center}
+.asks-group{margin:1.5rem 0}
+.ask{display:flex;gap:.9rem;align-items:flex-start;padding:.85rem 0;border-bottom:1px solid var(--rule)}
+.ask .body{flex:1}
+.reportcard{border:1px solid var(--rule);border-radius:12px;padding:1.1rem 1.2rem;margin:1rem 0;background:var(--bg)}
+.reportcard h3{margin-top:0}
+.reportcard.pin{border-color:#A98643;background:#fbf7ee}
+.reportcard.pin .kicker{margin:0 0 .3rem;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:#8a5a2b}
+.reportcard.pin h2{margin:.1rem 0 .5rem}
+.reportcard.pin .links a{margin-right:1.1rem}
+.report-body img{max-width:100%;height:auto;display:block;margin:1rem auto}
+.report-body h2{margin-top:2rem}
+.report-body blockquote{border-left:3px solid #A98643;margin:1rem 0;padding:.2rem 1rem;color:#444}
+.report-body table{border-collapse:collapse;width:100%;font-size:.95rem}
+.report-body th,.report-body td{border-bottom:1px solid var(--rule);padding:.4rem .5rem;text-align:left;vertical-align:top}
+.report-body .figcap{font-size:.9rem;color:#666;margin:-.4rem 0 1.2rem}
+.dl{display:inline-block;margin-top:.4rem;font-weight:600;font-size:.92rem}
+footer.site{border-top:1px solid var(--rule);background:var(--surface);color:var(--muted);font-size:.83rem}
+footer.site .wrap{padding-top:1.5rem;padding-bottom:2.5rem}
+footer.site a{color:var(--ink-2)}
+.updated{color:var(--muted);font-size:.85rem;margin-top:-.3rem}
+@media (max-width:640px){
+  h1{font-size:1.6rem} h1 .sub{font-size:1.15rem}
+  .wrap{padding-left:1.1rem;padding-right:1.1rem}
+  main{padding-top:1.8rem}
+  .hero{padding:1.1rem 1.15rem}
+}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.signup{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:1.25rem 1.4rem;margin:1.75rem 0}
+.signup h2{margin:0 0 .4rem;font-size:1.15rem}
+.signup p{color:var(--ink-2);margin:0 0 .2rem;max-width:44rem}
+.signup form{display:flex;flex-wrap:wrap;gap:.6rem;margin:.9rem 0 .6rem;max-width:34rem}
+.signup input[type=email]{flex:1 1 15rem;min-width:0;font:inherit;font-size:.95rem;padding:.6rem .7rem;
+  color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:8px}
+.signup input[type=email]::placeholder{color:var(--muted)}
+.signup input[type=email]:focus-visible{border-color:var(--accent);outline:2px solid var(--accent);outline-offset:1px}
+.signup button{font:inherit;font-size:.95rem;font-weight:600;padding:.6rem 1.15rem;cursor:pointer;
+  color:var(--bg);background:var(--accent);border:1px solid var(--accent);border-radius:8px}
+.signup button:hover{filter:brightness(1.08)}
+.signup button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.signup .fine{font-size:.85rem;color:var(--muted);margin:0}
+.signup .done{font-weight:600;color:var(--good);margin:.9rem 0 .6rem}
+.signup iframe{display:block;width:100%;border:0;background:transparent}
+.signup.compact{border:0;background:none;padding:0;margin:0 0 1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--rule)}
+.signup.compact h2{font-size:.95rem;color:var(--ink-2)}
+.signup.compact form{margin:.55rem 0 0;max-width:28rem}
+.signup.compact input[type=email],.signup.compact button{font-size:.88rem;padding:.45rem .65rem}
+.signup.compact button{padding:.45rem .95rem}
+.btn{display:inline-block;font-weight:600;font-size:.95rem;padding:.6rem 1.15rem;border-radius:8px;text-decoration:none;
+  color:var(--bg);background:var(--accent);border:1px solid var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.donate{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:1.25rem 1.4rem;margin:1.75rem 0}
+.donate h2{margin:0 0 .4rem;font-size:1.15rem}
+.donate p{color:var(--ink-2);margin:0 0 .95rem;max-width:44rem}
+.donate .fine{font-size:.85rem;color:var(--muted);margin:.85rem 0 0}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 175 176" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><polygon points="12,110 85,50 158,110" fill="currentColor"/><rect x="26" y="110" width="118" height="60" fill="currentColor"/><rect x="52" y="126" width="22" height="22" fill="#D99A2B"/><polygon points="79,46 60,42 66,51" fill="#D99A2B"/><path d="M78 50 C76 43 77 36 82 32 C84 26 90 23 94 26 L95 25 L107 16 L97 30 L106 26 L97 33 C99 39 97 46 91 50 Z" fill="#D99A2B"/><circle cx="90" cy="28.5" r="1.6" fill="var(--bg)"/><ellipse cx="112" cy="25" rx="2.7" ry="2.1" transform="rotate(-20 112 25)" fill="#D99A2B"/><path d="M114.5 24.3 V12.8" stroke="#D99A2B" stroke-width="1.6" fill="none"/><ellipse cx="121" cy="22" rx="2.7" ry="2.1" transform="rotate(-20 121 22)" fill="#D99A2B"/><path d="M123.5 21.3 V9.8" stroke="#D99A2B" stroke-width="1.6" fill="none"/><path d="M113.6 12.6 L124.2 9.6" stroke="#D99A2B" stroke-width="3.2" fill="none"/></svg>The Quiet Enjoyment Project</a>
+    <nav class="site">
+        <a href="index.html">Home</a>
+        <a href="reports.html">Reports</a>
+        <a href="noise-map.html">The Map</a>
+        <a href="residents.html">I Live Here</a>
+        <a href="watch-list.html">I Own Property</a>
+        <details class="navmenu"><summary>Resources</summary>
+          <div class="menu">
+            <a href="know-the-law.html">Know the Law</a>
+            <a href="health.html">Noise &amp; Health</a>
+            <a href="asks.html">What We're Asking For</a>
+            <a href="data.html">Source Data</a>
+            <a href="about.html">About</a>
+            <a href="corrections.html">Corrections</a>
+          </div></details>
+        <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <style>
+      #ct{max-width:44rem} #ct h2{font-size:1.15rem;margin:1.4rem 0 .4rem;padding-top:.6rem;border-top:1px solid var(--rule)}
+      #ct .q{display:block;margin:.8rem 0} #ct .q>span.l{display:block;font-weight:600;margin-bottom:.3rem}
+      #ct .q .h{display:block;color:var(--muted);font-size:.9rem;margin-top:.2rem}
+      #ct input[type=text],#ct input[type=date],#ct input[type=time],#ct input[type=email],#ct textarea,#ct select{width:100%;box-sizing:border-box;padding:.55rem .65rem;border:1px solid var(--rule);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:1rem}
+      #ct textarea{min-height:5.5rem;resize:vertical}
+      #ct .opts{display:flex;flex-wrap:wrap;gap:.4rem .9rem} #ct .opts label{display:inline-flex;gap:.35rem;align-items:center;font-weight:400}
+      #ct .row{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0}
+      #ct .btn{display:inline-flex;align-items:center;min-height:44px;padding:.6rem 1.1rem;border-radius:10px;border:1px solid var(--accent);background:var(--accent);color:#131A23;font-weight:700;cursor:pointer;text-decoration:none;font:inherit}
+      #ct .btn.ghost{background:transparent;color:var(--ink);border-color:var(--rule)}
+      #ct .note{color:var(--muted);font-size:.92rem} #ct .ok{color:var(--good);font-weight:600} #ct .warn{color:var(--warn);font-weight:600}
+      #ct pre{white-space:pre-wrap;background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:.8rem;font-size:.9rem}
+    </style>
+    <div id="ct">
+      <h1>BPD call tracker</h1>
+      <p class="lede">Fill this in after you call Boulder Police about a party. It takes three minutes. Nothing you type is stored on this website: when you tap <strong>Send</strong>, your email app opens with the answers filled in, addressed to the Quiet Enjoyment Project. Attach your recording to that email before you send it.</p>
+      <p class="note">Colorado law allows you to record your own phone calls (C.R.S. 18-9-303); a recording of your call with dispatch or an officer is the best record there is. The Quiet Enjoyment Project is not a law firm, and this page is not legal advice. QEP uses what you report by address and in aggregate and does not publish callers' names.</p>
+      <form id="ctf" onsubmit="return false">
+        <h2>Your call to dispatch</h2>
+        <label class="q"><span class="l">Date of the call</span><input type="date" name="Date" required></label>
+        <label class="q"><span class="l">What time did you call dispatch?</span><input type="time" name="Time called" required></label>
+        <div class="q"><span class="l">Which number did you call?</span><div class="opts" data-name="Number called"><label><input type="radio" name="n1" value="303-441-3333 (non-emergency)">303-441-3333 (non-emergency)</label><label><input type="radio" name="n1" value="911">911</label><label><input type="radio" name="n1" value="Other">Other</label></div></div>
+        <label class="q"><span class="l">What address, intersection or area was the noise coming from?</span><input type="text" name="Address or area" required placeholder="for example 1045 14th St, or 13th and College"></label>
+        <div class="q"><span class="l">Where were you when you called?</span><div class="opts" data-name="Where I was"><label><input type="radio" name="n2" value="Inside, windows closed">Inside, windows closed</label><label><input type="radio" name="n2" value="Inside, windows open">Inside, windows open</label><label><input type="radio" name="n2" value="Outside on my property">Outside on my property</label><label><input type="radio" name="n2" value="Elsewhere">Elsewhere</label></div></div>
+        <div class="q"><span class="l">Did you ask dispatch for a ticket to be issued?</span><div class="opts" data-name="Asked for a ticket"><label><input type="radio" name="n3" value="Yes">Yes</label><label><input type="radio" name="n3" value="No">No</label><label><input type="radio" name="n3" value="It did not come up">It did not come up</label></div></div>
+        <div class="q"><span class="l">Did dispatch say the party was registered?</span><div class="opts" data-name="Dispatch said registered"><label><input type="radio" name="n4" value="Yes">Yes</label><label><input type="radio" name="n4" value="No">No</label><label><input type="radio" name="n4" value="Dispatch did not say">Dispatch did not say</label><label><input type="radio" name="n4" value="I did not ask">I did not ask</label></div></div>
+        <label class="q"><span class="l">If registered, what exactly did dispatch say about it?</span><input type="text" name="What dispatch said about registration" placeholder="the registered end time, whether the party gets a warning first, anything else"></label>
+        <div class="q"><span class="l">Did you ask for an officer to call you back?</span><div class="opts" data-name="Asked for callback"><label><input type="radio" name="n5" value="Yes">Yes</label><label><input type="radio" name="n5" value="No">No</label></div></div>
+        <label class="q"><span class="l">Did dispatch give you an incident or call number?</span><input type="text" name="Incident number" placeholder="exactly as given"></label>
+        <h2>The officer's callback</h2>
+        <div class="q"><span class="l">Did an officer call you back?</span><div class="opts" data-name="Officer called back"><label><input type="radio" name="n6" value="Yes">Yes</label><label><input type="radio" name="n6" value="No">No</label><label><input type="radio" name="n6" value="Not yet">Not yet</label></div></div>
+        <label class="q"><span class="l">What time did the officer call?</span><input type="time" name="Time of callback"></label>
+        <label class="q"><span class="l">Officer's name or badge number, as the officer gave it</span><input type="text" name="Officer"></label>
+        <label class="q"><span class="l">What did the officer say happened at the address?</span><textarea name="What the officer said happened"></textarea></label>
+        <div class="q"><span class="l">Was a ticket given?</span><div class="opts" data-name="Ticket given"><label><input type="radio" name="n7" value="Yes, to a resident">Yes, to a resident</label><label><input type="radio" name="n7" value="Yes, to the owner or property">Yes, to the owner or property</label><label><input type="radio" name="n7" value="No">No</label><label><input type="radio" name="n7" value="The officer did not say">The officer did not say</label></div></div>
+        <label class="q"><span class="l">If no ticket, what reason did the officer give?</span><textarea name="Reason for no ticket"></textarea></label>
+        <label class="q"><span class="l">Did you ask how the party registration system works, and what did the officer say?</span><textarea name="How registration works, per officer"></textarea></label>
+        <div class="q"><span class="l">How long did the officer say a registered party gets between the warning and a ticket if it does not shut down?</span><span class="h">The University's own program materials say 20 minutes.</span><div class="opts" data-name="Warning period per officer"><label><input type="radio" name="n8" value="20 minutes">20 minutes</label><label><input type="radio" name="n8" value="30 minutes">30 minutes</label><label><input type="radio" name="n8" value="40 minutes">40 minutes</label><label><input type="radio" name="n8" value="Other">Other</label><label><input type="radio" name="n8" value="The officer did not say">The officer did not say</label></div></div>
+        <label class="q"><span class="l">Did you ask why registered parties are handled differently from other noise complaints, and what did the officer say?</span><textarea name="Why registered parties differ, per officer"></textarea></label>
+        <h2>Afterward</h2>
+        <label class="q"><span class="l">Did the noise stop? If so, about when?</span><input type="text" name="Noise stopped"></label>
+        <label class="q"><span class="l">Anything else worth recording</span><textarea name="Anything else"></textarea></label>
+        <label class="q"><span class="l">Your name (optional)</span><input type="text" name="Name"></label>
+        <label class="q"><span class="l">Your address or block (optional)</span><input type="text" name="Your address or block"></label>
+        <label class="q"><span class="l">Email or phone, if QEP may follow up (optional)</span><input type="text" name="Contact"></label>
+        <label class="q"><span class="l">Recording</span><span class="h">Attach the recording to the email that opens when you tap Send. If your phone will not attach it, send it in a second email with the same subject line.</span></label>
+        <div class="row"><button type="button" class="btn" id="ct-send">Send by email</button><button type="button" class="btn ghost" id="ct-copy">Copy the answers instead</button><button type="button" class="btn ghost" id="ct-dl">Download as a text file</button></div>
+        <p id="ct-status" class="note"></p>
+        <details><summary class="note">What will be sent</summary><pre id="ct-preview"></pre></details>
+      </form>
+    </div>
+    <script>
+    (function(){
+      const f=document.getElementById('ctf'), st=document.getElementById('ct-status'), pv=document.getElementById('ct-preview');
+      const TO='yourneighbor@quietenjoymentproject.org';
+      function collect(){
+        const lines=[]; const seen=new Set();
+        for (const el of f.querySelectorAll('input[type=text],input[type=date],input[type=time],textarea')) { const v=el.value.trim(); if (v) lines.push(el.name+': '+v); }
+        for (const g of f.querySelectorAll('.opts')) { const c=g.querySelector('input:checked'); if (c) lines.push(g.dataset.name+': '+c.value); }
+        return lines;
+      }
+      function report(){ const L=collect(); const d=(f.elements['Date'].value||'').trim(), a=(f.elements['Address or area'].value||'').trim(); return { subject:'BPD call '+(d||'[date]')+' '+(a||'[address]'), body:'BPD call tracker (quietenjoymentproject.org)\n'+'Submitted: '+new Date().toLocaleString('en-US',{timeZone:'America/Denver'})+' (Boulder time)\n\n'+L.join('\n')+'\n\nRecording: attached to this email, or sent separately with the same subject.\n' }; }
+      function check(){ if(!f.elements['Date'].value||!f.elements['Time called'].value||!f.elements['Address or area'].value.trim()){ st.textContent='Date, time and address are needed.'; st.className='warn'; return false;} return true; }
+      f.addEventListener('input',()=>{ pv.textContent=report().body; });
+      document.getElementById('ct-send').addEventListener('click',()=>{ if(!check()) return; const r=report(); const href='mailto:'+TO+'?subject='+encodeURIComponent(r.subject)+'&body='+encodeURIComponent(r.body); if(href.length>1900){ st.textContent='Your answers are long for an email link. Use "Copy the answers" and paste them into an email to '+TO+'.'; st.className='warn'; return;} location.href=href; st.textContent='Your email app should have opened. Attach the recording, then send.'; st.className='ok'; });
+      document.getElementById('ct-copy').addEventListener('click',async()=>{ if(!check()) return; const r=report(); try{ await navigator.clipboard.writeText('To: '+TO+'\nSubject: '+r.subject+'\n\n'+r.body); st.textContent='Copied. Paste it into an email to '+TO+' and attach the recording.'; st.className='ok'; }catch(e){ pv.textContent=r.body; st.textContent='Copy failed; the text is shown below under "What will be sent".'; st.className='warn'; } });
+      document.getElementById('ct-dl').addEventListener('click',()=>{ if(!check()) return; const r=report(); const b=new Blob([r.body],{type:'text/plain'}); const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=r.subject.replace(/[^A-Za-z0-9]+/g,'-')+'.txt'; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},2000); st.textContent='Saved. Email it with the recording to '+TO+'.'; st.className='ok'; });
+    })();
+    </script>
+
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+
+    <p>The Quiet Enjoyment Project · An independent, resident-run organization — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly. · <a href="support.html">Support this work</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
