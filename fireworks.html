@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fireworks · The Quiet Enjoyment Project</title>
+<meta name="description" content="Fireworks on University Hill: an acoustic sensor map, the city's own complaint data, the wildfire risk, and the law. Every firework is illegal in Boulder, sparklers included.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<style>
+:root{
+  --bg:#FDFBF4; --surface:#F4EFE3; --ink:#1C2B39; --ink-2:#4A4437; --muted:#8A8168;
+  --rule:#E2D9C4; --accent:#A9762F; --accent-soft:#F7EBD3; --warn:#9A4A38; --good:#4A6741;
+  --max:70rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131A23; --surface:#1C2733; --ink:#EDE8DB; --ink-2:#CFC8B8; --muted:#9A917E;
+    --rule:#2C3A49; --accent:#E2AC4F; --accent-soft:#2A3038; --warn:#D08A77; --good:#8FB585;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 1.5rem}
+header.site{border-bottom:1px solid var(--rule);background:var(--bg);position:sticky;top:0;z-index:10}
+header.site .wrap{display:flex;flex-direction:column;gap:.5rem;padding-top:.8rem;padding-bottom:0}
+.brand{font-weight:700;font-size:1.05rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none;
+  display:flex;align-items:center;gap:.7rem}
+.brand .mark{height:2.5rem;width:auto;flex:none}
+nav.site{display:flex;gap:1.15rem;font-size:.9rem;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none}
+nav.site::-webkit-scrollbar{display:none}
+nav.site a{color:var(--ink-2);text-decoration:none;padding:.35rem 0 .7rem;border-bottom:2px solid transparent;
+  white-space:nowrap}
+nav.site a:hover{color:var(--accent)}
+nav.site a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+nav.site details.navmenu{position:relative}
+nav.site details.navmenu summary{list-style:none;cursor:pointer;color:var(--ink-2);padding:.35rem 0 .7rem;
+  border-bottom:2px solid transparent;white-space:nowrap}
+nav.site details.navmenu summary::-webkit-details-marker{display:none}
+nav.site details.navmenu summary::after{content:" ▾";font-size:.8em}
+nav.site details.navmenu[open] summary{color:var(--ink)}
+nav.site details.navmenu .menu{display:flex;flex-direction:column;gap:.15rem;padding:.5rem .9rem .6rem;
+  background:var(--bg);border:1px solid var(--rule);border-radius:6px;min-width:13rem}
+@media (min-width:720px){
+  nav.site{overflow:visible}
+  nav.site details.navmenu .menu{position:absolute;top:100%;left:0;z-index:20;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+}
+@media (min-width:720px){
+  .brand{font-size:1.15rem}
+  .brand .mark{height:3rem}
+}
+main{padding:2.5rem 0 3.5rem}
+h1{font-size:2rem;line-height:1.2;letter-spacing:-.02em;margin:0 0 .6rem}
+h1 .sub{display:block;font-size:1.35rem;color:var(--ink-2);font-weight:600;margin-top:.35rem}
+h2{font-size:1.3rem;letter-spacing:-.01em;margin:2.25rem 0 .5rem}
+h3{font-size:1.02rem;margin:1.5rem 0 .3rem}
+p{margin:0 0 1rem}
+.lede{font-size:1.12rem;color:var(--ink-2);max-width:46rem}
+.hero{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:1.4rem 1.5rem;margin:1.5rem 0}
+.hero p{margin:0;font-size:1.05rem}
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem;margin:1.75rem 0}
+.door{display:block;border:1px solid var(--rule);border-radius:12px;padding:1.1rem 1.2rem;text-decoration:none;
+  background:var(--bg);transition:border-color .15s,transform .15s}
+.door:hover{border-color:var(--accent);transform:translateY(-2px)}
+.door strong{display:block;color:var(--ink);margin-bottom:.3rem}
+.door span{color:var(--ink-2);font-size:.94rem}
+figure{margin:1.5rem 0}
+figure img{width:100%;height:auto;border:1px solid var(--rule);border-radius:10px;background:#fff}
+figcaption{color:var(--muted);font-size:.85rem;margin-top:.5rem}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:.9rem 1.1rem;border-radius:0 8px 8px 0;margin:1.25rem 0}
+.callout p:last-child{margin-bottom:0}
+.callout.plain{border-left-color:var(--muted);background:var(--surface)}
+.tablewrap{overflow-x:auto;margin:1.25rem 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:38rem}
+th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr:hover{background:var(--surface)}
+.chip{display:inline-block;font-size:.74rem;padding:.14rem .5rem;border-radius:999px;white-space:nowrap;
+  border:1px solid var(--rule);color:var(--ink-2);background:var(--surface)}
+.chip.up{color:var(--warn);border-color:currentColor}
+.chip.down{color:var(--good);border-color:currentColor}
+ul.clean{list-style:none;padding:0;margin:1rem 0}
+ul.clean li{padding-left:1.2rem;position:relative;margin-bottom:.6rem}
+ul.clean li::before{content:"";position:absolute;left:0;top:.62em;width:.42rem;height:.42rem;border-radius:50%;background:var(--accent)}
+ol.steps{padding-left:0;counter-reset:s;list-style:none;margin:1rem 0}
+ol.steps li{counter-increment:s;position:relative;padding-left:2.1rem;margin-bottom:.85rem}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:.05em;width:1.5rem;height:1.5rem;border-radius:50%;
+  background:var(--accent);color:var(--bg);font-size:.82rem;font-weight:700;display:grid;place-items:center}
+.asks-group{margin:1.5rem 0}
+.ask{display:flex;gap:.9rem;align-items:flex-start;padding:.85rem 0;border-bottom:1px solid var(--rule)}
+.ask .body{flex:1}
+.reportcard{border:1px solid var(--rule);border-radius:12px;padding:1.1rem 1.2rem;margin:1rem 0;background:var(--bg)}
+.reportcard h3{margin-top:0}
+.reportcard.pin{border-color:#A98643;background:#fbf7ee}
+.reportcard.pin .kicker{margin:0 0 .3rem;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:#8a5a2b}
+.reportcard.pin h2{margin:.1rem 0 .5rem}
+.reportcard.pin .links a{margin-right:1.1rem}
+.report-body img{max-width:100%;height:auto;display:block;margin:1rem auto}
+.report-body h2{margin-top:2rem}
+.report-body blockquote{border-left:3px solid #A98643;margin:1rem 0;padding:.2rem 1rem;color:#444}
+.report-body table{border-collapse:collapse;width:100%;font-size:.95rem}
+.report-body th,.report-body td{border-bottom:1px solid var(--rule);padding:.4rem .5rem;text-align:left;vertical-align:top}
+.report-body .figcap{font-size:.9rem;color:#666;margin:-.4rem 0 1.2rem}
+.dl{display:inline-block;margin-top:.4rem;font-weight:600;font-size:.92rem}
+footer.site{border-top:1px solid var(--rule);background:var(--surface);color:var(--muted);font-size:.83rem}
+footer.site .wrap{padding-top:1.5rem;padding-bottom:2.5rem}
+footer.site a{color:var(--ink-2)}
+.updated{color:var(--muted);font-size:.85rem;margin-top:-.3rem}
+@media (max-width:640px){
+  h1{font-size:1.6rem} h1 .sub{font-size:1.15rem}
+  .wrap{padding-left:1.1rem;padding-right:1.1rem}
+  main{padding-top:1.8rem}
+  .hero{padding:1.1rem 1.15rem}
+}
+.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.signup{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:1.25rem 1.4rem;margin:1.75rem 0}
+.signup h2{margin:0 0 .4rem;font-size:1.15rem}
+.signup p{color:var(--ink-2);margin:0 0 .2rem;max-width:44rem}
+.signup form{display:flex;flex-wrap:wrap;gap:.6rem;margin:.9rem 0 .6rem;max-width:34rem}
+.signup input[type=email]{flex:1 1 15rem;min-width:0;font:inherit;font-size:.95rem;padding:.6rem .7rem;
+  color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:8px}
+.signup input[type=email]::placeholder{color:var(--muted)}
+.signup input[type=email]:focus-visible{border-color:var(--accent);outline:2px solid var(--accent);outline-offset:1px}
+.signup button{font:inherit;font-size:.95rem;font-weight:600;padding:.6rem 1.15rem;cursor:pointer;
+  color:var(--bg);background:var(--accent);border:1px solid var(--accent);border-radius:8px}
+.signup button:hover{filter:brightness(1.08)}
+.signup button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.signup .fine{font-size:.85rem;color:var(--muted);margin:0}
+.signup .done{font-weight:600;color:var(--good);margin:.9rem 0 .6rem}
+.signup iframe{display:block;width:100%;border:0;background:transparent}
+.signup.compact{border:0;background:none;padding:0;margin:0 0 1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--rule)}
+.signup.compact h2{font-size:.95rem;color:var(--ink-2)}
+.signup.compact form{margin:.55rem 0 0;max-width:28rem}
+.signup.compact input[type=email],.signup.compact button{font-size:.88rem;padding:.45rem .65rem}
+.signup.compact button{padding:.45rem .95rem}
+.btn{display:inline-block;font-weight:600;font-size:.95rem;padding:.6rem 1.15rem;border-radius:8px;text-decoration:none;
+  color:var(--bg);background:var(--accent);border:1px solid var(--accent)}
+.btn:hover{filter:brightness(1.08)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.donate{border:1px solid var(--rule);border-radius:12px;background:var(--surface);padding:1.25rem 1.4rem;margin:1.75rem 0}
+.donate h2{margin:0 0 .4rem;font-size:1.15rem}
+.donate p{color:var(--ink-2);margin:0 0 .95rem;max-width:44rem}
+.donate .fine{font-size:.85rem;color:var(--muted);margin:.85rem 0 0}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 175 176" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><polygon points="12,110 85,50 158,110" fill="currentColor"/><rect x="26" y="110" width="118" height="60" fill="currentColor"/><rect x="52" y="126" width="22" height="22" fill="#D99A2B"/><polygon points="79,46 60,42 66,51" fill="#D99A2B"/><path d="M78 50 C76 43 77 36 82 32 C84 26 90 23 94 26 L95 25 L107 16 L97 30 L106 26 L97 33 C99 39 97 46 91 50 Z" fill="#D99A2B"/><circle cx="90" cy="28.5" r="1.6" fill="var(--bg)"/><ellipse cx="112" cy="25" rx="2.7" ry="2.1" transform="rotate(-20 112 25)" fill="#D99A2B"/><path d="M114.5 24.3 V12.8" stroke="#D99A2B" stroke-width="1.6" fill="none"/><ellipse cx="121" cy="22" rx="2.7" ry="2.1" transform="rotate(-20 121 22)" fill="#D99A2B"/><path d="M123.5 21.3 V9.8" stroke="#D99A2B" stroke-width="1.6" fill="none"/><path d="M113.6 12.6 L124.2 9.6" stroke="#D99A2B" stroke-width="3.2" fill="none"/></svg>The Quiet Enjoyment Project</a>
+    <nav class="site">
+        <a href="index.html">Home</a>
+        <a href="reports.html">Reports</a>
+        <a href="noise-map.html">The Map</a>
+        <a href="fireworks.html" aria-current="page">Fireworks</a>
+        <a href="residents.html">I Live Here</a>
+        <a href="watch-list.html">I Own Property</a>
+        <details class="navmenu"><summary>Resources</summary>
+          <div class="menu">
+            <a href="know-the-law.html">Know the Law</a>
+            <a href="health.html">Noise &amp; Health</a>
+            <a href="asks.html">What We're Asking For</a>
+            <a href="data.html">Source Data</a>
+            <a href="about.html">About</a>
+          </div></details>
+        <a href="support.html">Support</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <style>
+      .fw-embed{position:relative;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--surface);margin:1.25rem 0 .5rem}
+      .fw-embed iframe{display:block;width:100%;height:clamp(380px,62vh,600px);border:0}
+      .fw-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1rem;margin:1.25rem 0}
+      .fw-stat{border:1px solid var(--rule);border-radius:12px;padding:1rem 1.1rem;background:var(--bg)}
+      .fw-stat b{display:block;font-size:1.7rem;line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+      .fw-stat span{display:block;color:var(--ink-2);font-size:.92rem;margin-top:.35rem}
+      .fw-chart{overflow-x:auto;margin:1.25rem 0 .4rem}
+      .fw-chart svg{display:block;width:100%;min-width:34rem;height:auto}
+      .fw-chart .bar{fill:var(--accent)} .fw-chart .ref{stroke:var(--ink-2);stroke-dasharray:4 4;stroke-width:1.2}
+      .fw-chart text{fill:var(--ink-2);font:11px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+      .fw-chart .val{fill:var(--ink);font-weight:600}
+      .fw-sources{font-size:.85rem;color:var(--muted)} .fw-sources li{margin-bottom:.35rem}
+    </style>
+    <h1>Fireworks</h1>
+    <p class="lede">Fireworks are part of the noise problem in our neighborhoods — and a fire risk in a town that sits against wildfire country. In Boulder every one of them is illegal, sparklers included.</p>
+    <div class="hero"><p>Since July 2024, an independent acoustic sensor network on University Hill has located nearly 400 fireworks-like blasts with high confidence — in every month of the year, and nearly three in four between 9 p.m. and 2 a.m.</p></div>
+
+    <h2>The map: fireworks, heard and located</h2>
+    <p>Each marker below is a blast picked up by several microphones on the Hill and located by the difference in when the sound reached each one. The map is run independently at <a href="https://fireoverthehill.com/">fireoverthehill.com</a>; we show it here because it captures what complaint records can’t — the fireworks nobody reports.</p>
+    <div class="fw-embed"><iframe src="https://fireoverthehill.com/#start_time=2025-10-13T00%3A00%3A00.000Z&amp;end_time=2026-10-13T23%3A59%3A59.000Z&amp;error_threshold=10" title="Fireworks map of University Hill, fireoverthehill.com" loading="lazy" referrerpolicy="no-referrer"></iframe></div>
+    <p class="updated">Map: fireoverthehill.com (independent; not operated by The Quiet Enjoyment Project). Shown: high-confidence detections only. Use the timeline to change the period (the map reaches back up to one year). Detections are automatic and located by microphone timing, so a few may be other sharp bangs; the sensors sit on the Hill, so the map shows where fireworks are <em>heard</em>, not the whole city. <a class="dl" href="https://fireoverthehill.com/">Open the full map →</a></p>
+
+    <h2>What the city’s own records show</h2>
+    <p>Boulder police log fireworks complaints under their own call code. In the city’s public calls-for-service data:</p>
+    <div class="fw-stats">
+      <div class="fw-stat"><b>1,958</b><span>fireworks complaints to Boulder police, January 2023 – September 2026</span></div>
+      <div class="fw-stat"><b>43%</b><span>came from within a 15-minute walk of CU Boulder — home to 49% of residents; July’s citywide spike pulls this down</span></div>
+      <div class="fw-stat"><b>60%</b><span>of those near campus came outside the weeks around the Fourth of July (June 25–July 10) and New Year’s Eve</span></div>
+      <div class="fw-stat"><b>3 in 5</b><span>Boulder fireworks complaints in August and September came from near campus, 2023–2026 (45% to 80%, year to year)</span></div>
+    </div>
+    <p>About half of Boulder’s residents live within that 15-minute walk, so near-campus fireworks aren’t outsized in June and July, when the whole city lights up. In most other months they are: across August and September 2023–2026, more than three of every five fireworks complaints in Boulder came from the neighborhoods around campus, though the share swings widely from year to year. Year-round, 63% of near-campus fireworks complaints come in between 10 p.m. and 3 a.m.</p>
+    <figure class="fw-chart" aria-labelledby="fwcap">
+      <svg viewBox="0 0 640 228" role="img" aria-label="Share of Boulder fireworks complaints coming from within a 15-minute walk of CU, by month, 2023 to 2025. Above the 49 percent population share in most months outside June and July.">
+        <line x1="40" y1="200" x2="630" y2="200" stroke="var(--rule)"/>
+        <line class="ref" x1="40" y1="102" x2="630" y2="102"/>
+        <text x="36" y="106" text-anchor="end">49%</text>
+        <g>
+          <rect class="bar" x="48"  y="57"  width="34" height="143"/><text class="val" x="65"  y="51"  text-anchor="middle">71%</text><text x="65"  y="216" text-anchor="middle">Jan</text>
+          <rect class="bar" x="97"  y="112" width="34" height="88"/> <text class="val" x="114" y="128" text-anchor="middle">44%</text><text x="114" y="216" text-anchor="middle">Feb</text>
+          <rect class="bar" x="146" y="93"  width="34" height="107"/><text class="val" x="163" y="87"  text-anchor="middle">53%</text><text x="163" y="216" text-anchor="middle">Mar</text>
+          <rect class="bar" x="195" y="75"  width="34" height="125"/><text class="val" x="212" y="69"  text-anchor="middle">62%</text><text x="212" y="216" text-anchor="middle">Apr</text>
+          <rect class="bar" x="244" y="90"  width="34" height="110"/><text class="val" x="261" y="84"  text-anchor="middle">55%</text><text x="261" y="216" text-anchor="middle">May</text>
+          <rect class="bar" x="293" y="133" width="34" height="67"/> <text class="val" x="310" y="127" text-anchor="middle">34%</text><text x="310" y="216" text-anchor="middle">Jun</text>
+          <rect class="bar" x="342" y="128" width="34" height="72"/> <text class="val" x="359" y="122" text-anchor="middle">36%</text><text x="359" y="216" text-anchor="middle">Jul</text>
+          <rect class="bar" x="391" y="73"  width="34" height="127"/><text class="val" x="408" y="67"  text-anchor="middle">63%</text><text x="408" y="216" text-anchor="middle">Aug</text>
+          <rect class="bar" x="440" y="54"  width="34" height="146"/><text class="val" x="457" y="48"  text-anchor="middle">73%</text><text x="457" y="216" text-anchor="middle">Sep</text>
+          <rect class="bar" x="489" y="106" width="34" height="94"/> <text class="val" x="506" y="122" text-anchor="middle">47%</text><text x="506" y="216" text-anchor="middle">Oct</text>
+          <rect class="bar" x="538" y="40"  width="34" height="160"/><text class="val" x="555" y="34"  text-anchor="middle">80%</text><text x="555" y="216" text-anchor="middle">Nov</text>
+          <rect class="bar" x="587" y="75"  width="34" height="125"/><text class="val" x="604" y="69"  text-anchor="middle">62%</text><text x="604" y="216" text-anchor="middle">Dec</text>
+        </g>
+      </svg>
+      <figcaption id="fwcap"><strong>Share of all Boulder fireworks complaints that came from within a 15-minute walk of CU, by month (2023–2025 combined).</strong> The dashed line is the 49% of Boulder residents who live there. Source: Boulder Police calls-for-service open data, call code FIREWB (fireworks complaints), January 2023 – December 2025; 1,535 calls citywide, 690 near campus. “Near campus” is the 15-minute walkshed used in <a href="understanding-noise-pollution.html">Understanding Noise Pollution in Boulder</a>. Winter months have small counts (Feb: 7 of 16), so read them loosely.</figcaption>
+    </figure>
+    <p>Complaints are only the part that gets reported. On 131 nights since July 2024 the sensors located at least one high-confidence blast on the Hill; on 84 of them, police logged no fireworks complaint from that area. Most of those were nights with a single blast. On busier nights, with three or more, a complaint was logged on all but 6 of 31.</p>
+
+    <h2>A fire risk, not just a noise problem</h2>
+    <ul class="clean">
+      <li><strong>Most of University Hill is inside Boulder’s wildfire zone.</strong> The city’s own wildfire code map puts most of the Hill inside its <a href="https://maps.bouldercolorado.gov/emaplink/?layer=wildland">Wildland-Urban Interface</a> — the area where new building must meet ignition-resistant standards — in its least strict class, and the strictest classes begin right along the Hill’s western and southern edges, toward the foothills.</li>
+      <li><strong>It has already happened here.</strong> On June 24, 2024, a fire suspected to have been started by fireworks burned in Gregory Canyon at the base of Flagstaff Road, just west of the Hill; a 21-year-old was arrested for second-degree arson. A month later, juveniles setting off fireworks were followed by a grass fire at Casey Middle School.</li>
+      <li><strong>Fire season is every season.</strong> Boulder County’s two most alarming recent fires came in winter and spring: the wind-driven Marshall Fire on December 30, 2021, which destroyed more than 1,000 homes, and the NCAR Fire, which prompted evacuations across south Boulder on March 26, 2022. A dry, windy November night on the Hill is not a safe night for fireworks.</li>
+    </ul>
+
+    <h2>The law</h2>
+    <ul class="clean">
+      <li><strong>Every firework is illegal in Boulder — including sparklers and fountains.</strong> Possessing, selling, storing, or setting them off is prohibited anywhere in city limits; apart from narrow exclusions (railroad signals, police and military use), only permitted public displays are exempt (B.R.C. 5-6-6). Colorado allows some “permissible” fireworks elsewhere, but state law lets cities ban them, and Boulder does (C.R.S. 24-33.5-2007).</li>
+      <li><strong>Up to $2,650 and 90 days in jail</strong> per violation (B.R.C. 5-2-4; the fine cap is indexed to inflation, and jail has limits for minors and vicarious liability).</li>
+      <li><strong>Every resident at the house is on the hook.</strong> When someone sets off fireworks on a residential property, each resident present nearby has a legal duty to take reasonable steps to stop it and, if that fails, to help police identify who did it. A resident who doesn’t is treated as a complicitor (B.R.C. 5-6-6(c)).</li>
+      <li><strong>If it starts a fire, it can be arson.</strong> The Gregory Canyon fire above ended in a second-degree arson arrest. For CU students, a fireworks violation can also mean a referral to Student Conduct.</li>
+    </ul>
+
+    <h2>Who else hears it</h2>
+    <p>Fireworks sold to the public, measured at the minimum safe distance for the person setting them off (8–15 meters), peaked at about 138–141 dB — right at the 140 dB peak limit U.S. and EU workplace rules set for impulse noise. In a survey of 1,225 dogs, about half showed at least some fear of fireworks, and a few took weeks or months to recover. GPS-tracked wild geese flew 5 to 16 kilometers farther on New Year’s Eve and fed more for at least the 11 days the study followed them afterward. And VA medical centers warn that fireworks can trigger PTSD symptoms in veterans, especially those whose trauma involved explosions or gunfire.</p>
+
+    <h2>What you can do</h2>
+    <ol class="steps">
+      <li>If you see fire, or sparks landing in dry grass or brush, <strong>call 911</strong>.</li>
+      <li>Otherwise, report fireworks to Boulder police non-emergency at <strong>303-441-3333</strong>. Each call is logged and becomes part of the public record — the record that shows where and when this happens. <a href="residents.html">How to make a call count →</a></li>
+      <li>Have fireworks you shouldn’t? CU Boulder says unused fireworks can be dropped off, no penalty, at the City of Boulder Public Safety Building, 1805 33rd St.</li>
+    </ol>
+
+    <h2>Sources</h2>
+    <ul class="fw-sources">
+      <li>Fireworks detections: <a href="https://fireoverthehill.com/">fireoverthehill.com</a>, public detection feed, July 2024 – September 2026; “high confidence” is the grade defined in the site’s map code (location error &lt; 10); the embedded map is filtered to it.</li>
+      <li>Complaints: City of Boulder, Boulder PD Calls for Service open data, problem code FIREWB, retrieved October 13, 2026. Walkshed and population (52,815 of 108,250 residents, 2020 Census) from our <a href="data.html">published data package</a>.</li>
+      <li>Wildfire zone: City of Boulder <a href="https://bouldercolorado.gov/wildland-urban-interface-code">Wildland-Urban Interface Code</a> (B.R.C. ch. 10-8.5) and its WUI map layer.</li>
+      <li>Fires: Boulder County, <a href="https://bouldercounty.gov/news/wildland-fire-in-gregory-canyon-extinguished-suspect-arrested/">Gregory Canyon fire</a> (June 2024); City of Boulder, <a href="https://bouldercolorado.gov/news/juvenile-suspects-sought">Casey Middle School fire</a> (July 2024); Boulder County, <a href="https://bouldercounty.gov/disasters/wildfires/marshall/">Marshall Fire</a> and <a href="https://bouldercounty.gov/news/ncar-fire-investigation-update/">NCAR Fire</a>.</li>
+      <li>Law: Boulder Revised Code 5-6-6 and 5-2-4; C.R.S. 24-33.5-2007; City of Boulder, <a href="https://bouldercolorado.gov/news/fireworks-and-burning-regulations-city-boulder">fireworks regulations</a>; CU Boulder fireworks notice (June 2026).</li>
+      <li>Impacts: Kukulski et al., <em>Archives of Acoustics</em> 43(4), 2018; Riemer, <em>PLoS ONE</em> 14(9), 2019; Kölzsch et al., <em>Conservation Letters</em> 16(1), 2023, doi:10.1111/conl.12927; U.S. Department of Veterans Affairs, Fayetteville Coastal Health Care, “Fireworks and PTSD” (June 29, 2023).</li>
+    </ul>
+    <p class="updated">This page is general information, not legal advice.</p>
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <section class="signup compact">
+      <h2>Get each report when it publishes</h2>
+      <form action="https://docs.google.com/forms/d/e/1FAIpQLSfJiw8aHOuNhsDefvyVycDMyBUg6DFVGPrpP1cYBhHnN1WWdg/formResponse" method="post" id="signup-foot-form">
+        <label class="vh" for="signup-foot-email">Email address</label>
+        <input id="signup-foot-email" type="email" name="entry.1029318743" placeholder="you@example.com"
+          autocomplete="email" required>
+        <button type="submit">Sign up</button>
+      </form>
+      <p class="done" id="signup-foot-done" hidden>You’re on the list. We’ll write when the next report publishes.</p>
+      <iframe name="signup-foot-sink" class="vh" tabindex="-1" aria-hidden="true"></iframe>
+      <script>
+      (function () {
+        var f = document.getElementById('signup-foot-form'), d = document.getElementById('signup-foot-done');
+        if (!f || !d) return;
+        var sink = f.parentNode.querySelector('iframe[name="signup-foot-sink"]'), sent = false;
+        f.target = 'signup-foot-sink';
+        f.addEventListener('submit', function () { sent = true; });
+        sink.addEventListener('load', function () {
+          if (!sent) return;
+          f.hidden = true; d.hidden = false;
+        });
+      })();
+      </script>
+    </section>
+    <p>The Quiet Enjoyment Project · An independent, resident-run organization — not affiliated with the University Hill Neighborhood Association, the University of Colorado, or the City of Boulder · Boulder, Colorado · <a href="mailto:yourneighbor@quietenjoymentproject.org">yourneighbor@quietenjoymentproject.org</a> · Data from City of Boulder open records. This site is general information, not legal advice. Launched August 2026 — an initial version; thoughtful feedback and corrections welcome, and we fix errors promptly. · <a href="support.html">Support this work</a></p>
+  </div>
+</footer>
+<!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "fb4fb08e40a045229a15b4d86eda719b"}'></script><!-- End Cloudflare Web Analytics --><script>
+(function(){
+  function hit(name){
+    try{
+      var back = location.pathname + location.search;
+      history.pushState({}, '', '/e/' + name);
+      history.replaceState({}, '', back);
+    }catch(e){}
+  }
+  function label(a){
+    var h = (a.getAttribute('href') || '').toLowerCase();
+    if (!h) return null;
+    if (/\.pdf($|\?)/.test(h))            return 'pdf-' + (/slides/.test(h) ? 'slides' : 'report');
+    if (/\.zip($|\?)/.test(h))            return 'data-zip';
+    if (h.indexOf('#signup') > -1)         return 'signup-click';
+    if (h.indexOf('noise-map') > -1)       return 'map-open';
+    if (h.indexOf('/data/') > -1 || h.indexOf('data.html') > -1) return 'data-open';
+    if (h.indexOf('mailto:') === 0)        return 'email-click';
+    return null;
+  }
+  document.addEventListener('click', function(ev){
+    var a = ev.target && ev.target.closest ? ev.target.closest('a') : null;
+    if (!a) return;
+    var n = label(a);
+    if (n) hit(n);
+  }, true);
+  var f = document.getElementById('signup-form') || document.querySelector('form[action*="docs.google.com"]');
+  if (f) f.addEventListener('submit', function(){ hit('signup-submit'); });
+})();
+</script>
+</body>
+</html>
