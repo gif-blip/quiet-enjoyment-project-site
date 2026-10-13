@@ -185,12 +185,35 @@ footer.site a{color:var(--ink-2)}
       .fw-chart text{fill:var(--ink-2);font:11px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
       .fw-chart .val{fill:var(--ink);font-weight:600}
       .fw-sources{font-size:.85rem;color:var(--muted)} .fw-sources li{margin-bottom:.35rem}
+      .fw-map-wrap{border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin:1.25rem 0 .5rem;background:var(--surface)}
+      #fwmap{height:clamp(380px,62vh,600px);width:100%}
+      .fw-legend{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;padding:.65rem .9rem;font-size:.82rem;color:var(--ink-2);border-top:1px solid var(--rule)}
+      .fw-legend span{display:inline-flex;align-items:center;gap:.4rem}
+      .fw-legend .sw{display:inline-block;width:14px;height:14px;border-radius:3px}
+      .fw-legend .sw1{background:#9A3412}.fw-legend .sw2{background:#D97706}.fw-legend .sw3{background:#F2C77A}
+      .fw-legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#1C2B39;box-shadow:0 0 0 1.5px #fff,0 0 0 2.5px #1C2B39}
+      .fw-legend .star{font-style:normal;color:#B91C1C;font-weight:700}
+      .leaflet-container{font:12px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
     </style>
-    <h1>Fireworks</h1>
+    <h1>In June 2024, suspected fireworks set Gregory Canyon on fire — just west of University Hill.<span class="sub">If fireworks go off at your house and you’re there, Boulder law says you must try to stop them — or you can be treated as a complicitor.</span></h1>
     <p class="lede">Fireworks are part of the noise problem in our neighborhoods — and a fire risk in a town that sits against wildfire country. In Boulder every one of them is illegal, sparklers included.</p>
     <div class="hero"><p>Since July 2024, an independent acoustic sensor network on University Hill has located nearly 400 fireworks-like blasts with high confidence — in every month of the year, and nearly three in four between 9 p.m. and 2 a.m.</p></div>
 
-    <h2>The map: fireworks, heard and located</h2>
+    <h2>Fireworks and Boulder’s wildfire zone</h2>
+    <p>Each dot is a fireworks blast located by the sensor network; the shaded parcels are the city’s own <a href="https://maps.bouldercolorado.gov/emaplink/?layer=wildland">Wildland-Urban Interface</a> — where Boulder’s wildfire building code applies. <strong>Nearly two in three located blasts (248 of 396) went off inside it.</strong> That is a floor: the zone is drawn parcel by parcel and leaves out streets, where many fireworks are set off.</p>
+    <div class="fw-map-wrap">
+      <div id="fwmap" role="region" aria-label="Map of fireworks detections over Boulder's Wildland-Urban Interface zone"></div>
+      <div class="fw-legend" aria-hidden="true">
+        <span><i class="sw sw1"></i>Wildfire zone, strictest class</span>
+        <span><i class="sw sw2"></i>Middle class</span>
+        <span><i class="sw sw3"></i>Least strict class</span>
+        <span><i class="dot"></i>Fireworks blast (high confidence)</span>
+        <span><i class="star">✱</i>Gregory Canyon fire, June 24, 2024</span>
+      </div>
+    </div>
+    <p class="updated">396 high-confidence detections, July 13, 2024 – September 19, 2026, from fireoverthehill.com, used with the operator’s permission (positions rounded to about 10 meters). Wildfire zone: City of Boulder WUI map layer, retrieved October 13, 2026; classes follow the city’s ignition-resistant construction requirements, Class 1 being the strictest. The fire marker is approximate (Gregory Canyon at the base of Flagstaff Road).</p>
+
+    <h2>The live map: fireworks, heard and located</h2>
     <p>Each marker below is a blast picked up by several microphones on the Hill and located by the difference in when the sound reached each one. The map is run independently at <a href="https://fireoverthehill.com/">fireoverthehill.com</a>; we show it here because it captures what complaint records can’t — the fireworks nobody reports.</p>
     <div class="fw-embed"><iframe src="https://fireoverthehill.com/#start_time=2025-10-13T00%3A00%3A00.000Z&amp;end_time=2026-10-13T23%3A59%3A59.000Z&amp;error_threshold=10" title="Fireworks map of University Hill, fireoverthehill.com" loading="lazy" referrerpolicy="no-referrer"></iframe></div>
     <p class="updated">Map: fireoverthehill.com (independent; not operated by The Quiet Enjoyment Project). Shown: high-confidence detections only. Use the timeline to change the period (the map reaches back up to one year). Detections are automatic and located by microphone timing, so a few may be other sharp bangs; the sensors sit on the Hill, so the map shows where fireworks are <em>heard</em>, not the whole city. <a class="dl" href="https://fireoverthehill.com/">Open the full map →</a></p>
@@ -231,7 +254,7 @@ footer.site a{color:var(--ink-2)}
     <h2>A fire risk, not just a noise problem</h2>
     <ul class="clean">
       <li><strong>Most of University Hill is inside Boulder’s wildfire zone.</strong> The city’s own wildfire code map puts most of the Hill inside its <a href="https://maps.bouldercolorado.gov/emaplink/?layer=wildland">Wildland-Urban Interface</a> — the area where new building must meet ignition-resistant standards — in its least strict class, and the strictest classes begin right along the Hill’s western and southern edges, toward the foothills.</li>
-      <li><strong>It has already happened here.</strong> On June 24, 2024, a fire suspected to have been started by fireworks burned in Gregory Canyon at the base of Flagstaff Road, just west of the Hill; a 21-year-old was arrested for second-degree arson. A month later, juveniles setting off fireworks were followed by a grass fire at Casey Middle School.</li>
+      <li><strong>It has already happened here.</strong> On June 24, 2024, a fire suspected to have been started by fireworks burned in Gregory Canyon at the base of Flagstaff Road, just west of the Hill. Police found a 21-year-old suspect sitting at 12th Street and Baseline Road — on the Hill itself — and arrested him for second-degree arson. A month later, juveniles setting off fireworks were followed by a grass fire at Casey Middle School.</li>
       <li><strong>Fire season is every season.</strong> Boulder County’s two most alarming recent fires came in winter and spring: the wind-driven Marshall Fire on December 30, 2021, which destroyed more than 1,000 homes, and the NCAR Fire, which prompted evacuations across south Boulder on March 26, 2022. A dry, windy November night on the Hill is not a safe night for fireworks.</li>
     </ul>
 
@@ -263,6 +286,38 @@ footer.site a{color:var(--ink-2)}
       <li>Impacts: Kukulski et al., <em>Archives of Acoustics</em> 43(4), 2018; Riemer, <em>PLoS ONE</em> 14(9), 2019; Kölzsch et al., <em>Conservation Letters</em> 16(1), 2023, doi:10.1111/conl.12927; U.S. Department of Veterans Affairs, Fayetteville Coastal Health Care, “Fireworks and PTSD” (June 29, 2023).</li>
     </ul>
     <p class="updated">This page is general information, not legal advice.</p>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+    (function () {
+      if (!window.L) return;
+      var map = L.map('fwmap', {scrollWheelZoom: false}).setView([40.0045, -105.2810], 15);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · Wildfire zone: City of Boulder · Detections: fireoverthehill.com'}).addTo(map);
+      var fill = {1: '#9A3412', 2: '#D97706', 3: '#F2C77A'};
+      var label = {1: 'Wildfire zone (WUI) — Class 1, strictest', 2: 'Wildfire zone (WUI) — Class 2', 3: 'Wildfire zone (WUI) — Class 3, least strict'};
+      var zones = L.layerGroup().addTo(map), blasts = L.layerGroup().addTo(map);
+      fetch('assets/fireworks/wui.json').then(function (r) { return r.json(); }).then(function (g) {
+        L.geoJSON(g, {style: function (f) { var c = f.properties.c;
+            return {fillColor: fill[c], fillOpacity: c === 3 ? 0.42 : 0.55, color: fill[c], weight: 0.6, opacity: 0.7}; },
+          onEachFeature: function (f, l) { l.bindTooltip(label[f.properties.c], {sticky: true}); }}).addTo(zones);
+        blasts.bringToFront && blasts.eachLayer(function (m) { m.bringToFront(); });
+      });
+      fetch('assets/fireworks/detections.json').then(function (r) { return r.json(); }).then(function (d) {
+        d.points.forEach(function (p) {
+          var t = new Date(p[2] * 1000);
+          L.circleMarker([p[0], p[1]], {radius: 4.5, color: '#FFFFFF', weight: 1.2, fillColor: '#1C2B39', fillOpacity: 0.9})
+            .bindPopup('Fireworks blast<br>' + t.toLocaleDateString('en-US', {timeZone: 'America/Denver', month: 'short', day: 'numeric', year: 'numeric'})
+              + ', ' + t.toLocaleTimeString('en-US', {timeZone: 'America/Denver', hour: 'numeric', minute: '2-digit'}))
+            .addTo(blasts);
+        });
+      });
+      L.marker([39.9975, -105.2927], {icon: L.divIcon({className: '', html: '<div style="color:#B91C1C;font:700 26px/1 sans-serif;text-shadow:0 0 3px #fff,0 0 3px #fff">✱</div>', iconSize: [26, 26], iconAnchor: [13, 13]})})
+        .bindPopup('<b>Gregory Canyon fire</b><br>June 24, 2024 — suspected fireworks; second-degree arson arrest.<br><i>Location approximate.</i>').addTo(map);
+      L.control.layers(null, {'Wildfire zone (city WUI map)': zones, 'Fireworks blasts': blasts}, {collapsed: false}).addTo(map);
+      map.on('focus', function () { map.scrollWheelZoom.enable(); });
+    })();
+    </script>
   </div>
 </main>
 <footer class="site">
